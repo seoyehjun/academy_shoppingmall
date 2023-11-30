@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="${cpath}/resources/css/home.css">
 </head>
 <body>
-<h1>shopping mall 홈</h1>
+    <main>
+        <section class="banner">
+                    <div class="slide">
+                        <h4>하이</h4>
+                    </div>
+                </section>
+
+
+    </main>
 </body>
 </html>
