@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Mapper
-public interface MembersDAO {
+public interface LoginDAO {
     @Select("select * from members where members_id = #{members_id} and members_password = #{members_password}")
     MembersVO selectOne(MembersVO input);
 

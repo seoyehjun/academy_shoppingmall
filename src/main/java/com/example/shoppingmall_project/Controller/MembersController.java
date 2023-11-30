@@ -1,7 +1,7 @@
 package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.model.vo.MembersVO;
-import com.example.shoppingmall_project.service.MembersService;
+import com.example.shoppingmall_project.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MembersController {
 	
 	@Autowired
-	private MembersService ms;
+	private SignUpService ms;
 
 	
 	// 회원가입 컨트롤러
