@@ -12,4 +12,5 @@ public class MembersVO {
     private String members_id, members_password, members_nickname, members_email, members_address,
             members_detailed_address, members_phone_number, members_name, members_withdawn;
     private Date members_join_date;
+}
 
