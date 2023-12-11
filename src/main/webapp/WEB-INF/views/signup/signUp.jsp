@@ -7,7 +7,7 @@
 	<h1>signUp 페이지</h1>
 	
 	
-	<form method="post" action="">
+	<form method="post" action="signUp.jsp">
 		<p><input name="members_id" placeholder="아이디" required></p>
 		<p><input name="members_password" type="password" placeholder="패스워드" required></p>
 		<p><input name="members_nickname" placeholder="닉네임" required></p>
