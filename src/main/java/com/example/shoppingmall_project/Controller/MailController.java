@@ -21,10 +21,14 @@ public class MailController {
     }
 
     @PostMapping("/mail")
-    public String MailSend(@ModelAttribute MailVO mailVO){
-        mailService.CreateMail(mailVO);
+    public String MailSend(String mail){
 
-        return "signup/mail";
+        int number = mailService.sendMail(mail);
+
+        String num = "" + number;
+
+
+        return num;
     }
 
 }
