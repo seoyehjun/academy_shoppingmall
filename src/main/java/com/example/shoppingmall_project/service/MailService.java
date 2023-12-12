@@ -33,7 +33,9 @@ public class MailService {
             body += "<h3>" + "요청하신 인증 번호입니다." +"</h3>";
             body += "<h1>" + number + "</h1>";
 
-            message.setText(body, "UTF-8", "jsp");
+            message.setText(body, "UTF-8", "html");
+
+            System.out.println(number);
 
 
         }catch (MessagingException e) {
