@@ -11,13 +11,13 @@
 <html>
 <head>
     <title>shoppingMall project</title>
-    <link rel="stylesheet" href="${cpath}/resources/css/header.css">
-
+    <link rel="stylesheet" href="${cpath}/resources/css/style.css">
 </head>
 <body>
 <header>
     <h1><a href="http://localhost:8888">브랜드 명</a></h1>
 
+    <li><a href="${cpath }/product/homeProduct">Product</a></li>
 
     <c:if test="${empty user }">
         <a href="login">login</a>

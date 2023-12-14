@@ -13,4 +13,3 @@ public class MembersVO {
             members_detailed_address, members_phone_number, members_name, members_withdawn;
     private Date members_join_date;
 }
-
