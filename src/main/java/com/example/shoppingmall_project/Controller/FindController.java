@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/find")
+@RequestMapping("login/find")
 public class FindController {
     @Autowired private FindService fs;
 
     private String setMessage(int row, String msg, String location) {
-        return "message";
+        return "login/message";
     }
 
     @GetMapping
