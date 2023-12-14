@@ -33,4 +33,18 @@ public class MembersController {
 		return "redirect:/";
 	}
 
+	// 이석환 테스트 용
+	@GetMapping("signUp2")
+	public String signUp1() {
+		return "signup/signUp2";
+	}
+
+	@PostMapping("signUp2")
+	public String signUp1(MembersVO input, Model model) {
+
+		ms.signUp(input);
+
+		return "redirect:/";
+	}
+
 }
