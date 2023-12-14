@@ -17,6 +17,21 @@
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <head>
+
+ <c:if test="${message=='remove_Cart'}">
+  <script>
+   window.onload=function()//페이지 로딩과 동시에 실행되는 함수
+   {
+    init();
+   }
+
+   function init()
+   {
+    alert("장바구니 삭제");
+   }
+  </script>
+ </c:if>
+
  <script>
 
   function fn_order_all_cart_goods(){

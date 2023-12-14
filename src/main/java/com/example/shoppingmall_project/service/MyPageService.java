@@ -26,6 +26,11 @@ public class MyPageService
 		return result;
 	}
 
+	public void removeCart(String cart_idx) throws Exception
+	{
+		myPageDAO.removeCart(cart_idx);
+	}
+
 	public void deleteMyOrder(String orders_idx) throws Exception
 	{
 		myPageDAO.deleteMyOrder(orders_idx);

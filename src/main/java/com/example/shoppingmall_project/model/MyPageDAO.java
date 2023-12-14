@@ -61,6 +61,10 @@ public interface MyPageDAO
 	O_OD_P_C_S_M_vo getOrderDetail(int orders_idx);
 
 
+	@Delete("delete from cart" +
+			"where cart_idx=#{cart_idx}")
+	void removeCart(String cart_idx);
+
 	@Delete("update orders " +
 			"set orders_status ='주문취소됨' " +
 			"where orders_idx=#{orders_idx}")

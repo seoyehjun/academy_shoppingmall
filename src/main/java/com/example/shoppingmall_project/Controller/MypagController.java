@@ -40,7 +40,12 @@ public class MypagController
 	private Cart_vo cartVO ;
 
 	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
-	public String removeCart(Model model, @RequestParam("cart_idx"))
+	public String removeCart(Model model, HttpSession httpsession, @RequestParam("cart_idx") String cart_idx) throws Exception
+	{
+		myPageService.removeCart(cart_idx);
+		httpsession.setAttribute("message", "remove_Cart");
+		return "redirect:/mypage/myCartList";
+	}
 	@RequestMapping(value="/cancelMyOrder", method = RequestMethod.POST)
 	public String cancelMyOrder(Model model, HttpSession httpsession, @RequestParam("orders_idx") String orders_idx)throws Exception
 	{
