@@ -157,6 +157,12 @@
     </strong>
    </td>
 
+    <td>
+    <a href="javascript:delete_cart_goods('${item.cart_idx}');">
+    삭제
+    </a>
+    </td>
+
     <%--
    <td>
     <a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
@@ -244,7 +250,20 @@
 </table>
 
 <script>
+ function delete_cart_goods(cart_idx)
+ {
+  var cart_idx=Number(cart_idx);
+  var formObj=document.createElement("form");
+  var i_cart = document.createElement("input");
+  i_cart.name="cart_idx";
+  i_cart.value=cart_idx;
 
+  formObj.appendChild(i_cart);
+  document.body.appendChild(formObj);
+  formObj.method="post";
+  formObj.action="${contextPath}/mypage/removeCart";
+  formObj.submit();
+ }
     function count(type,cart_idx, index)
     {
         // 결과를 표시할 element

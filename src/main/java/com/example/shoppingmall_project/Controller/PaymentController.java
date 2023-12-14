@@ -1,4 +1,4 @@
-package com.example.shoppingmall_project.Controller;
+/*package com.example.shoppingmall_project.Controller;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -27,3 +27,4 @@ public class PaymentController {
         return iamportClient.paymentByImpUid(imp_uid);
     }
 }
+*/
