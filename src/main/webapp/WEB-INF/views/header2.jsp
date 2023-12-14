@@ -71,6 +71,4 @@
     </div>
 </header>
 
-</body>
-</html>
 
