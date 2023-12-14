@@ -42,7 +42,11 @@ dependencies {
     implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '3.0.1'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    
+
+    // https://mvnrepository.com/artifact/net.coobird/thumbnailator
+    implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
+
+
 }
 
 tasks.named('test') {
