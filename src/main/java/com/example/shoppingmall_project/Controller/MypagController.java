@@ -38,6 +38,9 @@ public class MypagController
 
 	@Autowired
 	private Cart_vo cartVO ;
+
+	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
+	public String removeCart(Model model, @RequestParam("cart_idx"))
 	@RequestMapping(value="/cancelMyOrder", method = RequestMethod.POST)
 	public String cancelMyOrder(Model model, HttpSession httpsession, @RequestParam("orders_idx") String orders_idx)throws Exception
 	{

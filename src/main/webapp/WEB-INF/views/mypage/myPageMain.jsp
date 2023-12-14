@@ -38,6 +38,20 @@
 			}
 		}
 
+		function delete_cart_goods(cart_idx)
+		{
+			var cart_idx=Number(cart_idx);
+			var formObj=document.createElement("form");
+			var i_cart = document.createElement("input");
+			i_cart.name="cart_idx";//input태그의 이름은 cart_idx 컨트롤러에서 RequestParam으로 받아보자
+			i_cart.value=cart_idx;
+
+			formObj.appendChild(i_cart);
+			document.body.appendChild(formObj);
+			formObj.method="post";
+			formObj.action="${contextPath}/cart/removeCart";
+			formObj.submit();
+		}
 	</script>
 </head>
 
