@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ include file="../junheader.jsp" %><%--html body태그만 닫아주자 --%>
+<%@ include file="../header.jsp" %><%--html body태그만 닫아주자 --%>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <head>
