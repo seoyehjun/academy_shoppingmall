@@ -1,6 +1,6 @@
 package com.example.shoppingmall_project.service;
 
-import com.example.shoppingmall_project.model.vo.MailVO;
+//import com.example.shoppingmall_project.model.vo.MailVO;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -52,23 +52,6 @@ public class MailService {
 
         return number;
 
-    }
-
-
-
-
-
-
-    public void CreateMail(MailVO mailVO) {
-
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setTo(mailVO.getReceiver());
-        message.setFrom(senderEmail);
-        message.setSubject(mailVO.getTitle());
-        message.setText(mailVO.getContent());
-
-        javaMailSender.send(message);
     }
 
 }
