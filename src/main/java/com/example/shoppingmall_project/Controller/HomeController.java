@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -14,16 +15,15 @@ public class HomeController {
 
     @Autowired
     private TestService as;
-    @Autowired
-    private HeaderService hs;
+    @Autowired private HeaderService hs;
+
+    @ModelAttribute
+    public void menu(Model model){
+        hs.addCommonAttributes(model);
+    }
 
     @GetMapping
     public String home(Model model){
-        model.addAttribute("outer", hs.getOuter(1));
-        model.addAttribute("top", hs.getOuter(2));
-        model.addAttribute("bottom", hs.getOuter(3));
-        model.addAttribute("accessory", hs.getOuter(4));
-
         return "mainpage";
     }
 

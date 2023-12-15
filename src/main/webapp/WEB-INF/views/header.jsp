@@ -58,7 +58,7 @@
 
         <a href="${contextPath }/mypage/myCartList">🛒</a>
 
-        <a href="/signUp2">JOIN</a>
+        <a href="/signUp">JOIN</a>
 
         <c:if test="${empty user }">
             <a href="/login/login">LOGIN</a>
