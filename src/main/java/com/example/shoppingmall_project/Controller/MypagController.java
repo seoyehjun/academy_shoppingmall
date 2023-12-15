@@ -39,6 +39,13 @@ public class MypagController
 	@Autowired
 	private Cart_vo cartVO ;
 
+
+	@RequestMapping(value="/orderAllCart",method=RequestMethod.POST)
+	public String orderAllCart(Model model, HttpSession httpsession,
+							   @RequestParam("cart_list") String[] cart_list ) throws Exception
+	{
+
+	}
 	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
 	public String removeCart(Model model, HttpSession httpsession, @RequestParam("cart_idx") String cart_idx) throws Exception
 	{
@@ -62,7 +69,7 @@ public class MypagController
 		//MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
 		//int members_idx=memberVO.getMembers_idx();//세션소유자의 카트 목록 불러올 예정
 		List<Cart_vo> cartList=myPageService.myCartList(1);//세션memeber_idx의 cart 리스트를 불러온다.
-		session.setAttribute("cartList", cartList);//카트row들과  카트에 들어있는 상품목록 가져온다.
+		session.setAttribute("cartList", cartList);//카트row들과  카트에 들어있는 상품목록 가져온다.cartVO의 리스트들이다.
 		//mav.addObject("cartMap", cartMap);
 		return "mypage/myCartList";
 	}

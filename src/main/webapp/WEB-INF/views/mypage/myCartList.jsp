@@ -34,40 +34,36 @@
 
  <script>
 
-  function fn_order_all_cart_goods(){
-//	alert("모두 주문하기");
-   var order_goods_qty;
-   var order_goods_id;
-   var objForm=document.frm_order_all_cart;
-   var cart_goods_qty=objForm.cart_goods_qty;
-   var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
-   var checked_goods=objForm.checked_goods;
-   var length=checked_goods.length;
+  function fn_order_all_cart()
+  {
+   var cart_list = document.getElementsBy
+   document.getElements
+   $.ajax({
+    type : "post",
+    async : false, //false인 경우 동기식으로 처리한다.
+    url : "${contextPath}/cart/modifyCartQty.do",
+    data : {
+     goods_id:goods_id,
+     cart_goods_qty:cart_goods_qty
+    },
 
-
-   //alert(length);
-   if(length>1){
-    for(var i=0; i<length;i++){
-     if(checked_goods[i].checked==true)
-     {
-      order_goods_id=checked_goods[i].value;
-      order_goods_qty=cart_goods_qty[i].value;
-      cart_goods_qty[i].value="";
-      cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
-      //alert(select_goods_qty[i].value);
-      console.log(cart_goods_qty[i].value);
+    success : function(data, textStatus) {
+     //alert(data);
+     if(data.trim()=='modify_success'){
+      alert("수량을 변경했습니다!!");
+     }else{
+      alert("다시 시도해 주세요!!");
      }
-    }
-   }else{
-    order_goods_id=checked_goods.value;
-    order_goods_qty=cart_goods_qty.value;
-    cart_goods_qty.value=order_goods_id+":"+order_goods_qty;
-    //alert(select_goods_qty.value);
-   }
 
-   objForm.method="post";
-   objForm.action="${contextPath}/order/orderAllCartGoods.do";
-   objForm.submit();
+    },
+    error : function(data, textStatus) {
+     alert("에러가 발생했습니다."+data);
+    },
+    complete : function(data, textStatus) {
+     //alert("작업을완료 했습니다");
+
+    }
+   }); //end ajax
   }
 
 
@@ -122,7 +118,7 @@
     <input type = "text" id="cart_idx" value="${item.cart_idx}">
 
     <td>
-     <input type="checkbox" name="checked_goods"  checked  value="${item.products_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
+     <input type="checkbox" name="checkbox"  checked  value="${item.products_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
     </td>
 
     <td class="goods_image">
@@ -249,6 +245,11 @@
  </tbody>
 </table>
 
+<a href="javascript:fn_order_all_cart()">
+ 모두 주문
+</a>
+
+</body>
 <script>
  function delete_cart_goods(cart_idx)
  {
