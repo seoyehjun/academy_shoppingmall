@@ -1,28 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ include file="../junheader.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
+
+
+<%@ include file="../header.jsp" %>
 
 
 
-<h1>¹è¼Û ÇöÈ²</h1>
+<h1>ë°°ì†¡ í˜„í™©</h1>
  <div style = "text-decoration: underline">
   ${myorderdetail.orders_status }
  </div>
  
-<h1>1. ÁÖ¹® »ó¼¼Á¤º¸</h1>
+<h1>1. ì£¼ë¬¸ ìƒì„¸ì •ë³´</h1>
 <table class="list_view" style="width:80%">
  <tbody align=center>
   <tr style="background: #008080">
-   <td>ÁÖ¹® ¹øÈ£</td>
-   <td>ÁÖ¹® ÀÏÀÚ</td>
-   <td>½æ³×ÀÏ</td>
-   <td>ÁÖ¹®»óÇ°¸í</td>
-   <td>¼ö·®</td>
-   <td>¿É¼Ç,»çÀÌÁî</td>
-   <td>ÁÖ¹®±İ¾×</td>
-   <td>¹è¼Ûºñ</td>
-   <td>ÁÖ¹®±İ¾×ÇÕ°è</td>
-   <td>¿¹»óÀû¸³±İ</td>
+   <td>ì£¼ë¬¸ ë²ˆí˜¸</td>
+   <td>ì£¼ë¬¸ ì¼ì</td>
+   <td>ì¸ë„¤ì¼</td>
+   <td>ì£¼ë¬¸ìƒí’ˆëª…</td>
+   <td>ìˆ˜ëŸ‰</td>
+   <td>ì˜µì…˜,ì‚¬ì´ì¦ˆ</td>
+   <td>ì£¼ë¬¸ê¸ˆì•¡</td>
+   <td>ë°°ì†¡ë¹„</td>
+   <td>ì£¼ë¬¸ê¸ˆì•¡í•©ê³„</td>
+   <td>ì˜ˆìƒì ë¦½ê¸ˆ</td>
    
   </tr>
  
@@ -32,75 +34,75 @@
    
    <td>${myorderdetail.orders_date }</td>
    
-   <%--»óÇ° ÀÌ¹ÌÁö(¸µÅ©¿¬°á) --%>
+   <%--ìƒí’ˆ ì´ë¯¸ì§€(ë§í¬ì—°ê²°) --%>
    <td class="godds_image">
     <a href="${contextPath }/products/productsDetail?products_idx=${myorderdetail.products_idx}">
-    <%--ÇÁ·ÎÁ§Æ® ³» resourcesÆú´õ¿¡ °ø¹é ÀÌ¹ÌÁö Ãß°¡ --%>
+    <%--í”„ë¡œì íŠ¸ ë‚´ resourcesí´ë”ì— ê³µë°± ì´ë¯¸ì§€ ì¶”ê°€ --%>
      <IMG width="75" alt="" src="${contextPath }/thumbnails?products_idx=${myorderdetail.products_idx }&fileName=${myorderdetail.img_url }">
     </a>
     	dummy
    </td>
    
-   <td><%--»óÇ° ÀÌ¸§(¸µÅ©¿¬°á) --%>
+   <td><%--ìƒí’ˆ ì´ë¦„(ë§í¬ì—°ê²°) --%>
     <h2>
-    <%--»óÇ° ÀÌ¸§À» ¹Ş¾Æ¿À±â À§ÇØ Á¶ÀÎ±¸¹®À» »ç¿ëÇØ¾ßÇÑ´Ù --%>
+    <%--ìƒí’ˆ ì´ë¦„ì„ ë°›ì•„ì˜¤ê¸° ìœ„í•´ ì¡°ì¸êµ¬ë¬¸ì„ ì‚¬ìš©í•´ì•¼í•œë‹¤ --%>
      <a href="${contextPath }/products/productsDetail?products_idx=${myorderdetail.products_idx}">${myorderdetail.products_name}</a>   
     </h2>
    </td>
    
    
-	<td><%--¼ö·® --%>
-	 <h4>${myorderdetail.quantity }°³<h4>
+	<td><%--ìˆ˜ëŸ‰ --%>
+	 <h4>${myorderdetail.quantity }ê°œ<h4>
 	</td>
 	
-	<%--¿É¼Ç --%>
+	<%--ì˜µì…˜ --%>
 	<td>
 	 <h2>${myorderdetail.color}</h2>
 	 <br>
 	 <h2>${myorderdetail.size_product }</h2>
 	</td>
 	
-	<td><%--°³´ç °¡°İ --%>
+	<td><%--ê°œë‹¹ ê°€ê²© --%>
 	 <h2>${myorderdetail.products_price }</h2>
 	</td>				
 					
-	<td><%--¹è¼Ûºñ --%>
-	 <h2>0¿ø</h2>
+	<td><%--ë°°ì†¡ë¹„ --%>
+	 <h2>0ì›</h2>
 	</td>
 		
-	<td><%--ÁÖ¹®±İ¾× ÇÕ°è (°¡°İ x ¼ö·®) --%>
-	 <h2>${myorderdetail.quantity * myorderdetail.products_price}¿ø </h2>
+	<td><%--ì£¼ë¬¸ê¸ˆì•¡ í•©ê³„ (ê°€ê²© x ìˆ˜ëŸ‰) --%>
+	 <h2>${myorderdetail.quantity * myorderdetail.products_price}ì› </h2>
 	</td>
 			
-	<td><%--Àû¸³Àº °¡°İÀÇ 5% --%>
-	 <h2>${myorderdetail.quantity * myorderdetail.products_price*0.05}¿ø</h2>
+	<td><%--ì ë¦½ì€ ê°€ê²©ì˜ 5% --%>
+	 <h2>${myorderdetail.quantity * myorderdetail.products_price*0.05}ì›</h2>
 	</td>		
 	
   </tr>
   
  </tbody>
 </table>
-<h1>2.¹è¼ÛÁö Á¤º¸ ¹× ÁÖ¹®ÀÚ Á¤º¸</h1>
+<h1>2.ë°°ì†¡ì§€ ì •ë³´ ë° ì£¼ë¬¸ì ì •ë³´</h1>
  <div class="detail_table">
   <table>
    <tbody>
    
     <tr class="dot_line">
-	 <td class="fixed_join">¹è¼Û¹æ¹ı</td>
+	 <td class="fixed_join">ë°°ì†¡ë°©ë²•</td>
 	  <td>
-	      ÀÏ¹İ ÅÃ¹è<%--ÀÏ¹İ ÅÃ¹è·Î °íÁ¤ --%>
+	      ì¼ë°˜ íƒë°°<%--ì¼ë°˜ íƒë°°ë¡œ ê³ ì • --%>
 	  </td>
 	</tr>
 	
 	<tr class="dot_line">
-	 <td class="fixed_join">¹ŞÀ¸½Ç ºĞ</td>
+	 <td class="fixed_join">ë°›ìœ¼ì‹¤ ë¶„</td>
 	 <td>
 	  ${myorderdetail.orders_recipient_name }
 	 </td>
 	</tr>
 	
 	<tr class="dot_line">
-	 <td class="fixed_join">ÈŞ´ëÆù¹øÈ£</td>
+	 <td class="fixed_join">íœ´ëŒ€í°ë²ˆí˜¸</td>
 	 <td>
 	  ${myorderdetail.orders_recipient_phone }
 	 </td>
@@ -108,14 +110,146 @@
 
 
 	<tr class="dot_line">
-	 <td class="fixed_join">ÁÖ¼Ò</td>
+	 <td class="fixed_join">ì£¼ì†Œ</td>
 	 <td>
 	  ${myorderdetail.orders_recipient_address}
 	 </td>
 	 </tr>
 	 
 	<tr class="dot_line">
-	 <td class="fixed_join">»ó¼¼ÁÖ¼Ò</td>
+	 <td class="fixed_join">ìƒì„¸ì£¼ì†Œ</td>
+	 <td>
+	  ${myorderdetail.orders_detailed_address}
+	 </td>
+    </tr>
+
+	 
+   </tbody>
+  </table>
+		
+ </div>
+
+
+
+</body>
+</html><%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ include file="../junheader.jsp" %>
+
+
+
+<h1>ï¿½ï¿½ï¿½ ï¿½ï¿½È²</h1>
+ <div style = "text-decoration: underline">
+  ${myorderdetail.orders_status }
+ </div>
+ 
+<h1>1. ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</h1>
+<table class="list_view" style="width:80%">
+ <tbody align=center>
+  <tr style="background: #008080">
+   <td>ï¿½Ö¹ï¿½ ï¿½ï¿½È£</td>
+   <td>ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½</td>
+   <td>ï¿½ï¿½ï¿½ï¿½ï¿½</td>
+   <td>ï¿½Ö¹ï¿½ï¿½ï¿½Ç°ï¿½ï¿½</td>
+   <td>ï¿½ï¿½ï¿½ï¿½</td>
+   <td>ï¿½É¼ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</td>
+   <td>ï¿½Ö¹ï¿½ï¿½İ¾ï¿½</td>
+   <td>ï¿½ï¿½Ûºï¿½</td>
+   <td>ï¿½Ö¹ï¿½ï¿½İ¾ï¿½ï¿½Õ°ï¿½</td>
+   <td>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</td>
+   
+  </tr>
+ 
+  <tr>
+   
+   <td>${myorderdetail.orders_idx }</td>
+   
+   <td>${myorderdetail.orders_date }</td>
+   
+   <%--ï¿½ï¿½Ç° ï¿½Ì¹ï¿½ï¿½ï¿½(ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½) --%>
+   <td class="godds_image">
+    <a href="${contextPath }/products/productsDetail?products_idx=${myorderdetail.products_idx}">
+    <%--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ resourcesï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ --%>
+     <IMG width="75" alt="" src="${contextPath }/thumbnails?products_idx=${myorderdetail.products_idx }&fileName=${myorderdetail.img_url }">
+    </a>
+    	dummy
+   </td>
+   
+   <td><%--ï¿½ï¿½Ç° ï¿½Ì¸ï¿½(ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½) --%>
+    <h2>
+    <%--ï¿½ï¿½Ç° ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ş¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½ --%>
+     <a href="${contextPath }/products/productsDetail?products_idx=${myorderdetail.products_idx}">${myorderdetail.products_name}</a>   
+    </h2>
+   </td>
+   
+   
+	<td><%--ï¿½ï¿½ï¿½ï¿½ --%>
+	 <h4>${myorderdetail.quantity }ï¿½ï¿½<h4>
+	</td>
+	
+	<%--ï¿½É¼ï¿½ --%>
+	<td>
+	 <h2>${myorderdetail.color}</h2>
+	 <br>
+	 <h2>${myorderdetail.size_product }</h2>
+	</td>
+	
+	<td><%--ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ --%>
+	 <h2>${myorderdetail.products_price }</h2>
+	</td>				
+					
+	<td><%--ï¿½ï¿½Ûºï¿½ --%>
+	 <h2>0ï¿½ï¿½</h2>
+	</td>
+		
+	<td><%--ï¿½Ö¹ï¿½ï¿½İ¾ï¿½ ï¿½Õ°ï¿½ (ï¿½ï¿½ï¿½ï¿½ x ï¿½ï¿½ï¿½ï¿½) --%>
+	 <h2>${myorderdetail.quantity * myorderdetail.products_price}ï¿½ï¿½ </h2>
+	</td>
+			
+	<td><%--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5% --%>
+	 <h2>${myorderdetail.quantity * myorderdetail.products_price*0.05}ï¿½ï¿½</h2>
+	</td>		
+	
+  </tr>
+  
+ </tbody>
+</table>
+<h1>2.ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</h1>
+ <div class="detail_table">
+  <table>
+   <tbody>
+   
+    <tr class="dot_line">
+	 <td class="fixed_join">ï¿½ï¿½Û¹ï¿½ï¿½</td>
+	  <td>
+	      ï¿½Ï¹ï¿½ ï¿½Ã¹ï¿½<%--ï¿½Ï¹ï¿½ ï¿½Ã¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ --%>
+	  </td>
+	</tr>
+	
+	<tr class="dot_line">
+	 <td class="fixed_join">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½</td>
+	 <td>
+	  ${myorderdetail.orders_recipient_name }
+	 </td>
+	</tr>
+	
+	<tr class="dot_line">
+	 <td class="fixed_join">ï¿½Ş´ï¿½ï¿½ï¿½ï¿½ï¿½È£</td>
+	 <td>
+	  ${myorderdetail.orders_recipient_phone }
+	 </td>
+	</tr>
+
+
+	<tr class="dot_line">
+	 <td class="fixed_join">ï¿½Ö¼ï¿½</td>
+	 <td>
+	  ${myorderdetail.orders_recipient_address}
+	 </td>
+	 </tr>
+	 
+	<tr class="dot_line">
+	 <td class="fixed_join">ï¿½ï¿½ï¿½Ö¼ï¿½</td>
 	 <td>
 	  ${myorderdetail.orders_detailed_address}
 	 </td>
