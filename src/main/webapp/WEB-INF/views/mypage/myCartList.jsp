@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ include file="../junheader.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+
+<%@ include file="../header.jsp" %>
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,16 +12,16 @@
 <%--<c:set var="myProductsList"  value="${cartMap.myProductsList}"  />--%>
 
 <c:set  var="totalGoodsPrice" value="0"/>
-<c:set  var="totalGoodsNum" value="0" />  <!--ÁÖ¹® °³¼ö -->
-<c:set  var="totalDeliveryPrice" value="0" /> <!-- ÃÑ ¹è¼Ûºñ -->
-<c:set  var="totalDiscountedPrice" value="0" /> <!-- ÃÑ ÇÒÀÎ±İ¾× -->
+<c:set  var="totalGoodsNum" value="0" />  <!--ì£¼ë¬¸ ê°œìˆ˜ -->
+<c:set  var="totalDeliveryPrice" value="0" /> <!-- ì´ ë°°ì†¡ë¹„ -->
+<c:set  var="totalDiscountedPrice" value="0" /> <!-- ì´ í• ì¸ê¸ˆì•¡ -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <head>
  <script>
 
   function fn_order_all_cart_goods(){
-//	alert("¸ğµÎ ÁÖ¹®ÇÏ±â");
+//	alert("ëª¨ë‘ ì£¼ë¬¸í•˜ê¸°");
    var order_goods_qty;
    var order_goods_id;
    var objForm=document.frm_order_all_cart;
@@ -76,13 +77,13 @@
   <tbody align=center >
 
   <tr style="background:#33ff00" >
-   <td class="fixed" >±¸ºĞ</td>
-   <td colspan=2 class="fixed">»óÇ°¸í</td>
-   <td>Á¤°¡</td>
-   <td>ÆÇ¸Å°¡</td>
-   <td>¼ö·®</td>
-   <td>ÇÕ°è</td>
-   <td>ÁÖ¹®</td>
+   <td class="fixed" >êµ¬ë¶„</td>
+   <td colspan=2 class="fixed">ìƒí’ˆëª…</td>
+   <td>ì •ê°€</td>
+   <td>íŒë§¤ê°€</td>
+   <td>ìˆ˜ëŸ‰</td>
+   <td>í•©ê³„</td>
+   <td>ì£¼ë¬¸</td>
  </tr>
 
  <c:choose>
@@ -91,7 +92,7 @@
 
    <tr>
    <td colspan=8 class="fixed">
-    <strong>Àå¹Ù±¸´Ï¿¡ »óÇ°ÀÌ ¾ø½À´Ï´Ù.</strong>
+    <strong>ì¥ë°”êµ¬ë‹ˆì— ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.</strong>
    </td>
   </tr>
 
@@ -123,12 +124,12 @@
    </td>
 
    <td class="price">
-    <span>${item.products_price }¿ø</span>
+    <span>${item.products_price }ì›</span>
    </td>
 
    <td>
     <input type='button' onclick='count("minus",${item.cart_idx},${cnt.count-1})' value='-'/>
-    <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--Àå¹Ù±¸´Ï °³°³ÀÇ °¹¼ö <input>Çü½ÄÀÌ´Ù.-->
+    <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--ì¥ë°”êµ¬ë‹ˆ ê°œê°œì˜ ê°¯ìˆ˜ <input>í˜•ì‹ì´ë‹¤.-->
     <input type='button' onclick='count("plus",${item.cart_idx},${cnt.count-1})' value='+'/>
     <a href="javascript:modify_cart_qty('${item.cart_idx }','${cnt.count-1 }');" >
      <img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
@@ -138,7 +139,7 @@
    <td>
     <strong>
      <fmt:formatNumber  value="${item.quantity*item.products_price}" type="number" var="total_sales_price" />
-      ${total_sales_price}¿ø<!--Àå¹Ù±¸´Ï °³°³ÀÇ ±İ¾× ÃÑÇÕ-->
+      ${total_sales_price}ì›<!--ì¥ë°”êµ¬ë‹ˆ ê°œê°œì˜ ê¸ˆì•¡ ì´í•©-->
     </strong>
    </td>
 
@@ -180,24 +181,24 @@
 <table  width=80%   class="list_view" style="background:#cacaff">
  <tbody>
  <tr  align=center  class="fixed" >
-  <td class="fixed">ÃÑ »óÇ°¼ö </td>
-  <td>ÃÑ »óÇ°±İ¾×</td>
+  <td class="fixed">ì´ ìƒí’ˆìˆ˜ </td>
+  <td>ì´ ìƒí’ˆê¸ˆì•¡</td>
   <td>  </td>
-  <td>ÃÑ ¹è¼Ûºñ</td>
+  <td>ì´ ë°°ì†¡ë¹„</td>
   <td>  </td>
-  <td>ÃÖÁ¾ °áÁ¦±İ¾×</td>
+  <td>ìµœì¢… ê²°ì œê¸ˆì•¡</td>
  </tr>
 
  <tr cellpadding=40  align=center >
   <td id="">
-   <p id="p_totalGoodsNum">${totalGoodsNum}°³ </p>
+   <p id="p_totalGoodsNum">${totalGoodsNum}ê°œ </p>
    <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
   </td>
 
   <td>
    <p id="p_totalGoodsPrice">
     <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
-    ${total_goods_price}¿ø
+    ${total_goods_price}ì›
    </p>
    <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
   </td>
@@ -207,7 +208,7 @@
   </td>
 
   <td>
-   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }¿ø  </p>
+   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }ì›  </p>
    <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
   </td>
 
@@ -219,7 +220,7 @@
   <td>
    <p id="p_final_totalPrice">
     <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
-    ${total_price}¿ø
+    ${total_price}ì›
    </p>
    <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
   </td>
@@ -232,13 +233,13 @@
 
     function count(type,cart_idx, index)
     {
-        // °á°ú¸¦ Ç¥½ÃÇÒ element
+        // ê²°ê³¼ë¥¼ í‘œì‹œí•  element
         const resultElement = document.getElementsByClassName('cart_goods_qty')[index];
-        // ÇöÀç È­¸é¿¡ Ç¥½ÃµÈ °ª
+        // í˜„ì¬ í™”ë©´ì— í‘œì‹œëœ ê°’
         var number = resultElement.value;
 
-        console.log("ÀüÃ³¸® ÀÌÀü:"+number);
-        // ´õÇÏ±â/»©±â
+        console.log("ì „ì²˜ë¦¬ ì´ì „:"+number);
+        // ë”í•˜ê¸°/ë¹¼ê¸°
         if(type === 'plus')
         {
             number = parseInt(number) + 1;
@@ -247,10 +248,10 @@
         {
             number = parseInt(number) - 1;
         }
-        console.log("ÀüÃ³¸® ÀÌÈÄ:"+number);
+        console.log("ì „ì²˜ë¦¬ ì´í›„:"+number);
 
-        // °á°ú Ãâ·Â
-        resultElement.value = number;//inputÅÂ±×´Â value¼Ó¼ºÀ» ½á¾ßÇÑ´Ù. innertextÀÌ·±°É ¾²¸é ¾ÈµÇ´õ¶ó.
+        // ê²°ê³¼ ì¶œë ¥
+        resultElement.value = number;//inputíƒœê·¸ëŠ” valueì†ì„±ì„ ì¨ì•¼í•œë‹¤. innertextì´ëŸ°ê±¸ ì“°ë©´ ì•ˆë˜ë”ë¼.
 
         modify_cart_qty(cart_idx,index)
 
@@ -259,15 +260,15 @@
  function modify_cart_qty(cart_idx,index)
  {
   //alert(index);
- // var length=document.frm_order_all_cart.cart_goods_qty.length;//Ä«Æ® °¹¼öÀÓ
+ // var length=document.frm_order_all_cart.cart_goods_qty.length;//ì¹´íŠ¸ ê°¯ìˆ˜ì„
   var length = document.getElementsByClassName("cart_goods_qty").length;
   console.log(parseInt(index));
   var _cart_goods_qty=33;
   if(length>1)
-  { //Ä«Æ®¿¡ Á¦Ç°ÀÌ ÇÑ°³ÀÎ °æ¿ì¿Í ¿©·¯°³ÀÎ °æ¿ì ³ª´©¾î¼­ Ã³¸®ÇÑ´Ù.
-   _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cart°¡ ¿©·¯°³ÀÏ °æ¿ì ÇØ´çÇÏ´Â cart¸¸ ¼±ÅÃ
+  { //ì¹´íŠ¸ì— ì œí’ˆì´ í•œê°œì¸ ê²½ìš°ì™€ ì—¬ëŸ¬ê°œì¸ ê²½ìš° ë‚˜ëˆ„ì–´ì„œ ì²˜ë¦¬í•œë‹¤.
+   _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cartê°€ ì—¬ëŸ¬ê°œì¼ ê²½ìš° í•´ë‹¹í•˜ëŠ” cartë§Œ ì„ íƒ
    console.log(_cart_goods_qty);
-   //(³Ñ°Ü¹ŞÀº index·Î)
+   //(ë„˜ê²¨ë°›ì€ indexë¡œ)
   }
   else
   {
@@ -275,13 +276,13 @@
    console.log("worng road");
   }
 
-  var cart_goods_qty=Number(_cart_goods_qty);//cartÀÇ ¼ö·® º¯¼ö Æ÷¸ŞÆÃ
+  var cart_goods_qty=Number(_cart_goods_qty);//cartì˜ ìˆ˜ëŸ‰ ë³€ìˆ˜ í¬ë©”íŒ…
   //alert("cart_goods_qty:"+cart_goods_qty);
   console.log(cart_goods_qty);
   $.ajax(
           {
            type : "post",
-           async : false, //falseÀÎ °æ¿ì µ¿±â½ÄÀ¸·Î Ã³¸®ÇÑ´Ù.
+           async : false, //falseì¸ ê²½ìš° ë™ê¸°ì‹ìœ¼ë¡œ ì²˜ë¦¬í•œë‹¤.
            url : "${contextPath}/mypage/modifyCartQty",
            data : {
             cart_idx:cart_idx,
@@ -293,21 +294,21 @@
             //alert(data);
             if(data.trim()=='modify_success')
             {
-            // alert("¼ö·®À» º¯°æÇß½À´Ï´Ù!!");
+            // alert("ìˆ˜ëŸ‰ì„ ë³€ê²½í–ˆìŠµë‹ˆë‹¤!!");
              location.reload();
             }else
             {
-             alert("´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä!!");
+             alert("ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì„¸ìš”!!");
             }
 
            },
            error : function(data, textStatus)
            {
-            alert("¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù."+data);
+            alert("ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤."+data);
            },
            complete : function(data, textStatus)
            {
-            //alert("ÀÛ¾÷À»¿Ï·á Çß½À´Ï´Ù");
+            //alert("ì‘ì—…ì„ì™„ë£Œ í–ˆìŠµë‹ˆë‹¤");
            }
           }
   ); //end ajax
