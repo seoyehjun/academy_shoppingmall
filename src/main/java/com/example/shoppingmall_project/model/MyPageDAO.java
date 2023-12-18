@@ -3,8 +3,8 @@ package com.example.shoppingmall_project.model;
 import java.util.List;
 import java.util.Map;
 
+import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.Cart_vo;
-import com.example.shoppingmall_project.model.vo.mypagevo.MemberVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.O_OD_P_C_S_M_vo;
 import com.example.shoppingmall_project.model.vo.mypagevo.O_P_OD_vo;
 import org.apache.ibatis.annotations.Delete;
@@ -30,7 +30,7 @@ public interface MyPageDAO
 	
 	@Select("select * from members " + 
 			"            where members_idx=#{members_idx} " )
-	MemberVO givememember(int members_idx);
+	MembersVO givememember(int members_idx);
 	
 	@Select("select c.cart_idx, c.quantity, c.products_idx, c.members_idx,c.color_idx, c.size_idx"
 			+ " , p.products_name, p.products_price, st.size_product, ct.color" + 

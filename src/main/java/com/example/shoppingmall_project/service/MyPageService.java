@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.shoppingmall_project.model.MyPageDAO;
+import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.Cart_vo;
-import com.example.shoppingmall_project.model.vo.mypagevo.MemberVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.O_OD_P_C_S_M_vo;
 import com.example.shoppingmall_project.model.vo.mypagevo.O_P_OD_vo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +46,12 @@ public class MyPageService
 		return myPageDAO.listMyOrderGoods(members_idx);
 	}
 	
-	public MemberVO givememember(int members_idx) throws Exception
+	public MembersVO givememember(int members_idx) throws Exception
 	{
 		return myPageDAO.givememember(members_idx);
 	}
 	
-	public MemberVO modifyMyInfo(Map memberMap) throws Exception
+	public MembersVO modifyMyInfo(Map memberMap) throws Exception
 	{
 		String members_idx = (String)memberMap.get("members_idx");
 		myPageDAO.updateMyInfo(memberMap);

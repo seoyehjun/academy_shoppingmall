@@ -22,8 +22,17 @@ public interface ProductDAO {
 			"LEFT JOIN color ON products_color.color_idx = color.color_idx " + 
 			"LEFT JOIN products_size ON products.products_idx = products_size.products_idx " + 
 			"LEFT JOIN size_table ON products_size.size_idx = size_table.size_idx " + 
-			"WHERE products.products_idx = 1 ORDER BY color DESC, DECODE(size_table.size_product, 'S', 1, 'M', 2, 'L', 3, 'XL', 4, 'FREE', 5, 6)")
+			"ORDER BY color DESC, DECODE(size_table.size_product, 'S', 1, 'M', 2, 'L', 3, 'XL', 4, 'FREE', 5, 6)")
 	List<ProductVO> selectAll();
+
+	@Select("SELECT products.*, color.color, size_table.size_product " +
+			"FROM products " +
+			"LEFT JOIN products_color ON products.products_idx = products_color.products_idx " +
+			"LEFT JOIN color ON products_color.color_idx = color.color_idx " +
+			"LEFT JOIN products_size ON products.products_idx = products_size.products_idx " +
+			"LEFT JOIN size_table ON products_size.size_idx = size_table.size_idx " +
+			"WHERE products.products_idx = #{productIdx} ORDER BY color DESC, DECODE(size_table.size_product, 'S', 1, 'M', 2, 'L', 3, 'XL', 4, 'FREE', 5, 6)")
+	List<ProductVO> selectOne(int productIdx);
 
 	
 	@Select("SELECT COUNT(DISTINCT size_table.size_product) as size_count " + 

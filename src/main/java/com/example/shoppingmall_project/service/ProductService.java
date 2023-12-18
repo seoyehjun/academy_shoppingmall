@@ -19,6 +19,11 @@ public class ProductService {
         return dao.selectAll();
     }
 
+    public List<ProductVO> getProductOne(int productIdx) {
+
+        return dao.selectOne(productIdx);
+    }
+
 
     public int getCount() {
 

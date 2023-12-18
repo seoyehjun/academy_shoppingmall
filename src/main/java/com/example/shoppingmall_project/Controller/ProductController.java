@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/product")
@@ -22,8 +23,8 @@ public class ProductController {
 
     @GetMapping("/homeProduct")
 
-    public void productHome(Model model) {
-        model.addAttribute("list", ps.getProduct()); //product 정보
+    public void productHome(@RequestParam("productIdx") int productIdx, Model model) {
+        model.addAttribute("list", ps.getProductOne(productIdx)); //product 정보
         model.addAttribute("review", is.getInquiries()); //리뷰
         model.addAttribute("num", ps.getCount());	// 사이즈
         model.addAttribute("color", ps.color());	// 색상
