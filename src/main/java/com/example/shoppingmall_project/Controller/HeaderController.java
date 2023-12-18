@@ -1,6 +1,7 @@
 package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.service.HeaderService;
+import com.example.shoppingmall_project.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HeaderController {
 
     @Autowired private HeaderService hs;
+    @Autowired private ImageService is;
 
     @ModelAttribute
     public void menu(Model model){
@@ -21,7 +23,9 @@ public class HeaderController {
     }
 
     @GetMapping("/outer")
-    public void outer(){}
+    public void outer(Model model){
+        model.addAttribute("imageList", is.getAllImageNames());
+    }
 
     @GetMapping("/top")
     public void top(){}

@@ -24,7 +24,7 @@ public class HomeController {
 
     @GetMapping
     public String home(Model model){
-        return "mainpage";
+        return "home";
     }
 
     // 테스트 컨트롤러
