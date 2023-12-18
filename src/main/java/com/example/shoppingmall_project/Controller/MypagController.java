@@ -1,5 +1,6 @@
 package com.example.shoppingmall_project.Controller;
 
+import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.*;
 import com.example.shoppingmall_project.service.MyPageService;
 import net.coobird.thumbnailator.Thumbnails;
@@ -64,11 +65,13 @@ public class MypagController
 											   @RequestParam("cart_goods_qty") int cart_goods_qty,
 											   HttpServletRequest request, HttpServletResponse response)  throws Exception
 	{
-		MemberVO memberVO;
+		MembersVO membersVO;
 		HttpSession session=request.getSession();
+
 		//memberVO=(MemberVO)session.getAttribute("memberInfo");
-		memberVO = myPageService.givememember(1);
-		int members_idx=memberVO.getMembers_idx();
+
+		membersVO = myPageService.givememember(1);
+		int members_idx=membersVO.getMembers_idx();
 		cartVO.setCart_idx(cart_idx);
 		cartVO.setMembers_idx(members_idx);
 		cartVO.setQuantity(cart_goods_qty);
@@ -107,7 +110,7 @@ public class MypagController
 		
 
 		//MemberVO temp_member = httpsession.getAttribute("memberInfo");
-		MemberVO temp_member = myPageService.givememember(3);
+		MembersVO temp_member = myPageService.givememember(3);
 		httpsession.setAttribute("memberInfo", temp_member);
 		
 		return "mypage/myDetailInfo";
@@ -128,8 +131,8 @@ public class MypagController
 		HttpSession session=request.getSession();
 		
 
-		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
-		String  member_idx=memberVO.getMembers_idx()+"";
+		MembersVO membersVO=(MembersVO) session.getAttribute("memberInfo");
+		String  member_idx=membersVO.getMembers_idx()+"";
 		
 		String temp;
 		if(attribute.equals("tel"))
@@ -157,9 +160,9 @@ public class MypagController
 
 		
 
-		memberVO=(MemberVO)myPageService.modifyMyInfo(memberMap);
+		membersVO=(MembersVO) myPageService.modifyMyInfo(memberMap);
 		session.removeAttribute("memberInfo");
-		session.setAttribute("memberInfo", memberVO);
+		session.setAttribute("memberInfo", membersVO);
 		
 		//return "mypage/myPageMain";
 		String message = null;

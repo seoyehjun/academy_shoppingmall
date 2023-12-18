@@ -12,7 +12,6 @@
 <head>
     <title>shoppingMall project</title>
     <link rel="stylesheet" href="${cpath}/resources/css/header.css">
-
 </head>
 <body>
 <header>
@@ -58,7 +57,7 @@
 
         <a href="${contextPath }/mypage/myCartList">🛒</a>
 
-        <a href="/signUp2">JOIN</a>
+        <a href="/signUp">JOIN</a>
 
         <c:if test="${empty user }">
             <a href="/login/login">LOGIN</a>

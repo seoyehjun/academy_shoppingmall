@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ include file="../header.jsp" %><%--html bodyÅÂ±×¸¸ ´İ¾ÆÁÖÀÚ --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
+
+<%@ include file="../header.jsp" %><%--html bodyíƒœê·¸ë§Œ ë‹«ì•„ì£¼ì --%>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <head>
@@ -9,13 +10,13 @@
 
 window.onload=function()
 {
-	selectBoxInit();//selectÅÂ±× ±âº»°ª Á¤ÇÏ´Â ÇÔ¼ö	
+	selectBoxInit();//selectíƒœê·¸ ê¸°ë³¸ê°’ ì •í•˜ëŠ” í•¨ìˆ˜	
 }
 
 function selectBoxInit()
 {
 	
-	var temp = '<c:out value='${memberInfo.members_phone_number}'/>';//¹ÙÀÎµùµÈ Á¤º¸ °¡Á®¿Â´Ù.
+	var temp = '<c:out value='${memberInfo.members_phone_number}'/>';//ë°”ì¸ë”©ëœ ì •ë³´ ê°€ì ¸ì˜¨ë‹¤.
 	var origin_selected_tel = '${memberInfo.members_phone_number.substring(0,3)}';
 	var user_selected_tel = document.getElementById('tel1');
 	var tel_list = user_selected_tel.options;
@@ -38,7 +39,7 @@ function fn_modify_member_info(attribute){
 		var frm_mod_member=document.frm_mod_member;
 		
 		if(attribute=='members_password'){
-			value=frm_mod_member.members_password.value;//frm_mod_member´Â formÅÂ±× 
+			value=frm_mod_member.members_password.value;//frm_mod_memberëŠ” formíƒœê·¸ 
 			//alert("member_pw:"+value);
 		}
 		else if(attribute=='members_nickname')
@@ -82,11 +83,11 @@ function fn_modify_member_info(attribute){
 		}
 		
 		
-		//jQuery´Â 2006³â ¹Ì±¹ÀÇ Á¸ ·¹½Ä(John Resig)ÀÌ ´º¿å½Ã ¹ÙÄ·ÇÁ(Barcamp)¿¡¼­ Ã³À½ ¼Ò°³ÇÑ ¡®ÀÚ¹Ù ½ºÅ©¸³Æ® ¶óÀÌºê·¯¸®¡¯ÀÔ´Ï´Ù.
-		//ajax´Â jQuery ±â´ÉÀÌ´Ù.
+		//jQueryëŠ” 2006ë…„ ë¯¸êµ­ì˜ ì¡´ ë ˆì‹(John Resig)ì´ ë‰´ìš•ì‹œ ë°”ìº í”„(Barcamp)ì—ì„œ ì²˜ìŒ ì†Œê°œí•œ â€˜ìë°” ìŠ¤í¬ë¦½íŠ¸ ë¼ì´ë¸ŒëŸ¬ë¦¬â€™ì…ë‹ˆë‹¤.
+		//ajaxëŠ” jQuery ê¸°ëŠ¥ì´ë‹¤.
 		$.ajax({
 			type : "post",
-			async : false, //falseÀÎ °æ¿ì µ¿±â½ÄÀ¸·Î Ã³¸®ÇÑ´Ù.
+			async : false, //falseì¸ ê²½ìš° ë™ê¸°ì‹ìœ¼ë¡œ ì²˜ë¦¬í•œë‹¤.
 			url : "${contextPath}/mypage/modifyMyInfo.do",
 			data : {
 				attribute:attribute,
@@ -94,17 +95,17 @@ function fn_modify_member_info(attribute){
 			},
 			success : function(data, textStatus) {
 				if(data.trim()=='mod_success'){
-					alert("È¸¿ø Á¤º¸¸¦ ¼öÁ¤Çß½À´Ï´Ù.");
+					alert("íšŒì› ì •ë³´ë¥¼ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤.");
 				}else if(data.trim()=='failed'){
-					alert("´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä.");	
+					alert("ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì„¸ìš”.");	
 				}
 				
 			},
 			error : function(data, textStatus) {
-				alert("¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù."+data);
+				alert("ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤."+data);
 			},
 			complete : function(data, textStatus) {
-				//alert("ÀÛ¾÷À»¿Ï·á Çß½À´Ï´Ù");
+				//alert("ì‘ì—…ì„ì™„ë£Œ í–ˆìŠµë‹ˆë‹¤");
 				
 			}
 		}); //end ajax
@@ -112,46 +113,46 @@ function fn_modify_member_info(attribute){
 </script>
 </head>
 <body>
-<h3>³» »ó¼¼ Á¤º¸</h3>
+<h3>ë‚´ ìƒì„¸ ì •ë³´</h3>
  <form name="frm_mod_member">
   <div id="detail_table">
    <table>
    	<tbody>
    	
    	 <tr class="dot_line">
-   	  <td class="fixed_join">¾ÆÀÌµğ</td>
+   	  <td class="fixed_join">ì•„ì´ë””</td>
    	  <td><input name="members_idx" type="text" size="20" value="${memberInfo.members_id }" disabled/></td>
-   	  <%--memberInfo¼¼¼Ç ¹ÙÀÎµù ÇØÁÖ¼¼¿ä--%>
+   	  <%--memberInfoì„¸ì…˜ ë°”ì¸ë”© í•´ì£¼ì„¸ìš”--%>
    	  <td></td>
    	 </tr>
    	 
    	 <tr class="dot_line">
-   	  <td class="fixed_join">Æ÷ÀÎÆ®</td>
+   	  <td class="fixed_join">í¬ì¸íŠ¸</td>
    	  <td><input name="members_points" type="number" size="20" value="${memberInfo.members_points }" disabled/></td>
    	 </tr>
    	 
    	 <tr class="dot_line">
-   	  <td class="fixed_join">´Ğ³×ÀÓ</td>
+   	  <td class="fixed_join">ë‹‰ë„¤ì„</td>
    	  <td><input name="members_nickname" type="text" size="20" value="${memberInfo.members_nickname}"/></td>
-   	  <td><input type="button" value="¼öÁ¤" onclick="fn_modify_member_info('members_nickname')"/></td>
+   	  <td><input type="button" value="ìˆ˜ì •" onclick="fn_modify_member_info('members_nickname')"/></td>
    	 </tr>
    	 
    	 <tr class="dot_line">
-   	  <td class="fixed_join">ºñ¹Ğ¹øÈ£</td>
+   	  <td class="fixed_join">ë¹„ë°€ë²ˆí˜¸</td>
    	  <td><input name="members_password" type="password" size="20" value="${memberInfo.members_password }"/></td>
-   	  <td><input type="button" value="¼öÁ¤" onclick="fn_modify_member_info('members_password')"/></td>
+   	  <td><input type="button" value="ìˆ˜ì •" onclick="fn_modify_member_info('members_password')"/></td>
    	 </tr>
    	 
    	 <tr class="dot_line">
-   	  <td class="fixed_join">ÀÌ¸§</td>
+   	  <td class="fixed_join">ì´ë¦„</td>
    	  <td><input name="members_name" type="text" size="20" value="${memberInfo.members_name }" disabled/>
    	 </tr>
    	 
    	 <tr class="dot_line">
-   	  <td class="fixed_join">ÀüÈ­¹øÈ£</td>
+   	  <td class="fixed_join">ì „í™”ë²ˆí˜¸</td>
    	  <td>
    	   <select name="tel1" id="tel1" >
-   	    <option>¾øÀ½</option>
+   	    <option>ì—†ìŒ</option>
 		<option value="010">010</option>
 		<option value="011">011</option>
 		<option value="016">016</option>
@@ -161,7 +162,7 @@ function fn_modify_member_info(attribute){
    	   </select>
    	   
    	 
-   	  <%--@±âÁØÀ¸·Î ÂÉ°³¾ß ÇÑ´Ù. --%>
+   	  <%--@ê¸°ì¤€ìœ¼ë¡œ ìª¼ê°œì•¼ í•œë‹¤. --%>
    	  <c:set var="origin_tel" value="${memberInfo.members_phone_number }"/>
    	  <c:set var="refined_tel" value="${fn:split(origin_tel,'-') }"/>
    	   -<input type="text" size=4 name="tel2" value="${refined_tel[1] }">
@@ -169,24 +170,24 @@ function fn_modify_member_info(attribute){
    	  </td>
    	  
    	  <td>
-   	   <input type="button" value="¼öÁ¤" onClick="fn_modify_member_info('tel')"/>
+   	   <input type="button" value="ìˆ˜ì •" onClick="fn_modify_member_info('tel')"/>
    	  </td>
    	 </tr>
    	 
    	 <tr class="dot_line">
-   	  <td class="fixed_join">ÀÌ¸ŞÀÏ<br>(e-mail)</td>
+   	  <td class="fixed_join">ì´ë©”ì¼<br>(e-mail)</td>
    	  
    	  <td>
-   	  <%--@±âÁØÀ¸·Î ÂÉ°³¾ß ÇÑ´Ù. --%>
+   	  <%--@ê¸°ì¤€ìœ¼ë¡œ ìª¼ê°œì•¼ í•œë‹¤. --%>
    	  <c:set var="origin_email" value="${memberInfo.members_email }"/>
    	  <c:set var="refined_email" value="${fn:split(origin_email,'@') }"/>
    	   
    	   <input type="text" name="email1" size=10 value="${refined_email[0] }"/> 
    	   @<input type="text" size=10 name="email2" id="domain-txt" value="${refined_email[1] }"/>
    	  
-   	   <select name="select_email" id="domain-list" onChange="" title="Á÷Á¢ÀÔ·Â">
+   	   <select name="select_email" id="domain-list" onChange="" title="ì§ì ‘ì…ë ¥">
    	  
-   	    <option value="non">Á÷Á¢ÀÔ·Â</option>
+   	    <option value="non">ì§ì ‘ì…ë ¥</option>
    	    <option value="hanmail.net">hanmail.net</option>
    	    <option value="naver.com">naver.com</option>
    	    <option value="yahoo.co.kr">yahoo.co.kr</option>
@@ -203,19 +204,19 @@ function fn_modify_member_info(attribute){
    	  </td>
    	  
    	  <td>
-   	  	<input type="button" value="¼öÁ¤ " onClick="fn_modify_member_info('email')"/>
+   	  	<input type="button" value="ìˆ˜ì • " onClick="fn_modify_member_info('email')"/>
    	  </td> 
    	 </tr>
    	 
    	 <tr class="dot_line">
-   	  <td class="fixed_join">ÁÖ¼Ò</td>
+   	  <td class="fixed_join">ì£¼ì†Œ</td>
    	  <td>
-   	     ÁÖ¼Ò :<br><input type="text"  name="address1" size=10 value="${memberInfo.members_address }"><br><br>
-   	     »ó¼¼ÁÖ¼Ò :<br><input type="text"  name="address2" size=20 value="${memberInfo.members_detailed_address}">
+   	     ì£¼ì†Œ :<br><input type="text"  name="address1" size=10 value="${memberInfo.members_address }"><br><br>
+   	     ìƒì„¸ì£¼ì†Œ :<br><input type="text"  name="address2" size=20 value="${memberInfo.members_detailed_address}">
    	  </td>
    	 
    	  <td>
-   	   <input type="button" value="¼öÁ¤" onClick="fn_modify_member_info('address')"/>
+   	   <input type="button" value="ìˆ˜ì •" onClick="fn_modify_member_info('address')"/>
    	  </td>
    	 </tr>
    	 
@@ -229,19 +230,518 @@ function fn_modify_member_info(attribute){
 
 
 <script>
-//µµ¸ŞÀÎ Á÷Á¢ ÀÔ·Â or domain option ¼±ÅÃ
+//ë„ë©”ì¸ ì§ì ‘ ì…ë ¥ or domain option ì„ íƒ
 const domainListEl = document.querySelector('#domain-list')
 const domainInputEl = document.querySelector('#domain-txt')
-// select ¿É¼Ç º¯°æ ½Ã
+// select ì˜µì…˜ ë³€ê²½ ì‹œ
 domainListEl.addEventListener('change', (event) => {
-  // option¿¡ ÀÖ´Â µµ¸ŞÀÎ ¼±ÅÃ ½Ã
+  // optionì— ìˆëŠ” ë„ë©”ì¸ ì„ íƒ ì‹œ
   
   if(event.target.value !== "non") {
-    // ¼±ÅÃÇÑ µµ¸ŞÀÎÀ» input¿¡ ÀÔ·ÂÇÏ°í disabled
+    // ì„ íƒí•œ ë„ë©”ì¸ì„ inputì— ì…ë ¥í•˜ê³  disabled
     domainInputEl.value = event.target.value
     domainInputEl.disabled = true
-  } else { // Á÷Á¢ ÀÔ·Â ½Ã
-    // input ³»¿ë ÃÊ±âÈ­ & ÀÔ·Â °¡´ÉÇÏµµ·Ï º¯°æ
+  } else { // ì§ì ‘ ì…ë ¥ ì‹œ
+    // input ë‚´ìš© ì´ˆê¸°í™” & ì…ë ¥ ê°€ëŠ¥í•˜ë„ë¡ ë³€ê²½
+    domainInputEl.value = ""
+    domainInputEl.disabled = false
+  }
+})
+</script>
+</html><%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ include file="../junheader.jsp" %><%--html bodyï¿½Â±×¸ï¿½ ï¿½İ¾ï¿½ï¿½ï¿½ï¿½ï¿½ --%>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<head>
+<script>
+
+
+window.onload=function()
+{
+	selectBoxInit();//selectï¿½Â±ï¿½ ï¿½âº»ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½	
+}
+
+function selectBoxInit()
+{
+	
+	var temp = '<c:out value='${memberInfo.members_phone_number}'/>';//ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+	var origin_selected_tel = '${memberInfo.members_phone_number.substring(0,3)}';
+	var user_selected_tel = document.getElementById('tel1');
+	var tel_list = user_selected_tel.options;
+	var val;
+	for(var i=0; i<tel_list.length;i++)
+	{
+		val = tel_list[i].value;
+		if(origin_selected_tel == val)
+		{
+			tel_list[i].selected = true;
+			break;
+		}
+	}
+}
+
+function fn_modify_member_info(attribute){
+	var value;
+	// alert(member_id);
+	// alert("mod_type:"+mod_type);
+		var frm_mod_member=document.frm_mod_member;
+		
+		if(attribute=='members_password'){
+			value=frm_mod_member.members_password.value;//frm_mod_memberï¿½ï¿½ formï¿½Â±ï¿½ 
+			//alert("member_pw:"+value);
+		}
+		else if(attribute=='members_nickname')
+		{
+			value=frm_mod_member.members_nickname.value;
+		}
+		else if(attribute=='tel')
+		{
+			var tel1=frm_mod_member.tel1;
+			var tel2=frm_mod_member.tel2;
+			var tel3=frm_mod_member.tel3;
+			
+			for(var i=0; tel1.length;i++){
+			 	if(tel1[i].selected){
+					value_tel1=tel1[i].value;
+					break;
+				} 
+			}
+			value_tel2=tel2.value;
+			value_tel3=tel3.value;
+			value=value_tel1+","+value_tel2+","+value_tel3;
+		}
+		else if(attribute=='email')
+		{
+			var email1=frm_mod_member.email1;
+			var email2=frm_mod_member.email2;
+			
+			value_email1=email1.value;
+			value_email2=email2.value;
+			value=value_email1+","+value_email2;
+			//alert(value);
+		}
+		else if(attribute=='address')
+		{
+			var address1=frm_mod_member.address1;
+			var address2=frm_mod_member.address2;
+			
+			value_address1=address1.value;
+			value_address2=address2.value;
+			value=value_address1+","+value_address2;
+		}
+		
+		
+		//jQueryï¿½ï¿½ 2006ï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(John Resig)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä·ï¿½ï¿½(Barcamp)ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¹ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+		//ajaxï¿½ï¿½ jQuery ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+		$.ajax({
+			type : "post",
+			async : false, //falseï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+			url : "${contextPath}/mypage/modifyMyInfo.do",
+			data : {
+				attribute:attribute,
+				value:value,
+			},
+			success : function(data, textStatus) {
+				if(data.trim()=='mod_success'){
+					alert("È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
+				}else if(data.trim()=='failed'){
+					alert("ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½.");	
+				}
+				
+			},
+			error : function(data, textStatus) {
+				alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½."+data);
+			},
+			complete : function(data, textStatus) {
+				//alert("ï¿½Û¾ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ß½ï¿½ï¿½Ï´ï¿½");
+				
+			}
+		}); //end ajax
+}
+</script>
+</head>
+<body>
+<h3>ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</h3>
+ <form name="frm_mod_member">
+  <div id="detail_table">
+   <table>
+   	<tbody>
+   	
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ï¿½ï¿½ï¿½Ìµï¿½</td>
+   	  <td><input name="members_idx" type="text" size="20" value="${memberInfo.members_id }" disabled/></td>
+   	  <%--memberInfoï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½--%>
+   	  <td></td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ï¿½ï¿½ï¿½ï¿½Æ®</td>
+   	  <td><input name="members_points" type="number" size="20" value="${memberInfo.members_points }" disabled/></td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ï¿½Ğ³ï¿½ï¿½ï¿½</td>
+   	  <td><input name="members_nickname" type="text" size="20" value="${memberInfo.members_nickname}"/></td>
+   	  <td><input type="button" value="ï¿½ï¿½ï¿½ï¿½" onclick="fn_modify_member_info('members_nickname')"/></td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ï¿½ï¿½Ğ¹ï¿½È£</td>
+   	  <td><input name="members_password" type="password" size="20" value="${memberInfo.members_password }"/></td>
+   	  <td><input type="button" value="ï¿½ï¿½ï¿½ï¿½" onclick="fn_modify_member_info('members_password')"/></td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ï¿½Ì¸ï¿½</td>
+   	  <td><input name="members_name" type="text" size="20" value="${memberInfo.members_name }" disabled/>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ï¿½ï¿½È­ï¿½ï¿½È£</td>
+   	  <td>
+   	   <select name="tel1" id="tel1" >
+   	    <option>ï¿½ï¿½ï¿½ï¿½</option>
+		<option value="010">010</option>
+		<option value="011">011</option>
+		<option value="016">016</option>
+		<option value="017">017</option>
+		<option value="018">018</option>
+		<option value="019">019</option>
+   	   </select>
+   	   
+   	 
+   	  <%--@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É°ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½. --%>
+   	  <c:set var="origin_tel" value="${memberInfo.members_phone_number }"/>
+   	  <c:set var="refined_tel" value="${fn:split(origin_tel,'-') }"/>
+   	   -<input type="text" size=4 name="tel2" value="${refined_tel[1] }">
+   	   -<input type="text" size=4 name="tel3" value="${refined_tel[2] }">
+   	  </td>
+   	  
+   	  <td>
+   	   <input type="button" value="ï¿½ï¿½ï¿½ï¿½" onClick="fn_modify_member_info('tel')"/>
+   	  </td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ï¿½Ì¸ï¿½ï¿½ï¿½<br>(e-mail)</td>
+   	  
+   	  <td>
+   	  <%--@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É°ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½. --%>
+   	  <c:set var="origin_email" value="${memberInfo.members_email }"/>
+   	  <c:set var="refined_email" value="${fn:split(origin_email,'@') }"/>
+   	   
+   	   <input type="text" name="email1" size=10 value="${refined_email[0] }"/> 
+   	   @<input type="text" size=10 name="email2" id="domain-txt" value="${refined_email[1] }"/>
+   	  
+   	   <select name="select_email" id="domain-list" onChange="" title="ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½">
+   	  
+   	    <option value="non">ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½</option>
+   	    <option value="hanmail.net">hanmail.net</option>
+   	    <option value="naver.com">naver.com</option>
+   	    <option value="yahoo.co.kr">yahoo.co.kr</option>
+   	    <option value="hotmail.com">hotamil.com</option>
+   	    <option value="paran.com">paran.com</option>
+		<option value="nate.com">nate.com</option>
+		<option value="google.com">google.com</option>
+		<option value="gmail.com">gmail.com</option>
+		<option value="empal.com">empal.com</option>
+		<option value="korea.com">korea.com</option>
+		<option value="freechal.com">freechal.com</option>
+   	    
+   	   </select>
+   	  </td>
+   	  
+   	  <td>
+   	  	<input type="button" value="ï¿½ï¿½ï¿½ï¿½ " onClick="fn_modify_member_info('email')"/>
+   	  </td> 
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ï¿½Ö¼ï¿½</td>
+   	  <td>
+   	     ï¿½Ö¼ï¿½ :<br><input type="text"  name="address1" size=10 value="${memberInfo.members_address }"><br><br>
+   	     ï¿½ï¿½ï¿½Ö¼ï¿½ :<br><input type="text"  name="address2" size=20 value="${memberInfo.members_detailed_address}">
+   	  </td>
+   	 
+   	  <td>
+   	   <input type="button" value="ï¿½ï¿½ï¿½ï¿½" onClick="fn_modify_member_info('address')"/>
+   	  </td>
+   	 </tr>
+   	 
+   	 
+   	</tbody>
+   </table>
+  </div>
+  	
+</form>
+</body>
+
+
+<script>
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ or domain option ï¿½ï¿½ï¿½ï¿½
+const domainListEl = document.querySelector('#domain-list')
+const domainInputEl = document.querySelector('#domain-txt')
+// select ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+domainListEl.addEventListener('change', (event) => {
+  // optionï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+  
+  if(event.target.value !== "non") {
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ inputï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï°ï¿½ disabled
+    domainInputEl.value = event.target.value
+    domainInputEl.disabled = true
+  } else { // ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½
+    // input ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ & ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    domainInputEl.value = ""
+    domainInputEl.disabled = false
+  }
+})
+</script>
+</html><%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
+
+<%@ include file="../header.jsp" %><%--html bodyíƒœê·¸ë§Œ ë‹«ì•„ì£¼ì --%>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<head>
+<script>
+
+
+window.onload=function()
+{
+	selectBoxInit();//selectíƒœê·¸ ê¸°ë³¸ê°’ ì •í•˜ëŠ” í•¨ìˆ˜	
+}
+
+function selectBoxInit()
+{
+	
+	var temp = '<c:out value='${memberInfo.members_phone_number}'/>';//ë°”ì¸ë”©ëœ ì •ë³´ ê°€ì ¸ì˜¨ë‹¤.
+	var origin_selected_tel = '${memberInfo.members_phone_number.substring(0,3)}';
+	var user_selected_tel = document.getElementById('tel1');
+	var tel_list = user_selected_tel.options;
+	var val;
+	for(var i=0; i<tel_list.length;i++)
+	{
+		val = tel_list[i].value;
+		if(origin_selected_tel == val)
+		{
+			tel_list[i].selected = true;
+			break;
+		}
+	}
+}
+
+function fn_modify_member_info(attribute){
+	var value;
+	// alert(member_id);
+	// alert("mod_type:"+mod_type);
+		var frm_mod_member=document.frm_mod_member;
+		
+		if(attribute=='members_password'){
+			value=frm_mod_member.members_password.value;//frm_mod_memberëŠ” formíƒœê·¸ 
+			//alert("member_pw:"+value);
+		}
+		else if(attribute=='members_nickname')
+		{
+			value=frm_mod_member.members_nickname.value;
+		}
+		else if(attribute=='tel')
+		{
+			var tel1=frm_mod_member.tel1;
+			var tel2=frm_mod_member.tel2;
+			var tel3=frm_mod_member.tel3;
+			
+			for(var i=0; tel1.length;i++){
+			 	if(tel1[i].selected){
+					value_tel1=tel1[i].value;
+					break;
+				} 
+			}
+			value_tel2=tel2.value;
+			value_tel3=tel3.value;
+			value=value_tel1+","+value_tel2+","+value_tel3;
+		}
+		else if(attribute=='email')
+		{
+			var email1=frm_mod_member.email1;
+			var email2=frm_mod_member.email2;
+			
+			value_email1=email1.value;
+			value_email2=email2.value;
+			value=value_email1+","+value_email2;
+			//alert(value);
+		}
+		else if(attribute=='address')
+		{
+			var address1=frm_mod_member.address1;
+			var address2=frm_mod_member.address2;
+			
+			value_address1=address1.value;
+			value_address2=address2.value;
+			value=value_address1+","+value_address2;
+		}
+		
+		
+		//jQueryëŠ” 2006ë…„ ë¯¸êµ­ì˜ ì¡´ ë ˆì‹(John Resig)ì´ ë‰´ìš•ì‹œ ë°”ìº í”„(Barcamp)ì—ì„œ ì²˜ìŒ ì†Œê°œí•œ â€˜ìë°” ìŠ¤í¬ë¦½íŠ¸ ë¼ì´ë¸ŒëŸ¬ë¦¬â€™ì…ë‹ˆë‹¤.
+		//ajaxëŠ” jQuery ê¸°ëŠ¥ì´ë‹¤.
+		$.ajax({
+			type : "post",
+			async : false, //falseì¸ ê²½ìš° ë™ê¸°ì‹ìœ¼ë¡œ ì²˜ë¦¬í•œë‹¤.
+			url : "${contextPath}/mypage/modifyMyInfo.do",
+			data : {
+				attribute:attribute,
+				value:value,
+			},
+			success : function(data, textStatus) {
+				if(data.trim()=='mod_success'){
+					alert("íšŒì› ì •ë³´ë¥¼ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤.");
+				}else if(data.trim()=='failed'){
+					alert("ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì„¸ìš”.");	
+				}
+				
+			},
+			error : function(data, textStatus) {
+				alert("ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤."+data);
+			},
+			complete : function(data, textStatus) {
+				//alert("ì‘ì—…ì„ì™„ë£Œ í–ˆìŠµë‹ˆë‹¤");
+				
+			}
+		}); //end ajax
+}
+</script>
+</head>
+<body>
+<h3>ë‚´ ìƒì„¸ ì •ë³´</h3>
+ <form name="frm_mod_member">
+  <div id="detail_table">
+   <table>
+   	<tbody>
+   	
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ì•„ì´ë””</td>
+   	  <td><input name="members_idx" type="text" size="20" value="${memberInfo.members_id }" disabled/></td>
+   	  <%--memberInfoì„¸ì…˜ ë°”ì¸ë”© í•´ì£¼ì„¸ìš”--%>
+   	  <td></td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">í¬ì¸íŠ¸</td>
+   	  <td><input name="members_points" type="number" size="20" value="${memberInfo.members_points }" disabled/></td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ë‹‰ë„¤ì„</td>
+   	  <td><input name="members_nickname" type="text" size="20" value="${memberInfo.members_nickname}"/></td>
+   	  <td><input type="button" value="ìˆ˜ì •" onclick="fn_modify_member_info('members_nickname')"/></td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ë¹„ë°€ë²ˆí˜¸</td>
+   	  <td><input name="members_password" type="password" size="20" value="${memberInfo.members_password }"/></td>
+   	  <td><input type="button" value="ìˆ˜ì •" onclick="fn_modify_member_info('members_password')"/></td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ì´ë¦„</td>
+   	  <td><input name="members_name" type="text" size="20" value="${memberInfo.members_name }" disabled/>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ì „í™”ë²ˆí˜¸</td>
+   	  <td>
+   	   <select name="tel1" id="tel1" >
+   	    <option>ì—†ìŒ</option>
+		<option value="010">010</option>
+		<option value="011">011</option>
+		<option value="016">016</option>
+		<option value="017">017</option>
+		<option value="018">018</option>
+		<option value="019">019</option>
+   	   </select>
+   	   
+   	 
+   	  <%--@ê¸°ì¤€ìœ¼ë¡œ ìª¼ê°œì•¼ í•œë‹¤. --%>
+   	  <c:set var="origin_tel" value="${memberInfo.members_phone_number }"/>
+   	  <c:set var="refined_tel" value="${fn:split(origin_tel,'-') }"/>
+   	   -<input type="text" size=4 name="tel2" value="${refined_tel[1] }">
+   	   -<input type="text" size=4 name="tel3" value="${refined_tel[2] }">
+   	  </td>
+   	  
+   	  <td>
+   	   <input type="button" value="ìˆ˜ì •" onClick="fn_modify_member_info('tel')"/>
+   	  </td>
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ì´ë©”ì¼<br>(e-mail)</td>
+   	  
+   	  <td>
+   	  <%--@ê¸°ì¤€ìœ¼ë¡œ ìª¼ê°œì•¼ í•œë‹¤. --%>
+   	  <c:set var="origin_email" value="${memberInfo.members_email }"/>
+   	  <c:set var="refined_email" value="${fn:split(origin_email,'@') }"/>
+   	   
+   	   <input type="text" name="email1" size=10 value="${refined_email[0] }"/> 
+   	   @<input type="text" size=10 name="email2" id="domain-txt" value="${refined_email[1] }"/>
+   	  
+   	   <select name="select_email" id="domain-list" onChange="" title="ì§ì ‘ì…ë ¥">
+   	  
+   	    <option value="non">ì§ì ‘ì…ë ¥</option>
+   	    <option value="hanmail.net">hanmail.net</option>
+   	    <option value="naver.com">naver.com</option>
+   	    <option value="yahoo.co.kr">yahoo.co.kr</option>
+   	    <option value="hotmail.com">hotamil.com</option>
+   	    <option value="paran.com">paran.com</option>
+		<option value="nate.com">nate.com</option>
+		<option value="google.com">google.com</option>
+		<option value="gmail.com">gmail.com</option>
+		<option value="empal.com">empal.com</option>
+		<option value="korea.com">korea.com</option>
+		<option value="freechal.com">freechal.com</option>
+   	    
+   	   </select>
+   	  </td>
+   	  
+   	  <td>
+   	  	<input type="button" value="ìˆ˜ì • " onClick="fn_modify_member_info('email')"/>
+   	  </td> 
+   	 </tr>
+   	 
+   	 <tr class="dot_line">
+   	  <td class="fixed_join">ì£¼ì†Œ</td>
+   	  <td>
+   	     ì£¼ì†Œ :<br><input type="text"  name="address1" size=10 value="${memberInfo.members_address }"><br><br>
+   	     ìƒì„¸ì£¼ì†Œ :<br><input type="text"  name="address2" size=20 value="${memberInfo.members_detailed_address}">
+   	  </td>
+   	 
+   	  <td>
+   	   <input type="button" value="ìˆ˜ì •" onClick="fn_modify_member_info('address')"/>
+   	  </td>
+   	 </tr>
+   	 
+   	 
+   	</tbody>
+   </table>
+  </div>
+  	
+</form>
+</body>
+
+
+<script>
+//ë„ë©”ì¸ ì§ì ‘ ì…ë ¥ or domain option ì„ íƒ
+const domainListEl = document.querySelector('#domain-list')
+const domainInputEl = document.querySelector('#domain-txt')
+// select ì˜µì…˜ ë³€ê²½ ì‹œ
+domainListEl.addEventListener('change', (event) => {
+  // optionì— ìˆëŠ” ë„ë©”ì¸ ì„ íƒ ì‹œ
+  
+  if(event.target.value !== "non") {
+    // ì„ íƒí•œ ë„ë©”ì¸ì„ inputì— ì…ë ¥í•˜ê³  disabled
+    domainInputEl.value = event.target.value
+    domainInputEl.disabled = true
+  } else { // ì§ì ‘ ì…ë ¥ ì‹œ
+    // input ë‚´ìš© ì´ˆê¸°í™” & ì…ë ¥ ê°€ëŠ¥í•˜ë„ë¡ ë³€ê²½
     domainInputEl.value = ""
     domainInputEl.disabled = false
   }
