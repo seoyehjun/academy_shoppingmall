@@ -40,11 +40,16 @@ public class MypagController
 	private Cart_vo cartVO ;
 
 
+
 	@RequestMapping(value="/orderAllCart",method=RequestMethod.POST)
 	public String orderAllCart(Model model, HttpSession httpsession,
-							   @RequestParam("cart_list") String[] cart_list ) throws Exception
+							 	@RequestParam(value="cart_list[]") String[] cart_list
+	) throws Exception
 	{
+		System.out.println("cart_list[0]: "+cart_list[0]);
+		System.out.println("executed");
 
+		return "redirect:/mypage/myPageMain";
 	}
 	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
 	public String removeCart(Model model, HttpSession httpsession, @RequestParam("cart_idx") String cart_idx) throws Exception
@@ -74,8 +79,9 @@ public class MypagController
 		return "mypage/myCartList";
 	}
 
+	@ResponseBody
 	@RequestMapping(value="/modifyCartQty" ,method = RequestMethod.POST)
-	public @ResponseBody String  modifyCartQty(@RequestParam("cart_idx") int cart_idx,
+	public String  modifyCartQty(@RequestParam("cart_idx") int cart_idx,
 											   @RequestParam("cart_goods_qty") int cart_goods_qty,
 											   HttpServletRequest request, HttpServletResponse response)  throws Exception
 	{
@@ -137,7 +143,7 @@ public class MypagController
 			                 @RequestParam("value")  String value, Model model,
 			               HttpServletRequest request, HttpServletResponse response)  throws Exception 
 	{
-		
+		System.out.println("12321321321321332");
 		Map<Object,Object> memberMap=new HashMap<Object,Object>();
 		String val_list[]=null;
 		HttpSession session=request.getSession();
@@ -145,6 +151,7 @@ public class MypagController
 
 		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String  member_idx=memberVO.getMembers_idx()+"";
+		System.out.println("member_idx : "+member_idx);
 		
 		String temp;
 		if(attribute.equals("tel"))
@@ -173,6 +180,7 @@ public class MypagController
 		
 
 		memberVO=(MemberVO)myPageService.modifyMyInfo(memberMap);
+		System.out.println("Service well done");
 		session.removeAttribute("memberInfo");
 		session.setAttribute("memberInfo", memberVO);
 		

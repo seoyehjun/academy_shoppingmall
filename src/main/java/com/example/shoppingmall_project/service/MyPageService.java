@@ -58,6 +58,7 @@ public class MyPageService
 	
 	public MemberVO modifyMyInfo(Map memberMap) throws Exception
 	{
+		System.out.println("in service");
 		String members_idx = (String)memberMap.get("members_idx");
 		myPageDAO.updateMyInfo(memberMap);
 		return givememember(Integer.parseInt(members_idx));

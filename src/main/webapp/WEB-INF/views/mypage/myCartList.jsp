@@ -36,16 +36,33 @@
 
   function fn_order_all_cart()
   {
-   var cart_list = document.getElementsBy
-   document.getElements
+   //	alert("모두 주문하기");
+   var total_price = document.getElementsByName("total_price")[0].value;
+   console.log("total_price"+total_price);
+   var checkbox=document.getElementsByName("checkbox");
+   var cart_list = [];
+
+   var length = checkbox.length;
+   console.log("length:"+length)
+   for(var i=0; i<length;i++)
+   {
+    if(checkbox[i].checked==true)
+    {
+     cart_list[i] = checkbox[i].value;
+    }
+   }
+
+   console.log("cart_list[0]:"+cart_list[0]);
+   console.log("cart_list[1]:"+cart_list[1]);
    $.ajax({
     type : "post",
     async : false, //false인 경우 동기식으로 처리한다.
-    url : "${contextPath}/cart/modifyCartQty.do",
-    data : {
-     goods_id:goods_id,
-     cart_goods_qty:cart_goods_qty
+    url : "${contextPath}/mypage/orderAllCart",
+    data :
+            {
+     cart_list:cart_list
     },
+    dataType:"json",
 
     success : function(data, textStatus) {
      //alert(data);
@@ -118,7 +135,7 @@
     <input type = "text" id="cart_idx" value="${item.cart_idx}">
 
     <td>
-     <input type="checkbox" name="checkbox"  checked  value="${item.products_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
+     <input type="checkbox" name="checkbox"  checked  value="${item.cart_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
     </td>
 
     <td class="goods_image">
@@ -238,7 +255,7 @@
     <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
     ${total_price}원
    </p>
-   <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+   <input id="h_final_totalPrice" name="total_price" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
   </td>
 
  </tr>
@@ -250,6 +267,9 @@
 </a>
 
 </body>
+
+
+
 <script>
  function delete_cart_goods(cart_idx)
  {
