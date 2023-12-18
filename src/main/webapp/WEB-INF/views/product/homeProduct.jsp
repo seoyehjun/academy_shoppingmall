@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 
+<link rel="stylesheet" href="${cpath}/resources/css/style.css">
 <body>
 	
 	<div class="board">
