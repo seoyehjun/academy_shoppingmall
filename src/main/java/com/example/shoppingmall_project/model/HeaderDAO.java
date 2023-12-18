@@ -11,6 +11,6 @@ import java.util.List;
 @Mapper
 public interface HeaderDAO {
 
-    @Select("select categories_idx, categories_name from categories where parentcategoty_idx = #{parentcategoty_idx}")
+    @Select("select categories_idx, categories_name from categories where parentcategory_idx = #{parentcategory_idx}")
     List<HeaderVO> getOuter(int idx);
 }

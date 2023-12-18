@@ -1,6 +1,7 @@
 package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.service.HeaderService;
+import com.example.shoppingmall_project.service.ProductService;
 import com.example.shoppingmall_project.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,10 @@ public class HomeController {
 
     @Autowired
     private TestService as;
-    @Autowired private HeaderService hs;
+    @Autowired
+    private HeaderService hs;
+    @Autowired
+    private ProductService ps;
 
     @ModelAttribute
     public void menu(Model model){
@@ -24,7 +28,8 @@ public class HomeController {
 
     @GetMapping
     public String home(Model model){
-        return "home";
+
+        return "mainpage";
     }
 
     // 테스트 컨트롤러
@@ -33,5 +38,6 @@ public class HomeController {
         model.addAttribute("list",as.getTable());
         return "TestTable";
     }
+
 
 }

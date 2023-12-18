@@ -12,7 +12,6 @@
 <head>
     <title>shoppingMall project</title>
     <link rel="stylesheet" href="${cpath}/resources/css/header.css">
-
 </head>
 <body>
 <header>

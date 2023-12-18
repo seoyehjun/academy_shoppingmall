@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+
 <%@ include file="../header.jsp" %>
 
 
@@ -11,16 +12,16 @@
 <%--<c:set var="myProductsList"  value="${cartMap.myProductsList}"  />--%>
 
 <c:set  var="totalGoodsPrice" value="0"/>
-<c:set  var="totalGoodsNum" value="0" />  <!--ÁÖ¹® °³¼ö -->
-<c:set  var="totalDeliveryPrice" value="0" /> <!-- ÃÑ ¹è¼Ûºñ -->
-<c:set  var="totalDiscountedPrice" value="0" /> <!-- ÃÑ ÇÒÀÎ±İ¾× -->
+<c:set  var="totalGoodsNum" value="0" />  <!--ì£¼ë¬¸ ê°œìˆ˜ -->
+<c:set  var="totalDeliveryPrice" value="0" /> <!-- ì´ ë°°ì†¡ë¹„ -->
+<c:set  var="totalDiscountedPrice" value="0" /> <!-- ì´ í• ì¸ê¸ˆì•¡ -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <head>
  <script>
 
   function fn_order_all_cart_goods(){
-//	alert("¸ğµÎ ÁÖ¹®ÇÏ±â");
+//	alert("ëª¨ë‘ ì£¼ë¬¸í•˜ê¸°");
    var order_goods_qty;
    var order_goods_id;
    var objForm=document.frm_order_all_cart;
@@ -76,13 +77,13 @@
   <tbody align=center >
 
   <tr style="background:#33ff00" >
-   <td class="fixed" >±¸ºĞ</td>
-   <td colspan=2 class="fixed">»óÇ°¸í</td>
-   <td>Á¤°¡</td>
-   <td>ÆÇ¸Å°¡</td>
-   <td>¼ö·®</td>
-   <td>ÇÕ°è</td>
-   <td>ÁÖ¹®</td>
+   <td class="fixed" >êµ¬ë¶„</td>
+   <td colspan=2 class="fixed">ìƒí’ˆëª…</td>
+   <td>ì •ê°€</td>
+   <td>íŒë§¤ê°€</td>
+   <td>ìˆ˜ëŸ‰</td>
+   <td>í•©ê³„</td>
+   <td>ì£¼ë¬¸</td>
  </tr>
 
  <c:choose>
@@ -91,7 +92,7 @@
 
    <tr>
    <td colspan=8 class="fixed">
-    <strong>Àå¹Ù±¸´Ï¿¡ »óÇ°ÀÌ ¾ø½À´Ï´Ù.</strong>
+    <strong>ì¥ë°”êµ¬ë‹ˆì— ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.</strong>
    </td>
   </tr>
 
@@ -123,12 +124,12 @@
    </td>
 
    <td class="price">
-    <span>${item.products_price }¿ø</span>
+    <span>${item.products_price }ì›</span>
    </td>
 
    <td>
     <input type='button' onclick='count("minus",${item.cart_idx},${cnt.count-1})' value='-'/>
-    <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--Àå¹Ù±¸´Ï °³°³ÀÇ °¹¼ö <input>Çü½ÄÀÌ´Ù.-->
+    <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--ì¥ë°”êµ¬ë‹ˆ ê°œê°œì˜ ê°¯ìˆ˜ <input>í˜•ì‹ì´ë‹¤.-->
     <input type='button' onclick='count("plus",${item.cart_idx},${cnt.count-1})' value='+'/>
     <a href="javascript:modify_cart_qty('${item.cart_idx }','${cnt.count-1 }');" >
      <img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
@@ -138,7 +139,7 @@
    <td>
     <strong>
      <fmt:formatNumber  value="${item.quantity*item.products_price}" type="number" var="total_sales_price" />
-      ${total_sales_price}¿ø<!--Àå¹Ù±¸´Ï °³°³ÀÇ ±İ¾× ÃÑÇÕ-->
+      ${total_sales_price}ì›<!--ì¥ë°”êµ¬ë‹ˆ ê°œê°œì˜ ê¸ˆì•¡ ì´í•©-->
     </strong>
    </td>
 
@@ -180,24 +181,24 @@
 <table  width=80%   class="list_view" style="background:#cacaff">
  <tbody>
  <tr  align=center  class="fixed" >
-  <td class="fixed">ÃÑ »óÇ°¼ö </td>
-  <td>ÃÑ »óÇ°±İ¾×</td>
+  <td class="fixed">ì´ ìƒí’ˆìˆ˜ </td>
+  <td>ì´ ìƒí’ˆê¸ˆì•¡</td>
   <td>  </td>
-  <td>ÃÑ ¹è¼Ûºñ</td>
+  <td>ì´ ë°°ì†¡ë¹„</td>
   <td>  </td>
-  <td>ÃÖÁ¾ °áÁ¦±İ¾×</td>
+  <td>ìµœì¢… ê²°ì œê¸ˆì•¡</td>
  </tr>
 
  <tr cellpadding=40  align=center >
   <td id="">
-   <p id="p_totalGoodsNum">${totalGoodsNum}°³ </p>
+   <p id="p_totalGoodsNum">${totalGoodsNum}ê°œ </p>
    <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
   </td>
 
   <td>
    <p id="p_totalGoodsPrice">
     <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
-    ${total_goods_price}¿ø
+    ${total_goods_price}ì›
    </p>
    <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
   </td>
@@ -207,7 +208,7 @@
   </td>
 
   <td>
-   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }¿ø  </p>
+   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }ì›  </p>
    <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
   </td>
 
@@ -219,7 +220,7 @@
   <td>
    <p id="p_final_totalPrice">
     <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
-    ${total_price}¿ø
+    ${total_price}ì›
    </p>
    <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
   </td>
@@ -232,13 +233,13 @@
 
     function count(type,cart_idx, index)
     {
-        // °á°ú¸¦ Ç¥½ÃÇÒ element
+        // ê²°ê³¼ë¥¼ í‘œì‹œí•  element
         const resultElement = document.getElementsByClassName('cart_goods_qty')[index];
-        // ÇöÀç È­¸é¿¡ Ç¥½ÃµÈ °ª
+        // í˜„ì¬ í™”ë©´ì— í‘œì‹œëœ ê°’
         var number = resultElement.value;
 
-        console.log("ÀüÃ³¸® ÀÌÀü:"+number);
-        // ´õÇÏ±â/»©±â
+        console.log("ì „ì²˜ë¦¬ ì´ì „:"+number);
+        // ë”í•˜ê¸°/ë¹¼ê¸°
         if(type === 'plus')
         {
             number = parseInt(number) + 1;
@@ -247,10 +248,10 @@
         {
             number = parseInt(number) - 1;
         }
-        console.log("ÀüÃ³¸® ÀÌÈÄ:"+number);
+        console.log("ì „ì²˜ë¦¬ ì´í›„:"+number);
 
-        // °á°ú Ãâ·Â
-        resultElement.value = number;//inputÅÂ±×´Â value¼Ó¼ºÀ» ½á¾ßÇÑ´Ù. innertextÀÌ·±°É ¾²¸é ¾ÈµÇ´õ¶ó.
+        // ê²°ê³¼ ì¶œë ¥
+        resultElement.value = number;//inputíƒœê·¸ëŠ” valueì†ì„±ì„ ì¨ì•¼í•œë‹¤. innertextì´ëŸ°ê±¸ ì“°ë©´ ì•ˆë˜ë”ë¼.
 
         modify_cart_qty(cart_idx,index)
 
@@ -259,15 +260,15 @@
  function modify_cart_qty(cart_idx,index)
  {
   //alert(index);
- // var length=document.frm_order_all_cart.cart_goods_qty.length;//Ä«Æ® °¹¼öÀÓ
+ // var length=document.frm_order_all_cart.cart_goods_qty.length;//ì¹´íŠ¸ ê°¯ìˆ˜ì„
   var length = document.getElementsByClassName("cart_goods_qty").length;
   console.log(parseInt(index));
   var _cart_goods_qty=33;
   if(length>1)
-  { //Ä«Æ®¿¡ Á¦Ç°ÀÌ ÇÑ°³ÀÎ °æ¿ì¿Í ¿©·¯°³ÀÎ °æ¿ì ³ª´©¾î¼­ Ã³¸®ÇÑ´Ù.
-   _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cart°¡ ¿©·¯°³ÀÏ °æ¿ì ÇØ´çÇÏ´Â cart¸¸ ¼±ÅÃ
+  { //ì¹´íŠ¸ì— ì œí’ˆì´ í•œê°œì¸ ê²½ìš°ì™€ ì—¬ëŸ¬ê°œì¸ ê²½ìš° ë‚˜ëˆ„ì–´ì„œ ì²˜ë¦¬í•œë‹¤.
+   _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cartê°€ ì—¬ëŸ¬ê°œì¼ ê²½ìš° í•´ë‹¹í•˜ëŠ” cartë§Œ ì„ íƒ
    console.log(_cart_goods_qty);
-   //(³Ñ°Ü¹ŞÀº index·Î)
+   //(ë„˜ê²¨ë°›ì€ indexë¡œ)
   }
   else
   {
@@ -275,13 +276,13 @@
    console.log("worng road");
   }
 
-  var cart_goods_qty=Number(_cart_goods_qty);//cartÀÇ ¼ö·® º¯¼ö Æ÷¸ŞÆÃ
+  var cart_goods_qty=Number(_cart_goods_qty);//cartì˜ ìˆ˜ëŸ‰ ë³€ìˆ˜ í¬ë©”íŒ…
   //alert("cart_goods_qty:"+cart_goods_qty);
   console.log(cart_goods_qty);
   $.ajax(
           {
            type : "post",
-           async : false, //falseÀÎ °æ¿ì µ¿±â½ÄÀ¸·Î Ã³¸®ÇÑ´Ù.
+           async : false, //falseì¸ ê²½ìš° ë™ê¸°ì‹ìœ¼ë¡œ ì²˜ë¦¬í•œë‹¤.
            url : "${contextPath}/mypage/modifyCartQty",
            data : {
             cart_idx:cart_idx,
@@ -293,21 +294,654 @@
             //alert(data);
             if(data.trim()=='modify_success')
             {
-            // alert("¼ö·®À» º¯°æÇß½À´Ï´Ù!!");
+            // alert("ìˆ˜ëŸ‰ì„ ë³€ê²½í–ˆìŠµë‹ˆë‹¤!!");
              location.reload();
             }else
             {
-             alert("´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä!!");
+             alert("ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì„¸ìš”!!");
             }
 
            },
            error : function(data, textStatus)
            {
-            alert("¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù."+data);
+            alert("ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤."+data);
            },
            complete : function(data, textStatus)
            {
-            //alert("ÀÛ¾÷À»¿Ï·á Çß½À´Ï´Ù");
+            //alert("ì‘ì—…ì„ì™„ë£Œ í–ˆìŠµë‹ˆë‹¤");
+           }
+          }
+  ); //end ajax
+ }
+
+
+</script><%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ include file="../junheader.jsp" %>
+
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="myCartList"  value="${cartList}"  />
+<%--<c:set var="myProductsList"  value="${cartMap.myProductsList}"  />--%>
+
+<c:set  var="totalGoodsPrice" value="0"/>
+<c:set  var="totalGoodsNum" value="0" />  <!--ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ -->
+<c:set  var="totalDeliveryPrice" value="0" /> <!-- ï¿½ï¿½ ï¿½ï¿½Ûºï¿½ -->
+<c:set  var="totalDiscountedPrice" value="0" /> <!-- ï¿½ï¿½ ï¿½ï¿½ï¿½Î±İ¾ï¿½ -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<head>
+ <script>
+
+  function fn_order_all_cart_goods(){
+//	alert("ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½Ï±ï¿½");
+   var order_goods_qty;
+   var order_goods_id;
+   var objForm=document.frm_order_all_cart;
+   var cart_goods_qty=objForm.cart_goods_qty;
+   var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
+   var checked_goods=objForm.checked_goods;
+   var length=checked_goods.length;
+
+
+   //alert(length);
+   if(length>1){
+    for(var i=0; i<length;i++){
+     if(checked_goods[i].checked==true)
+     {
+      order_goods_id=checked_goods[i].value;
+      order_goods_qty=cart_goods_qty[i].value;
+      cart_goods_qty[i].value="";
+      cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
+      //alert(select_goods_qty[i].value);
+      console.log(cart_goods_qty[i].value);
+     }
+    }
+   }else{
+    order_goods_id=checked_goods.value;
+    order_goods_qty=cart_goods_qty.value;
+    cart_goods_qty.value=order_goods_id+":"+order_goods_qty;
+    //alert(select_goods_qty.value);
+   }
+
+   objForm.method="post";
+   objForm.action="${contextPath}/order/orderAllCartGoods.do";
+   objForm.submit();
+  }
+
+
+
+ </script>
+
+</head>
+
+<style>
+ 	td
+ 	{
+ 		padding-left: 30px;
+ 		padding-right: 30px;
+ 	}
+</style>
+
+<body>
+
+
+<table class="list_view">
+  <tbody align=center >
+
+  <tr style="background:#33ff00" >
+   <td class="fixed" >ï¿½ï¿½ï¿½ï¿½</td>
+   <td colspan=2 class="fixed">ï¿½ï¿½Ç°ï¿½ï¿½</td>
+   <td>ï¿½ï¿½ï¿½ï¿½</td>
+   <td>ï¿½Ç¸Å°ï¿½</td>
+   <td>ï¿½ï¿½ï¿½ï¿½</td>
+   <td>ï¿½Õ°ï¿½</td>
+   <td>ï¿½Ö¹ï¿½</td>
+ </tr>
+
+ <c:choose>
+
+  <c:when test="${ empty myCartList }">
+
+   <tr>
+   <td colspan=8 class="fixed">
+    <strong>ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.</strong>
+   </td>
+  </tr>
+
+  </c:when>
+
+  <c:otherwise>
+
+ <tr>
+  <form name="frm_order_all_cart">
+   <c:forEach var="item" items="${myCartList }" varStatus="cnt">
+  <%-- <c:set var="cart_goods_qty" value="${myCartList[cnt.count-1].cart_goods_qty}" />
+    <c:set var="cart_id" value="${myCartList[cnt.count-1].cart_id}" /> --%>
+    <input type = "text" id="cart_idx" value="${item.cart_idx}">
+
+    <td>
+     <input type="checkbox" name="checked_goods"  checked  value="${item.products_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
+    </td>
+
+    <td class="goods_image">
+    <a href="${contextPath}/products/productsDetail?goods_id=${item.products_idx }">
+     <img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.products_idx}&fileName=${item.img_url}"  />
+    </a>
+   </td>
+
+   <td>
+    <h2>
+     <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.products_idx }">${item.products_name }</a>
+    </h2>
+   </td>
+
+   <td class="price">
+    <span>${item.products_price }ï¿½ï¿½</span>
+   </td>
+
+   <td>
+    <input type='button' onclick='count("minus",${item.cart_idx},${cnt.count-1})' value='-'/>
+    <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ <input>ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.-->
+    <input type='button' onclick='count("plus",${item.cart_idx},${cnt.count-1})' value='+'/>
+    <a href="javascript:modify_cart_qty('${item.cart_idx }','${cnt.count-1 }');" >
+     <img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
+    </a>
+   </td>
+
+   <td>
+    <strong>
+     <fmt:formatNumber  value="${item.quantity*item.products_price}" type="number" var="total_sales_price" />
+      ${total_sales_price}ï¿½ï¿½<!--ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½İ¾ï¿½ ï¿½ï¿½ï¿½ï¿½-->
+    </strong>
+   </td>
+
+    <%--
+   <td>
+    <a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
+     <img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
+    </a><br>
+    <a href="#">
+     <img width="75" alt=""
+          src="${contextPath}/resources/image/btn_order_later.jpg">
+    </a><br>
+    <a href="#">
+     <img width="75" alt=""
+          src="${contextPath}/resources/image/btn_add_list.jpg">
+    </A><br>
+    <a href="javascript:delete_cart_goods('${cart_id}');"">
+    <img width="75" alt=""
+         src="${contextPath}/resources/image/btn_delete.jpg">
+    </a>
+   </td>
+--%>
+  </form>
+
+  <c:set  var="totalGoodsPrice" value="${totalGoodsPrice+item.products_price*item.quantity }" />
+  <c:set  var="totalGoodsNum" value="${totalGoodsNum+1 }" />
+    </tr>
+   </c:forEach>
+
+  </tbody>
+ </table>
+   <div class="clear"></div>
+  </c:otherwise>
+ </c:choose>
+
+<br><br>
+
+
+<table  width=80%   class="list_view" style="background:#cacaff">
+ <tbody>
+ <tr  align=center  class="fixed" >
+  <td class="fixed">ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ </td>
+  <td>ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½İ¾ï¿½</td>
+  <td>  </td>
+  <td>ï¿½ï¿½ ï¿½ï¿½Ûºï¿½</td>
+  <td>  </td>
+  <td>ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½İ¾ï¿½</td>
+ </tr>
+
+ <tr cellpadding=40  align=center >
+  <td id="">
+   <p id="p_totalGoodsNum">${totalGoodsNum}ï¿½ï¿½ </p>
+   <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
+  </td>
+
+  <td>
+   <p id="p_totalGoodsPrice">
+    <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
+    ${total_goods_price}ï¿½ï¿½
+   </p>
+   <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
+  </td>
+
+  <td>
+   <img width="25" alt="" src="${contextPath}/resources/image/plus.png">
+  </td>
+
+  <td>
+   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }ï¿½ï¿½  </p>
+   <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
+  </td>
+
+
+  <td>
+   <img width="25" alt="" src="${contextPath}/resources/image/equal.png">
+  </td>
+
+  <td>
+   <p id="p_final_totalPrice">
+    <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
+    ${total_price}ï¿½ï¿½
+   </p>
+   <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+  </td>
+
+ </tr>
+ </tbody>
+</table>
+
+<script>
+
+    function count(type,cart_idx, index)
+    {
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ element
+        const resultElement = document.getElementsByClassName('cart_goods_qty')[index];
+        // ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ Ç¥ï¿½Ãµï¿½ ï¿½ï¿½
+        var number = resultElement.value;
+
+        console.log("ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½:"+number);
+        // ï¿½ï¿½ï¿½Ï±ï¿½/ï¿½ï¿½ï¿½ï¿½
+        if(type === 'plus')
+        {
+            number = parseInt(number) + 1;
+        }
+        else if(type === 'minus')
+        {
+            number = parseInt(number) - 1;
+        }
+        console.log("ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½:"+number);
+
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        resultElement.value = number;//inputï¿½Â±×´ï¿½ valueï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. innertextï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ï¿½ï¿½.
+
+        modify_cart_qty(cart_idx,index)
+
+    }
+
+ function modify_cart_qty(cart_idx,index)
+ {
+  //alert(index);
+ // var length=document.frm_order_all_cart.cart_goods_qty.length;//Ä«Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  var length = document.getElementsByClassName("cart_goods_qty").length;
+  console.log(parseInt(index));
+  var _cart_goods_qty=33;
+  if(length>1)
+  { //Ä«Æ®ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¼­ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+   _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cartï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ cartï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+   console.log(_cart_goods_qty);
+   //(ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ indexï¿½ï¿½)
+  }
+  else
+  {
+   _cart_goods_qty=document.frm_order_all_cart.cart_goods_qty.value;
+   console.log("worng road");
+  }
+
+  var cart_goods_qty=Number(_cart_goods_qty);//cartï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  //alert("cart_goods_qty:"+cart_goods_qty);
+  console.log(cart_goods_qty);
+  $.ajax(
+          {
+           type : "post",
+           async : false, //falseï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+           url : "${contextPath}/mypage/modifyCartQty",
+           data : {
+            cart_idx:cart_idx,
+            cart_goods_qty:cart_goods_qty
+           },
+
+           success : function(data, textStatus)
+           {
+            //alert(data);
+            if(data.trim()=='modify_success')
+            {
+            // alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½!!");
+             location.reload();
+            }else
+            {
+             alert("ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½!!");
+            }
+
+           },
+           error : function(data, textStatus)
+           {
+            alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½."+data);
+           },
+           complete : function(data, textStatus)
+           {
+            //alert("ï¿½Û¾ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ß½ï¿½ï¿½Ï´ï¿½");
+           }
+          }
+  ); //end ajax
+ }
+
+
+</script><%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+
+<%@ include file="../header.jsp" %>
+
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="myCartList"  value="${cartList}"  />
+<%--<c:set var="myProductsList"  value="${cartMap.myProductsList}"  />--%>
+
+<c:set  var="totalGoodsPrice" value="0"/>
+<c:set  var="totalGoodsNum" value="0" />  <!--ì£¼ë¬¸ ê°œìˆ˜ -->
+<c:set  var="totalDeliveryPrice" value="0" /> <!-- ì´ ë°°ì†¡ë¹„ -->
+<c:set  var="totalDiscountedPrice" value="0" /> <!-- ì´ í• ì¸ê¸ˆì•¡ -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<head>
+ <script>
+
+  function fn_order_all_cart_goods(){
+//	alert("ëª¨ë‘ ì£¼ë¬¸í•˜ê¸°");
+   var order_goods_qty;
+   var order_goods_id;
+   var objForm=document.frm_order_all_cart;
+   var cart_goods_qty=objForm.cart_goods_qty;
+   var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
+   var checked_goods=objForm.checked_goods;
+   var length=checked_goods.length;
+
+
+   //alert(length);
+   if(length>1){
+    for(var i=0; i<length;i++){
+     if(checked_goods[i].checked==true)
+     {
+      order_goods_id=checked_goods[i].value;
+      order_goods_qty=cart_goods_qty[i].value;
+      cart_goods_qty[i].value="";
+      cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
+      //alert(select_goods_qty[i].value);
+      console.log(cart_goods_qty[i].value);
+     }
+    }
+   }else{
+    order_goods_id=checked_goods.value;
+    order_goods_qty=cart_goods_qty.value;
+    cart_goods_qty.value=order_goods_id+":"+order_goods_qty;
+    //alert(select_goods_qty.value);
+   }
+
+   objForm.method="post";
+   objForm.action="${contextPath}/order/orderAllCartGoods.do";
+   objForm.submit();
+  }
+
+
+
+ </script>
+
+</head>
+
+<style>
+ 	td
+ 	{
+ 		padding-left: 30px;
+ 		padding-right: 30px;
+ 	}
+</style>
+
+<body>
+
+
+<table class="list_view">
+  <tbody align=center >
+
+  <tr style="background:#33ff00" >
+   <td class="fixed" >êµ¬ë¶„</td>
+   <td colspan=2 class="fixed">ìƒí’ˆëª…</td>
+   <td>ì •ê°€</td>
+   <td>íŒë§¤ê°€</td>
+   <td>ìˆ˜ëŸ‰</td>
+   <td>í•©ê³„</td>
+   <td>ì£¼ë¬¸</td>
+ </tr>
+
+ <c:choose>
+
+  <c:when test="${ empty myCartList }">
+
+   <tr>
+   <td colspan=8 class="fixed">
+    <strong>ì¥ë°”êµ¬ë‹ˆì— ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.</strong>
+   </td>
+  </tr>
+
+  </c:when>
+
+  <c:otherwise>
+
+ <tr>
+  <form name="frm_order_all_cart">
+   <c:forEach var="item" items="${myCartList }" varStatus="cnt">
+  <%-- <c:set var="cart_goods_qty" value="${myCartList[cnt.count-1].cart_goods_qty}" />
+    <c:set var="cart_id" value="${myCartList[cnt.count-1].cart_id}" /> --%>
+    <input type = "text" id="cart_idx" value="${item.cart_idx}">
+
+    <td>
+     <input type="checkbox" name="checked_goods"  checked  value="${item.products_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
+    </td>
+
+    <td class="goods_image">
+    <a href="${contextPath}/products/productsDetail?goods_id=${item.products_idx }">
+     <img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.products_idx}&fileName=${item.img_url}"  />
+    </a>
+   </td>
+
+   <td>
+    <h2>
+     <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.products_idx }">${item.products_name }</a>
+    </h2>
+   </td>
+
+   <td class="price">
+    <span>${item.products_price }ì›</span>
+   </td>
+
+   <td>
+    <input type='button' onclick='count("minus",${item.cart_idx},${cnt.count-1})' value='-'/>
+    <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--ì¥ë°”êµ¬ë‹ˆ ê°œê°œì˜ ê°¯ìˆ˜ <input>í˜•ì‹ì´ë‹¤.-->
+    <input type='button' onclick='count("plus",${item.cart_idx},${cnt.count-1})' value='+'/>
+    <a href="javascript:modify_cart_qty('${item.cart_idx }','${cnt.count-1 }');" >
+     <img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
+    </a>
+   </td>
+
+   <td>
+    <strong>
+     <fmt:formatNumber  value="${item.quantity*item.products_price}" type="number" var="total_sales_price" />
+      ${total_sales_price}ì›<!--ì¥ë°”êµ¬ë‹ˆ ê°œê°œì˜ ê¸ˆì•¡ ì´í•©-->
+    </strong>
+   </td>
+
+    <%--
+   <td>
+    <a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
+     <img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
+    </a><br>
+    <a href="#">
+     <img width="75" alt=""
+          src="${contextPath}/resources/image/btn_order_later.jpg">
+    </a><br>
+    <a href="#">
+     <img width="75" alt=""
+          src="${contextPath}/resources/image/btn_add_list.jpg">
+    </A><br>
+    <a href="javascript:delete_cart_goods('${cart_id}');"">
+    <img width="75" alt=""
+         src="${contextPath}/resources/image/btn_delete.jpg">
+    </a>
+   </td>
+--%>
+  </form>
+
+  <c:set  var="totalGoodsPrice" value="${totalGoodsPrice+item.products_price*item.quantity }" />
+  <c:set  var="totalGoodsNum" value="${totalGoodsNum+1 }" />
+    </tr>
+   </c:forEach>
+
+  </tbody>
+ </table>
+   <div class="clear"></div>
+  </c:otherwise>
+ </c:choose>
+
+<br><br>
+
+
+<table  width=80%   class="list_view" style="background:#cacaff">
+ <tbody>
+ <tr  align=center  class="fixed" >
+  <td class="fixed">ì´ ìƒí’ˆìˆ˜ </td>
+  <td>ì´ ìƒí’ˆê¸ˆì•¡</td>
+  <td>  </td>
+  <td>ì´ ë°°ì†¡ë¹„</td>
+  <td>  </td>
+  <td>ìµœì¢… ê²°ì œê¸ˆì•¡</td>
+ </tr>
+
+ <tr cellpadding=40  align=center >
+  <td id="">
+   <p id="p_totalGoodsNum">${totalGoodsNum}ê°œ </p>
+   <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
+  </td>
+
+  <td>
+   <p id="p_totalGoodsPrice">
+    <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
+    ${total_goods_price}ì›
+   </p>
+   <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
+  </td>
+
+  <td>
+   <img width="25" alt="" src="${contextPath}/resources/image/plus.png">
+  </td>
+
+  <td>
+   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }ì›  </p>
+   <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
+  </td>
+
+
+  <td>
+   <img width="25" alt="" src="${contextPath}/resources/image/equal.png">
+  </td>
+
+  <td>
+   <p id="p_final_totalPrice">
+    <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
+    ${total_price}ì›
+   </p>
+   <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+  </td>
+
+ </tr>
+ </tbody>
+</table>
+
+<script>
+
+    function count(type,cart_idx, index)
+    {
+        // ê²°ê³¼ë¥¼ í‘œì‹œí•  element
+        const resultElement = document.getElementsByClassName('cart_goods_qty')[index];
+        // í˜„ì¬ í™”ë©´ì— í‘œì‹œëœ ê°’
+        var number = resultElement.value;
+
+        console.log("ì „ì²˜ë¦¬ ì´ì „:"+number);
+        // ë”í•˜ê¸°/ë¹¼ê¸°
+        if(type === 'plus')
+        {
+            number = parseInt(number) + 1;
+        }
+        else if(type === 'minus')
+        {
+            number = parseInt(number) - 1;
+        }
+        console.log("ì „ì²˜ë¦¬ ì´í›„:"+number);
+
+        // ê²°ê³¼ ì¶œë ¥
+        resultElement.value = number;//inputíƒœê·¸ëŠ” valueì†ì„±ì„ ì¨ì•¼í•œë‹¤. innertextì´ëŸ°ê±¸ ì“°ë©´ ì•ˆë˜ë”ë¼.
+
+        modify_cart_qty(cart_idx,index)
+
+    }
+
+ function modify_cart_qty(cart_idx,index)
+ {
+  //alert(index);
+ // var length=document.frm_order_all_cart.cart_goods_qty.length;//ì¹´íŠ¸ ê°¯ìˆ˜ì„
+  var length = document.getElementsByClassName("cart_goods_qty").length;
+  console.log(parseInt(index));
+  var _cart_goods_qty=33;
+  if(length>1)
+  { //ì¹´íŠ¸ì— ì œí’ˆì´ í•œê°œì¸ ê²½ìš°ì™€ ì—¬ëŸ¬ê°œì¸ ê²½ìš° ë‚˜ëˆ„ì–´ì„œ ì²˜ë¦¬í•œë‹¤.
+   _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cartê°€ ì—¬ëŸ¬ê°œì¼ ê²½ìš° í•´ë‹¹í•˜ëŠ” cartë§Œ ì„ íƒ
+   console.log(_cart_goods_qty);
+   //(ë„˜ê²¨ë°›ì€ indexë¡œ)
+  }
+  else
+  {
+   _cart_goods_qty=document.frm_order_all_cart.cart_goods_qty.value;
+   console.log("worng road");
+  }
+
+  var cart_goods_qty=Number(_cart_goods_qty);//cartì˜ ìˆ˜ëŸ‰ ë³€ìˆ˜ í¬ë©”íŒ…
+  //alert("cart_goods_qty:"+cart_goods_qty);
+  console.log(cart_goods_qty);
+  $.ajax(
+          {
+           type : "post",
+           async : false, //falseì¸ ê²½ìš° ë™ê¸°ì‹ìœ¼ë¡œ ì²˜ë¦¬í•œë‹¤.
+           url : "${contextPath}/mypage/modifyCartQty",
+           data : {
+            cart_idx:cart_idx,
+            cart_goods_qty:cart_goods_qty
+           },
+
+           success : function(data, textStatus)
+           {
+            //alert(data);
+            if(data.trim()=='modify_success')
+            {
+            // alert("ìˆ˜ëŸ‰ì„ ë³€ê²½í–ˆìŠµë‹ˆë‹¤!!");
+             location.reload();
+            }else
+            {
+             alert("ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì„¸ìš”!!");
+            }
+
+           },
+           error : function(data, textStatus)
+           {
+            alert("ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤."+data);
+           },
+           complete : function(data, textStatus)
+           {
+            //alert("ì‘ì—…ì„ì™„ë£Œ í–ˆìŠµë‹ˆë‹¤");
            }
           }
   ); //end ajax
