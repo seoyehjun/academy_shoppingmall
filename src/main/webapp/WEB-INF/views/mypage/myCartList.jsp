@@ -57,10 +57,10 @@
    $.ajax({
     type : "post",
     async : false, //false인 경우 동기식으로 처리한다.
-    url : "${contextPath}/mypage/orderAllCart",
-    data :
-            {
-     cart_list:cart_list
+    url : "${contextPath}/mypage/orderCartGoods",
+    data : {
+     cart_list:cart_list,
+     total_price: total_price
     },
     dataType:"json",
 

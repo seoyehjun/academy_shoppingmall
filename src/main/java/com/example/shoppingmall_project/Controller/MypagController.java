@@ -41,15 +41,25 @@ public class MypagController
 
 
 
-	@RequestMapping(value="/orderAllCart",method=RequestMethod.POST)
+	@RequestMapping(value="/orderCartGoods",method=RequestMethod.POST)
 	public String orderAllCart(Model model, HttpSession httpsession,
-							 	@RequestParam(value="cart_list[]") String[] cart_list
+							 	@RequestParam(value="cart_list[]") String[] cart_list,
+							   @RequestParam("total_price") int total_price
 	) throws Exception
 	{
 		System.out.println("cart_list[0]: "+cart_list[0]);
 		System.out.println("executed");
 
-		return "redirect:/mypage/myPageMain";
+		//MemberVO memberVO = (MemberVO) httpsession.getAttribute("memberInfo");
+		MemberVO memberVO = myPageService.givememember(1);
+		int members_idx = memberVO.getMembers_idx();
+
+		List<Cart_vo> CO_list = myPageService.orderCartGoods(cart_list, members_idx);
+
+		model.addAttribute("total_price",total_price);
+		model.addAttribute("CO_list",CO_list);
+
+		return "redirect:/product2/orderProductforCart";
 	}
 	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
 	public String removeCart(Model model, HttpSession httpsession, @RequestParam("cart_idx") String cart_idx) throws Exception

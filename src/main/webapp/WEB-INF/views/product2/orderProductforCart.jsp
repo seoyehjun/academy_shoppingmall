@@ -13,6 +13,7 @@
             <div class="product-header-item">사이즈</div>
             <!-- 필요한 다른 제품 정보들의 헤더 추가 -->
         </div>
+        <c:forEach var="item" items="${cart_list}">
             <div class="product-row">
                 <div class="product-item">${product.products_name}</div>
                 <div class="product-item">${product.products_price}</div>
@@ -21,6 +22,7 @@
 
                 <!-- 필요한 다른 제품 정보들의 값 추가 -->
             </div>
+        </c:forEach>
         <h2>배송 정보</h2>
 
         <div class="delivery-destination">

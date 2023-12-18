@@ -1,5 +1,6 @@
 package com.example.shoppingmall_project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,18 @@ public class MyPageService
 {
 	@Autowired
 	private MyPageDAO myPageDAO;
+
+
+	public List<Cart_vo> orderCartGoods(String[] cart_list,int members_idx) throws Exception
+	{
+		List<Cart_vo> list= new ArrayList<Cart_vo>();
+		for(int i=0;i<cart_list.length;i++)
+		{
+			myPageDAO.orderCartGoods(cart_list[i],members_idx);
+		}
+
+		return list;
+	}
 
 	public boolean modifyCartQty(Cart_vo cartVO) throws Exception{
 		boolean result=true;
