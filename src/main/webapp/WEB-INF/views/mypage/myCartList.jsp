@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ include file="../header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+
+<%@include file="../header.jsp"%>
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,16 +12,16 @@
 <%--<c:set var="myProductsList"  value="${cartMap.myProductsList}"  />--%>
 
 <c:set  var="totalGoodsPrice" value="0"/>
-<c:set  var="totalGoodsNum" value="0" />  <!--ÁÖ¹® °³¼ö -->
-<c:set  var="totalDeliveryPrice" value="0" /> <!-- ÃÑ ¹è¼Ûºñ -->
-<c:set  var="totalDiscountedPrice" value="0" /> <!-- ÃÑ ÇÒÀÎ±Ý¾× -->
+<c:set  var="totalGoodsNum" value="0" />  <!--ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ -->
+<c:set  var="totalDeliveryPrice" value="0" /> <!-- ï¿½ï¿½ ï¿½ï¿½Ûºï¿½ -->
+<c:set  var="totalDiscountedPrice" value="0" /> <!-- ï¿½ï¿½ ï¿½ï¿½ï¿½Î±Ý¾ï¿½ -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <head>
  <script>
 
   function fn_order_all_cart_goods(){
-//	alert("¸ðµÎ ÁÖ¹®ÇÏ±â");
+//	alert("ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½Ï±ï¿½");
    var order_goods_qty;
    var order_goods_id;
    var objForm=document.frm_order_all_cart;
@@ -76,13 +77,13 @@
   <tbody align=center >
 
   <tr style="background:#33ff00" >
-   <td class="fixed" >±¸ºÐ</td>
-   <td colspan=2 class="fixed">»óÇ°¸í</td>
-   <td>Á¤°¡</td>
-   <td>ÆÇ¸Å°¡</td>
-   <td>¼ö·®</td>
-   <td>ÇÕ°è</td>
-   <td>ÁÖ¹®</td>
+   <td class="fixed" >ï¿½ï¿½ï¿½ï¿½</td>
+   <td colspan=2 class="fixed">ï¿½ï¿½Ç°ï¿½ï¿½</td>
+   <td>ï¿½ï¿½ï¿½ï¿½</td>
+   <td>ï¿½Ç¸Å°ï¿½</td>
+   <td>ï¿½ï¿½ï¿½ï¿½</td>
+   <td>ï¿½Õ°ï¿½</td>
+   <td>ï¿½Ö¹ï¿½</td>
  </tr>
 
  <c:choose>
@@ -91,7 +92,7 @@
 
    <tr>
    <td colspan=8 class="fixed">
-    <strong>Àå¹Ù±¸´Ï¿¡ »óÇ°ÀÌ ¾ø½À´Ï´Ù.</strong>
+    <strong>ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.</strong>
    </td>
   </tr>
 
@@ -123,12 +124,12 @@
    </td>
 
    <td class="price">
-    <span>${item.products_price }¿ø</span>
+    <span>${item.products_price }ï¿½ï¿½</span>
    </td>
 
    <td>
     <input type='button' onclick='count("minus",${item.cart_idx},${cnt.count-1})' value='-'/>
-    <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--Àå¹Ù±¸´Ï °³°³ÀÇ °¹¼ö <input>Çü½ÄÀÌ´Ù.-->
+    <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ <input>ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.-->
     <input type='button' onclick='count("plus",${item.cart_idx},${cnt.count-1})' value='+'/>
     <a href="javascript:modify_cart_qty('${item.cart_idx }','${cnt.count-1 }');" >
      <img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
@@ -138,7 +139,7 @@
    <td>
     <strong>
      <fmt:formatNumber  value="${item.quantity*item.products_price}" type="number" var="total_sales_price" />
-      ${total_sales_price}¿ø<!--Àå¹Ù±¸´Ï °³°³ÀÇ ±Ý¾× ÃÑÇÕ-->
+      ${total_sales_price}ï¿½ï¿½<!--ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½ ï¿½ï¿½ï¿½ï¿½-->
     </strong>
    </td>
 
@@ -180,24 +181,24 @@
 <table  width=80%   class="list_view" style="background:#cacaff">
  <tbody>
  <tr  align=center  class="fixed" >
-  <td class="fixed">ÃÑ »óÇ°¼ö </td>
-  <td>ÃÑ »óÇ°±Ý¾×</td>
+  <td class="fixed">ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ </td>
+  <td>ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½Ý¾ï¿½</td>
   <td>  </td>
-  <td>ÃÑ ¹è¼Ûºñ</td>
+  <td>ï¿½ï¿½ ï¿½ï¿½Ûºï¿½</td>
   <td>  </td>
-  <td>ÃÖÁ¾ °áÁ¦±Ý¾×</td>
+  <td>ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ý¾ï¿½</td>
  </tr>
 
  <tr cellpadding=40  align=center >
   <td id="">
-   <p id="p_totalGoodsNum">${totalGoodsNum}°³ </p>
+   <p id="p_totalGoodsNum">${totalGoodsNum}ï¿½ï¿½ </p>
    <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
   </td>
 
   <td>
    <p id="p_totalGoodsPrice">
     <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
-    ${total_goods_price}¿ø
+    ${total_goods_price}ï¿½ï¿½
    </p>
    <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
   </td>
@@ -207,7 +208,7 @@
   </td>
 
   <td>
-   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }¿ø  </p>
+   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }ï¿½ï¿½  </p>
    <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
   </td>
 
@@ -219,7 +220,7 @@
   <td>
    <p id="p_final_totalPrice">
     <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
-    ${total_price}¿ø
+    ${total_price}ï¿½ï¿½
    </p>
    <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
   </td>
@@ -232,13 +233,13 @@
 
     function count(type,cart_idx, index)
     {
-        // °á°ú¸¦ Ç¥½ÃÇÒ element
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ element
         const resultElement = document.getElementsByClassName('cart_goods_qty')[index];
-        // ÇöÀç È­¸é¿¡ Ç¥½ÃµÈ °ª
+        // ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ Ç¥ï¿½Ãµï¿½ ï¿½ï¿½
         var number = resultElement.value;
 
-        console.log("ÀüÃ³¸® ÀÌÀü:"+number);
-        // ´õÇÏ±â/»©±â
+        console.log("ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½:"+number);
+        // ï¿½ï¿½ï¿½Ï±ï¿½/ï¿½ï¿½ï¿½ï¿½
         if(type === 'plus')
         {
             number = parseInt(number) + 1;
@@ -247,10 +248,10 @@
         {
             number = parseInt(number) - 1;
         }
-        console.log("ÀüÃ³¸® ÀÌÈÄ:"+number);
+        console.log("ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½:"+number);
 
-        // °á°ú Ãâ·Â
-        resultElement.value = number;//inputÅÂ±×´Â value¼Ó¼ºÀ» ½á¾ßÇÑ´Ù. innertextÀÌ·±°É ¾²¸é ¾ÈµÇ´õ¶ó.
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        resultElement.value = number;//inputï¿½Â±×´ï¿½ valueï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. innertextï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ï¿½ï¿½.
 
         modify_cart_qty(cart_idx,index)
 
@@ -259,15 +260,15 @@
  function modify_cart_qty(cart_idx,index)
  {
   //alert(index);
- // var length=document.frm_order_all_cart.cart_goods_qty.length;//Ä«Æ® °¹¼öÀÓ
+ // var length=document.frm_order_all_cart.cart_goods_qty.length;//Ä«Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   var length = document.getElementsByClassName("cart_goods_qty").length;
   console.log(parseInt(index));
   var _cart_goods_qty=33;
   if(length>1)
-  { //Ä«Æ®¿¡ Á¦Ç°ÀÌ ÇÑ°³ÀÎ °æ¿ì¿Í ¿©·¯°³ÀÎ °æ¿ì ³ª´©¾î¼­ Ã³¸®ÇÑ´Ù.
-   _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cart°¡ ¿©·¯°³ÀÏ °æ¿ì ÇØ´çÇÏ´Â cart¸¸ ¼±ÅÃ
+  { //Ä«Æ®ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¼­ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+   _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cartï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ cartï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
    console.log(_cart_goods_qty);
-   //(³Ñ°Ü¹ÞÀº index·Î)
+   //(ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ indexï¿½ï¿½)
   }
   else
   {
@@ -275,13 +276,13 @@
    console.log("worng road");
   }
 
-  var cart_goods_qty=Number(_cart_goods_qty);//cartÀÇ ¼ö·® º¯¼ö Æ÷¸ÞÆÃ
+  var cart_goods_qty=Number(_cart_goods_qty);//cartï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   //alert("cart_goods_qty:"+cart_goods_qty);
   console.log(cart_goods_qty);
   $.ajax(
           {
            type : "post",
-           async : false, //falseÀÎ °æ¿ì µ¿±â½ÄÀ¸·Î Ã³¸®ÇÑ´Ù.
+           async : false, //falseï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
            url : "${contextPath}/mypage/modifyCartQty",
            data : {
             cart_idx:cart_idx,
@@ -293,21 +294,21 @@
             //alert(data);
             if(data.trim()=='modify_success')
             {
-            // alert("¼ö·®À» º¯°æÇß½À´Ï´Ù!!");
+            // alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½!!");
              location.reload();
             }else
             {
-             alert("´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä!!");
+             alert("ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½!!");
             }
 
            },
            error : function(data, textStatus)
            {
-            alert("¿¡·¯°¡ ¹ß»ýÇß½À´Ï´Ù."+data);
+            alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½."+data);
            },
            complete : function(data, textStatus)
            {
-            //alert("ÀÛ¾÷À»¿Ï·á Çß½À´Ï´Ù");
+            //alert("ï¿½Û¾ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ß½ï¿½ï¿½Ï´ï¿½");
            }
           }
   ); //end ajax

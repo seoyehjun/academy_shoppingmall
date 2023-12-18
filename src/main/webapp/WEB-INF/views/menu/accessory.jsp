@@ -12,11 +12,22 @@
 </head>
 <body>
     <main>
-        <section class="banner">
-                    <div class="slide">
-                        <h4>하이</h4>
-                    </div>
-                </section>
+        <section class="outer">
+            <div class="best">
+                <h4>best item</h4>
+                <div class="bestlist">
+                    조회수 순 10장만 나열
+                </div>
+            </div>
+
+            <div>
+                <h4>new list</h4>
+                <div class="outerlist">
+                    16장씩 나열
+                </div>
+            </div>
+
+        </section>
 
 
     </main>
