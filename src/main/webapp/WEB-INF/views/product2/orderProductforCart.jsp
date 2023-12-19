@@ -2,6 +2,34 @@
          pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
+<head>
+    <script>
+    window.onload=function()
+    {
+        selectBoxInit();//select태그 기본값 정하는 함수
+    }
+
+    function selectBoxInit()
+    {
+
+    var temp = '<c:out value='${memberInfo.members_phone_number}'/>';//바인딩된 정보 가져온다.
+    var origin_selected_tel = '${memberInfo.members_phone_number.substring(0,3)}';
+    var user_selected_tel = document.getElementById('tel1');
+    var tel_list = user_selected_tel.options;
+    var val;
+    for(var i=0; i<tel_list.length;i++)
+    {
+        val = tel_list[i].value;
+        if(origin_selected_tel == val)
+        {
+        tel_list[i].selected = true;
+        break;
+        }
+    }
+}
+    </script>
+</head>
+
 <div class="container">
 
     <div class="product-container">
@@ -11,15 +39,16 @@
             <div class="product-header-item">가격</div>
             <div class="product-header-item">색상</div>
             <div class="product-header-item">사이즈</div>
+            <div class="product-header-item">갯수</div>
             <!-- 필요한 다른 제품 정보들의 헤더 추가 -->
         </div>
-        <c:forEach var="item" items="${cart_list}">
+        <c:forEach var="item" items="${CO_list}">
             <div class="product-row">
-                <div class="product-item">${product.products_name}</div>
-                <div class="product-item">${product.products_price}</div>
-                <div class="product-item">${color}</div>
-                <div class="product-item">${size_product}</div>
-
+                <div class="product-item">${item.products_name}</div>
+                <div class="product-item">${item.products_price}</div>
+                <div class="product-item">${item.color}</div>
+                <div class="product-item">${item.size_product}</div>
+                <div class="product-item">${item.quantity}</div>
                 <!-- 필요한 다른 제품 정보들의 값 추가 -->
             </div>
         </c:forEach>
@@ -46,7 +75,7 @@
             <h3>받으시는 분</h3>
             <div>
                 <label for="recipient-name">이름</label>
-                <input type="text" id="recipient-name" name="recipient-name">
+                <input type="text" id="recipient-name" name="recipient-name" value="${memberInfo.members_name}">
             </div>
         </div>
         <div class="form-group">
@@ -61,27 +90,39 @@
             <div style="margin-top: 5px;">
                 <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text" />
             </div>
+
             <div style="margin-top: 5px;">
                 <input class="form-control" placeholder="참고항목" name="addr4" id="addr4" type="text" />
             </div>
-            <div class="contact-info">
-                <h3>휴대전화</h3>
-                <div>
-                    <label for="phone-prefix">휴대전화</label>
-                    <select id="phone-prefix" name="phone-prefix">
+
+            <div class="dot_line">
+                <td class="fixed_join">전화번호</td>
+                <td>
+                    <select name="tel1" id="tel1" >
+                        <option>없음</option>
                         <option value="010">010</option>
+                        <option value="011">011</option>
                         <option value="016">016</option>
-                        <!-- Add more options as needed -->
+                        <option value="017">017</option>
+                        <option value="018">018</option>
+                        <option value="019">019</option>
                     </select>
-                    <input type="text" id="phone-number" name="phone-number" placeholder="휴대전화 번호를 입력하세요">
-                    <input type="text" id="phone-number2" name="phone-number2" placeholder="휴대전화 번호를 입력하세요">
-                </div>
+
+
+                    <%--@기준으로 쪼개야 한다. --%>
+                    <c:set var="origin_tel" value="${memberInfo.members_phone_number }"/>
+                    <c:set var="refined_tel" value="${fn:split(origin_tel,'-') }"/>
+                    -<input type="text" size=4 name="tel2" value="${refined_tel[1] }">
+                    -<input type="text" size=4 name="tel3" value="${refined_tel[2] }">
+                </td>
             </div>
 
             <div class="email-info">
                 <h3>이메일</h3>
                 <div>
-                    <input type="text" id="email-id" name="email-id" placeholder="이메일을 입력하세요">
+                    <c:set var="origin_email" value="${memberInfo.members_email }"/>
+                    <c:set var="refined_email" value="${fn:split(origin_email,'@') }"/>
+                    <input type="text" id="email-id" name="email-id" placeholder="이메일을 입력하세요" value="${refined_email[0]}">
                     @
                     <select id="email-domain" name="email-domain">
                         <option value="naver.com">naver.com</option>

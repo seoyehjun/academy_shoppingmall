@@ -41,31 +41,32 @@ public class MypagController
 
 	// https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=sim4858&logNo=221007278858
 	// redirect와 뷰네임 차이
-	@RequestMapping(value="/orderProductforCart", method=RequestMethod.POST)
+	/*@RequestMapping(value="/orderProductforCart", method=RequestMethod.POST)
 	public String orderProductforCart(Model model, HttpSession httpsession, HttpServletRequest request,
 	@RequestParam("cart_list")  String[] cart_list)
 	{
 		System.out.println("redirect completed");
 		return "/product2/orderProductforCart";
-	}
+	}*/
 
 
 
 	@RequestMapping(value="/orderCartGoods",method=RequestMethod.POST)
 	public String orderAllCart(Model model, HttpSession httpsession,
-							 	@RequestParam(value="cart_list[]") String[] cart_list,
+							 	@RequestParam(value="cart_list") String[] cart_list,
 							   @RequestParam("total_price") int total_price
 	) throws Exception
 	{
 		System.out.println("cart_list[0]: "+cart_list[0]);
 		System.out.println("executed");
 
-		//MemberVO memberVO = (MemberVO) httpsession.getAttribute("memberInfo");
+		//MemberVO memberVO = (MemberVO) httpsession.getAttribute("memberInfo");//세션 받아오기
 		MemberVO memberVO = myPageService.givememember(1);
 		int members_idx = memberVO.getMembers_idx();
 
 		List<Cart_vo> CO_list = myPageService.orderCartGoods(cart_list, members_idx);
 
+		model.addAttribute("memberInfo", memberVO);
 		model.addAttribute("total_price",total_price);
 		model.addAttribute("CO_list",CO_list);
 		System.out.println("in controller");
@@ -94,6 +95,7 @@ public class MypagController
 		HttpSession session=request.getSession();
 		//MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
 		//int members_idx=memberVO.getMembers_idx();//세션소유자의 카트 목록 불러올 예정
+
 		List<Cart_vo> cartList=myPageService.myCartList(1);//세션memeber_idx의 cart 리스트를 불러온다.
 		session.setAttribute("cartList", cartList);//카트row들과  카트에 들어있는 상품목록 가져온다.cartVO의 리스트들이다.
 		//mav.addObject("cartMap", cartMap);

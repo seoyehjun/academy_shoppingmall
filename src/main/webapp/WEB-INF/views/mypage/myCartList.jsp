@@ -41,7 +41,7 @@
    document.body.appendChild(formObj);
    //	alert("모두 주문하기");
    var total_price = document.getElementsByName("total_price")[0].value;
-   console.log("total_price"+total_price);
+   //  console.log("total_price"+total_price);
    var checkbox=document.getElementsByName("checkbox");
    //var cart_list = [];
 
@@ -68,8 +68,13 @@
     }
    }
 
+   var temp_input2 = document.createElement("input");
+   temp_input2.setAttribute("value", total_price);
+   temp_input2.name = "total_price";
+   formObj.appendChild(temp_input2);
+
    formObj.method="post";
-   formObj.action="${cpath}/product77/orderProductforCart";
+   formObj.action="${cpath}/mypage/orderCartGoods";
    formObj.submit();
    console.log(formObj);
    //console.log("cart_list[0]:"+cart_list[0]);
