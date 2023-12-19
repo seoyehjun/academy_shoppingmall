@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
 
-<%@ include file="../junheader.jsp" %>
+<%@ include file="../header.jsp" %>
 
 <head>
 	<meta charset="utf-8">
@@ -33,7 +33,7 @@
 				formObj.appendChild(i_order_idx);
 				document.body.appendChild(formObj);
 				formObj.method="post";
-				formObj.action="${contextPath}/mypage/cancelMyOrder";
+				formObj.action="${cpath}/mypage/cancelMyOrder";
 				formObj.submit();
 			}
 		}
@@ -49,7 +49,7 @@
 			formObj.appendChild(i_cart);
 			document.body.appendChild(formObj);
 			formObj.method="post";
-			formObj.action="${contextPath}/cart/removeCart";
+			formObj.action="${cpath}/cart/removeCart";
 			formObj.submit();
 		}
 	</script>
@@ -84,7 +84,7 @@
 		    <tr><%--실제 상품 --%>
 		    
 		     <td><%--주문번호 --%>
-		      <a href="${contextPath }/mypage/myOrderDetail?orders_idx=${order.orders_idx}"><span>${order.orders_idx }</span></a>
+		      <a href="${cpath }/mypage/myOrderDetail?orders_idx=${order.orders_idx}"><span>${order.orders_idx }</span></a>
 		      <%--컨트롤러에서 받아서 주문 상세페이지 띄워주자 --%>
 		     </td>
 		     
@@ -96,7 +96,7 @@
 		     <td align="left"><%--주문row의 상품title --%>
 		      <strong>
 		       <c:if test="${order.orders_idx == order2.orders_idx }">
-		        <a href="${contextpath }/goods/goodsDetail?goods_idx=${order.products_idx}">${order.products_name }/${order.quantity }개
+		        <a href="${cpath }/goods/goodsDetail?goods_idx=${order.products_idx}">${order.products_name }/${order.quantity }개
 		        </a><br>                 <%--주문의 products_idx를 주면 상품 상세페이지로 연결되도록 해주세요 --%>
 		       </c:if>
 		      </strong>

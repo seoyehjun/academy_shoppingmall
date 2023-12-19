@@ -26,8 +26,9 @@ public class MyPageService
 		List<Cart_vo> list= new ArrayList<Cart_vo>();
 		for(int i=0;i<cart_list.length;i++)
 		{
-			myPageDAO.orderCartGoods(cart_list[i],members_idx);
+			list.add(myPageDAO.orderCartGoods(cart_list[i],members_idx) );
 		}
+		System.out.println("list[0].cart_idx: "+list.get(0).getCart_idx());
 
 		return list;
 	}

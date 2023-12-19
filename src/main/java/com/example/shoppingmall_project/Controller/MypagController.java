@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@RequestMapping(value="/mypage")
+@RequestMapping(value={"/mypage","/product77"})
 public class MypagController
 {	
 	@Autowired 
@@ -38,6 +38,16 @@ public class MypagController
 
 	@Autowired
 	private Cart_vo cartVO ;
+
+	// https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=sim4858&logNo=221007278858
+	// redirect와 뷰네임 차이
+	@RequestMapping(value="/orderProductforCart", method=RequestMethod.POST)
+	public String orderProductforCart(Model model, HttpSession httpsession, HttpServletRequest request,
+	@RequestParam("cart_list")  String[] cart_list)
+	{
+		System.out.println("redirect completed");
+		return "/product2/orderProductforCart";
+	}
 
 
 
@@ -58,8 +68,9 @@ public class MypagController
 
 		model.addAttribute("total_price",total_price);
 		model.addAttribute("CO_list",CO_list);
+		System.out.println("in controller");
 
-		return "redirect:/product2/orderProductforCart";
+		return "/product2/orderProductforCart";
 	}
 	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
 	public String removeCart(Model model, HttpSession httpsession, @RequestParam("cart_idx") String cart_idx) throws Exception
