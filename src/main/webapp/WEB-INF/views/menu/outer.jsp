@@ -11,13 +11,10 @@
                 <h4>best item</h4>
                 <div class="bestlist">
                     <c:forEach var="imageName" items="${imageList}">
-                            <%-- 이미지를 불러올 경로 설정 --%>
-                            <c:set var="imagePath" value="/springboot/" />
-
-                            <%-- 이미지 표시 --%>
-                            <img src="${imagePath}${imageName}" alt="Image">
-                            <br/>
-                        </c:forEach>
+                        <c:set var="imagePath" value="/springboot/"/>
+                        <img src="${imagePath}${imageName}" alt="Image">
+                        <br/>
+                    </c:forEach>
                 </div>
             </div>
             

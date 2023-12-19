@@ -17,44 +17,13 @@
     <main>
         <section class="banner">
             <div class="slide">
-                <a href="#"><img src="/resources/img/image1.jpg"></a>
-                <a href="#"><img src="/resources/img/image2.jpg"></a>
-                <a href="#"><img src="/resources/img/image3.jpg"></a>
-                <a href="#"><img src="/resources/img/image4.jpg"></a>
+                <a href="#"><img src="/springboot/p1.jpg"></a>
+                <a href="#"><img src="/springboot/p2.jpg"></a>
+                <a href="#"><img src="/springboot/p3.jpg"></a>
+                <a href="#"><img src="/springboot/p4.jpg"></a>
             </div>
         </section>
 
-<%--        <section class="daily">--%>
-<%--            <div>--%>
-<%--                <c:forEach var="row" items="${list }">--%>
-<%--                    <tr>--%>
-<%--                        <td><img src="/resources/img/${row.img_url }"></td>--%>
-<%--                    </tr>--%>
-<%--                </c:forEach>--%>
-<%--            </div>--%>
-<%--        </section>--%>
-
-<%--        <section class="popular">--%>
-<%--            <div>--%>
-<%--                <c:forEach var="row" items="${list }">--%>
-<%--                    <tr>--%>
-<%--                        <td>${row.img_url }</td>--%>
-<%--                    </tr>--%>
-<%--                </c:forEach>--%>
-<%--            </div>--%>
-<%--        </section>--%>
-
-<%--        <section class="new product">--%>
-<%--            <div>--%>
-<%--                <c:forEach var="row" items="${list }">--%>
-<%--                    <tr>--%>
-<%--                        <td>${row.img_url }</td>--%>
-<%--                    </tr>--%>
-<%--                </c:forEach>--%>
-<%--            </div>--%>
-<%--        </section>--%>
-
-<%--    idx 순으로 일딴 출력    --%>
         <div class="clothing-products">
             <c:forEach items="${list}" var="product" varStatus="status" begin="0" end="7">
                 <!-- 4개의 상품마다 새로운 행 시작 -->
@@ -62,7 +31,10 @@
                     <div class="row">
                 </c:if>
                 <div class="product" onclick="redirectToProductDetail(${product.products_idx})">
-                    <div><img src="${product.img_url}" alt="Product Image"/></div>
+                    <c:forEach items="${imageList}" var="img">
+                    <c:set var="imagePath" value="/springboot/" />
+                    <div><img src="${imagePath}${img}" alt="Product Image"/></div>
+                    </c:forEach>
                     <div>${product.products_name}</div>
                         <%--                <div>${product.color}</div>--%>
                         <%--                <div>${product.size_product}</div>--%>
