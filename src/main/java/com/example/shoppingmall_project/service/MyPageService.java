@@ -1,14 +1,13 @@
 package com.example.shoppingmall_project.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.example.shoppingmall_project.model.MyPageDAO;
-import com.example.shoppingmall_project.model.vo.mypagevo.Cart_vo;
-import com.example.shoppingmall_project.model.vo.mypagevo.MemberVO;
-import com.example.shoppingmall_project.model.vo.mypagevo.O_OD_P_C_S_M_vo;
-import com.example.shoppingmall_project.model.vo.mypagevo.O_P_OD_vo;
+import com.example.shoppingmall_project.model.vo.InquiriesVO;
+import com.example.shoppingmall_project.model.vo.mypagevo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +19,22 @@ public class MyPageService
 	@Autowired
 	private MyPageDAO myPageDAO;
 
+	public Map<String, Object> getInfos(Integer idx)
+	{
+		idx = idx == null ? 1 : idx;
+
+		// 페이징 코드 작성
+		Paging p = new Paging(idx, myPageDAO.totalInqury());//페이징객체에 (요청페이지,총페이지수)
+		List<InquiriesVO> list = myPageDAO.selectAll(p);
+
+		// 타입이 다른 객체를 묶어서 반환하기 위해 Map을 사용
+		Map<String, Object> result = new HashMap<>();
+
+		result.put("p", p);
+		result.put("list", list);
+
+		return result;
+	}
 
 	public List<Cart_vo> orderCartGoods(String[] cart_list,int members_idx) throws Exception
 	{

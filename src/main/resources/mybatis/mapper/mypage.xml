@@ -4,7 +4,15 @@
 
 <mapper namespace="com.example.shoppingmall_project.model.MyPageDAO">
 
+	<select id="selectAll"
+			resultType="com.example.shoppingmall_project.model.vo.InquiriesVO"
+			parameterType="com.example.shoppingmall_project.model.vo.mypagevo.Paging">
 
+		select * from In
+		order by idx desc
+		offset #{offset} row
+			fetch first #{perCount} rows only
+	</select>
 
 <update id="updateMyInfo" parameterType="java.util.Map">
 	   update members

@@ -51,6 +51,24 @@ public class MypagController
 
 
 
+	@GetMapping(value = {"/info", "/{idx}"})
+	public String listInfos(Model model, HttpSession httpsession,
+					   @PathVariable(required = false) Integer idx)
+	{
+		// @required의 기본값은 true
+		// - idx에 무조건 값이 전달되어야 한다
+
+		Map<String, Object> result = myPageService.getInfos(idx);
+
+		model.addAttribute("Infolist", result.get("list"));
+		model.addAttribute("p", result.get("p"));
+
+		return "/mypage/list";
+	}
+
+
+
+
 	@RequestMapping(value="/orderCartGoods",method=RequestMethod.POST)
 	public String orderAllCart(Model model, HttpSession httpsession,
 							 	@RequestParam(value="cart_list") String[] cart_list,

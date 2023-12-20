@@ -3,10 +3,8 @@ package com.example.shoppingmall_project.model;
 import java.util.List;
 import java.util.Map;
 
-import com.example.shoppingmall_project.model.vo.mypagevo.Cart_vo;
-import com.example.shoppingmall_project.model.vo.mypagevo.MemberVO;
-import com.example.shoppingmall_project.model.vo.mypagevo.O_OD_P_C_S_M_vo;
-import com.example.shoppingmall_project.model.vo.mypagevo.O_P_OD_vo;
+import com.example.shoppingmall_project.model.vo.InquiriesVO;
+import com.example.shoppingmall_project.model.vo.mypagevo.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +14,11 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface MyPageDAO 
 {
+	@Select("select count(*) from board")
+	int totalInqury();
+
+	List<InquiriesVO> selectAll(Paging p);
+
 	@Select("select c.cart_idx, c.quantity, c.products_idx, c.members_idx,c.color_idx, c.size_idx"+
 			" , p.products_name, p.products_price, st.size_product, ct.color" +
 			" from cart c, products p, size_table st, color ct,products_color pc, products_size ps, members m" +

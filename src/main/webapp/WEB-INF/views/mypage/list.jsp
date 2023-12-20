@@ -6,6 +6,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
@@ -20,11 +21,12 @@
         }
     </style>
 </head>
+
 <body>
 <div class="container">
     <div class="row">
         <h3 class="text-center">자유게시판</h3>
-        <c:if test="${sessionScope.id!=null }">
+
             <table class="table">
                 <tr>
                     <td class="text-left">
@@ -32,7 +34,7 @@
                     </td>
                 </tr>
             </table>
-        </c:if>
+
         <table class="table table-striped">
             <tr class="warning">
                 <th class="text-center" width=10%>번호</th>
@@ -41,22 +43,22 @@
                 <th class="text-center" width=20%>작성일</th>
                 <th class="text-center" width=10%>조회수</th>
             </tr>
-            <c:forEach var="vo" items="${list }">
+            <c:forEach var="item" items="${Infolist }">
                 <tr>
-                    <td class="text-center btd" width=10%>${vo.no }</td>
+                    <td class="text-center btd" width=10%>${item.no }</td>
                     <td class="text-left btd" width=45%>
-                        <c:if test="${vo.getGt()>0 }">
-                            <c:forEach var="i" begin="1" end="${vo.getGt() }">
+                        <c:if test="${item.getGt()>0 }">
+                            <c:forEach var="i" begin="1" end="${item.getGt() }">
                                 &nbsp;&nbsp;&nbsp;
                             </c:forEach>
                             ▶
                         </c:if>
-                        <a href="detail.do?no=${vo.no }">${vo.subject }</a>
+                        <a href="detail.do?no=${item.no }">${item.subject }</a>
                     </td>
-                    <td class="text-center btd" width=15%>${vo.name }</td>
+                    <td class="text-center btd" width=15%>${item.name }</td>
                     <td class="text-center btd" width=20%>
-                        <fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd"/></td>
-                    <td class="text-center btd" width=10%>${vo.hit }</td>
+                        <fmt:formatDate value="${item.regdate }" pattern="yyyy-MM-dd"/></td>
+                    <td class="text-center btd" width=10%>${item.hit }</td>
                 </tr>
             </c:forEach>
         </table>
