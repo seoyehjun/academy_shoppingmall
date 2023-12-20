@@ -2,9 +2,9 @@ package com.example.shoppingmall_project.model.vo.mypagevo;
 
 public class Paging {
     private int reqPage;
-    private int offset, perCount = 10;
+    private int offset, perCount = 5;
     private int totalBoard, totalPage;
-    private int perPage = 10;
+    private int perPage = 5;
     private int section;
     private int begin, end;
     private boolean prev, next;

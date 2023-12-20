@@ -1,3 +1,4 @@
+/*
 package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.service.HeaderService;
@@ -35,3 +36,6 @@ public class HomeController {
     }
 
 }
+
+ */
+//에러때문에 잠시 주석처리

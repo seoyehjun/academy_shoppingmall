@@ -1,3 +1,4 @@
+/*
 package com.example.shoppingmall_project.service;
 
 
@@ -20,3 +21,5 @@ public class TestService {
         return dao.selectAll();
     }
 }
+*/
+//에러때문에 잠시 주석처리

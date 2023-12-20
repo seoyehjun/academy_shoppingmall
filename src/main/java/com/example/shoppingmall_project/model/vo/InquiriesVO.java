@@ -12,6 +12,6 @@ public class InquiriesVO {
     private int inquiries_idx, products_idx, members_idx;
     private String inquiries_title, inquiries_content, inquiries_image_url;
     private String inquiries_category;
-    private Date inquiries_resistration_date;
+    private Date inquiries_registration_date;
 
 }

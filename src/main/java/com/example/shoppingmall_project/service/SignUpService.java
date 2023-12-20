@@ -1,4 +1,4 @@
-package com.example.shoppingmall_project.service;
+/*package com.example.shoppingmall_project.service;
 
 import java.util.List;
 
@@ -30,3 +30,6 @@ public class SignUpService {
 
 
 }
+
+ */
+//에러때문에 주석처리

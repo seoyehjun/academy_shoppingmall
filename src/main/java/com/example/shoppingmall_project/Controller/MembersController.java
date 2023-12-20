@@ -1,3 +1,4 @@
+/*
 package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.model.vo.MembersVO;
@@ -48,3 +49,5 @@ public class MembersController {
 	}
 
 }
+*/
+//에러때문에 주석처리

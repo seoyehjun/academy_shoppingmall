@@ -1,4 +1,4 @@
-package com.example.shoppingmall_project.Controller;
+/*package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.service.FindService;
@@ -52,3 +52,4 @@ public class FindController {
         return "redirect:/login";
     }
 }
+*/

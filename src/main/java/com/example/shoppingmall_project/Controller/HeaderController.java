@@ -1,4 +1,4 @@
-package com.example.shoppingmall_project.Controller;
+/*package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.service.HeaderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,3 +45,5 @@ public class HeaderController {
         return "redirect:/menu/accessory";
     }
 }
+*/
+//에러때문에 잠시 주석처리

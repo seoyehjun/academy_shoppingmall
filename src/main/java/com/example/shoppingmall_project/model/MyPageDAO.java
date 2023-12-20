@@ -14,10 +14,22 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface MyPageDAO 
 {
-	@Select("select count(*) from board")
+	@Select("SELECT * "
+			+"FROM members m, inquiries i "
+			+"WHERE i.inquiries_idx=#{no} "
+			+"AND i.members_idx = m.members_idx ")
+	public JInquiries_VO boardDetailData(int no);
+
+	@Select("select count(*) from inquiries")
 	int totalInqury();
 
-	List<InquiriesVO> selectAll(Paging p);
+
+	@Select("select * from inquiries i, members m " +
+			"where i.members_idx = m.members_idx " +
+			"order by inquiries_idx desc " +
+			"offset #{offset} row " +
+			"fetch first #{perCount} rows only")
+	List<JInquiries_VO> selectAll(Paging p);
 
 	@Select("select c.cart_idx, c.quantity, c.products_idx, c.members_idx,c.color_idx, c.size_idx"+
 			" , p.products_name, p.products_price, st.size_product, ct.color" +

@@ -1,4 +1,4 @@
-package com.example.shoppingmall_project.service;
+/*package com.example.shoppingmall_project.service;
 
 import com.example.shoppingmall_project.model.FindDAO;
 import com.example.shoppingmall_project.model.vo.MembersVO;
@@ -41,4 +41,5 @@ public class FindService {
         return dao.changePW(input);
     }
 
-}
+}*/
+//실행에러때문에 잠시 주석처리

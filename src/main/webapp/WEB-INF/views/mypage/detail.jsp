@@ -22,33 +22,31 @@
         <table class="table table-striped">
             <tr>
                 <th width=20% class="text-center danger">번호</th>
-                <td width=30% class="text-center">${vo.no }</td>
+                <td width=30% class="text-center">${vo.inquiries_idx }</td>
                 <th width=20% class="text-center danger">작성일</th>
                 <td width=30% class="text-center">
-                    <fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd"/>
+                    <fmt:formatDate value="${vo.inquiries_registration_date }" pattern="yyyy-MM-dd"/>
                 </td>
             </tr>
             <tr>
                 <th width=20% class="text-center danger">이름</th>
-                <td width=30% class="text-center">${vo.name }</td>
-                <th width=20% class="text-center danger">조회수</th>
-                <td width=30% class="text-center">${vo.hit }</td>
+                <td width=30% class="text-center">${vo.members_name }</td>
             </tr>
             <tr>
                 <th width=20% class="text-center danger">제목</th>
-                <td colspan="3">${vo.subject }</td>
+                <td colspan="3">${vo.inquiries_title }</td>
             </tr>
             <tr>
-                <td colspan="4" class="text-left" valign="top" height="200">${vo.content }</td>
+                <td colspan="4" class="text-left" valign="top" height="200">${vo.inquiries_content }</td>
             </tr>
             <tr>
                 <td colspan="4" class="text-right">
                     <c:if test="${sessionScope.id!=null }">
-                        <a href="../board/reply.do?no=${vo.no }" class="btn btn-xs btn-danger">답변</a>
+                        <a href="../board/reply.do?no=${vo.inquiries_idx }" class="btn btn-xs btn-danger">답변</a>
                         <a href="#" class="btn btn-xs btn-success">수정</a>
                         <a href="#" class="btn btn-xs btn-info">삭제</a>
                     </c:if>
-                    <a href="../board/list.do" class="btn btn-xs btn-warning">목록</a>
+                    <a href="../mypage/lst" class="btn btn-xs btn-warning">목록</a>
                 </td>
             </tr>
         </table>

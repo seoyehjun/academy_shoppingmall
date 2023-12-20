@@ -25,7 +25,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <h3 class="text-center">자유게시판</h3>
+        <h3 class="text-center">Q & A</h3>
 
             <table class="table">
                 <tr>
@@ -41,38 +41,34 @@
                 <th class="text-center" width=45%>제목</th>
                 <th class="text-center" width=15%>이름</th>
                 <th class="text-center" width=20%>작성일</th>
-                <th class="text-center" width=10%>조회수</th>
             </tr>
             <c:forEach var="item" items="${Infolist }">
                 <tr>
-                    <td class="text-center btd" width=10%>${item.no }</td>
+                    <td class="text-center btd" width=10%>${item.inquiries_idx}</td>
                     <td class="text-left btd" width=45%>
-                        <c:if test="${item.getGt()>0 }">
-                            <c:forEach var="i" begin="1" end="${item.getGt() }">
-                                &nbsp;&nbsp;&nbsp;
-                            </c:forEach>
-                            ▶
-                        </c:if>
-                        <a href="detail.do?no=${item.no }">${item.subject }</a>
+                        <a href="/mypage/detail?no=${item.inquiries_idx }">${item.inquiries_title }</a><!--개시글보기 링크-->
                     </td>
-                    <td class="text-center btd" width=15%>${item.name }</td>
+                    <td class="text-center btd" width=15%>${item.members_name }</td>
                     <td class="text-center btd" width=20%>
-                        <fmt:formatDate value="${item.regdate }" pattern="yyyy-MM-dd"/></td>
-                    <td class="text-center btd" width=10%>${item.hit }</td>
+                        <fmt:formatDate value="${item.inquiries_registration_date }" pattern="yyyy-MM-dd"/>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
-        <table class="table">
-            <tr>
-                <td class="text-left"></td>
-                <td class="text-right">
-                    <a href="#" class="btn btn-sm btn-primary">이전</a>
-                    ${curpage } page / ${totalpage } pages
-                    <a href="#" class="btn btn-sm btn-primary">다음</a>
-                </td>
-            </tr>
-        </table>
     </div>
+    <ul class="menu page">
+        <c:if test="${p.prev }">
+            <li><a href="${cpath }/mypage/info/${p.begin - 1 }">이전</a></li>
+        </c:if>
+
+        <c:forEach var="i" begin="${p.begin }" end="${p.end }">
+            <li><a href="${cpath }/mypage/info/${i }">${i }</a></li>
+        </c:forEach>
+
+        <c:if test="${p.next }">
+            <li><a href="${cpath }/mypage/info/${p.end + 1 }">다음</a></li>
+        </c:if>
+    </ul>
 </div>
 </body>
 </html>

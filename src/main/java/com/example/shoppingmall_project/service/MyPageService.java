@@ -19,13 +19,18 @@ public class MyPageService
 	@Autowired
 	private MyPageDAO myPageDAO;
 
+	public JInquiries_VO InfoDetailData(Integer no)
+	{
+		return myPageDAO.boardDetailData(no);
+	}
+
 	public Map<String, Object> getInfos(Integer idx)
 	{
 		idx = idx == null ? 1 : idx;
 
 		// 페이징 코드 작성
 		Paging p = new Paging(idx, myPageDAO.totalInqury());//페이징객체에 (요청페이지,총페이지수)
-		List<InquiriesVO> list = myPageDAO.selectAll(p);
+		List<JInquiries_VO> list = myPageDAO.selectAll(p);
 
 		// 타입이 다른 객체를 묶어서 반환하기 위해 Map을 사용
 		Map<String, Object> result = new HashMap<>();

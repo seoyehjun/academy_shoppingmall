@@ -50,14 +50,25 @@ public class MypagController
 	}*/
 
 
+	@GetMapping("/detail")
+	public String Info_detail(String no,Model model)
+	{
+		//Model => 해당 JSP로 데이터 전송
+		// 데이터베이스 연동
+		int temp_no = Integer.parseInt(no);
+		JInquiries_VO vo = myPageService.InfoDetailData(temp_no);
+		// 데이터 전송
+		model.addAttribute("vo", vo);
+		return "mypage/detail";
+	}
 
-	@GetMapping(value = {"/info", "/{idx}"})
+	@GetMapping(value = {"/info", "/info/{idx}"})
 	public String listInfos(Model model, HttpSession httpsession,
 					   @PathVariable(required = false) Integer idx)
 	{
 		// @required의 기본값은 true
 		// - idx에 무조건 값이 전달되어야 한다
-
+		System.out.println("info 실행");
 		Map<String, Object> result = myPageService.getInfos(idx);
 
 		model.addAttribute("Infolist", result.get("list"));
