@@ -139,7 +139,7 @@
 </html><%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="utf-8"%>
 
-<%@ include file="../junheader.jsp" %>
+<%@ include file="../header.jsp" %>
 
 <head>
 	<meta charset="utf-8">

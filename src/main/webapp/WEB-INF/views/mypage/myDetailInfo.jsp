@@ -250,7 +250,7 @@ domainListEl.addEventListener('change', (event) => {
 </script>
 </html><%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ include file="../junheader.jsp" %><%--html body�±׸� �ݾ����� --%>
+<%@ include file="../header.jsp" %><%--html body�±׸� �ݾ����� --%>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <head>
