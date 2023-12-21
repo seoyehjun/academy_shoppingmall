@@ -17,6 +17,22 @@ public interface OrdersDAO {
             "           (SELECT SIZE_IDX FROM SIZE_TABLE WHERE SIZE_PRODUCT = #{size_product}) " +
             "    FROM DUAL")
     int insertOrders(OrdersVO ordersVO);
-    
 
+
+
+    @Insert(" INSERT INTO cart (QUANTITY, PRODUCTS_IDX, MEMBERS_IDX, COLOR_IDX, SIZE_IDX) " +
+            "    SELECT 1 AS QUANTITY, " +
+            "           3 AS MEMBERS_IDX, " +
+            "           1 AS PRODUCTS_IDX, " +
+            "           (SELECT COLOR_IDX FROM COLOR WHERE COLOR = #{color}), " +
+            "           (SELECT SIZE_IDX FROM SIZE_TABLE WHERE SIZE_PRODUCT = #{size_product}) " +
+            "    FROM DUAL")
+    int insertCart(OrdersVO ordersVO);
+
+
+
+   @Insert("insert into favorites (products_idx, members_idx) " +
+           "        select #{products_idx} as PRODUCTS_IDX, " +
+           "                3 as MEMBERS_IDX from dual")
+    int insertFavorites(OrdersVO ordersVO);
 }

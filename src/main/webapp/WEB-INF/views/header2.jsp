@@ -55,7 +55,7 @@
     </div>
 
     <div class="acc">
-
+        <li><a href="${cpath }/product/homeProduct">Product</a></li>
         <a href="/cart">🛒</a>
 
         <a href="/signUp2">JOIN</a>

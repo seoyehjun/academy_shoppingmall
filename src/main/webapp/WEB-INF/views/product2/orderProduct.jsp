@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
+
+        <title>Sample Payment</title>
+    </head>
+
+    <body>
 	<div class="container">
 	
 	<div class="product-container">
@@ -25,21 +30,79 @@
 
     <div class="delivery-destination">
         <h3>배송지 선택</h3>
-        <div>
-            <label>
-                <input type="checkbox" id="same-as-member" name="delivery-option" checked>
-                회원 정보와 동일
-            </label>
-        </div>
 
-        <div>
-            <label>
-                <input type="checkbox" id="new-destination" name="delivery-option">
-                새로운 배송지
-            </label>
-        </div>
+        <label>
+            <input type="radio" name="delivery-option" id="same-as-member" checked onclick="toggleDeliveryFields(this)">
+            회원 정보와 동일
+        </label>
+
+        <label>
+            <input type="radio" name="delivery-option" id="new-destination" onclick="toggleDeliveryFields(this)">
+            새로운 배송지
+        </label>
     </div>
 
+    <!-- 이하 JavaScript 코드 추가 -->
+   <script th:inline="javascript">
+    var loggedInUser = /*[[${loggedInUser}]]*/ null;
+       console.log("loggedInUser:", loggedInUser);
+
+    function toggleDeliveryFields(radio) {
+        // 받으시는 분 입력 필드 참조 가져오기
+        var recipientNameField = document.getElementById('recipient-name');
+        var addr1Field = document.getElementById('addr1');
+        var addr2Field = document.getElementById('addr2');
+        var addr3Field = document.getElementById('addr3');
+        var addr4Field = document.getElementById('addr4');
+
+        // 휴대전화 입력 필드 참조 가져오기
+        var phonePrefixField = document.getElementById('phone-prefix');
+        var phoneNumberField = document.getElementById('phone-number');
+        var phoneNumber2Field = document.getElementById('phone-number2');
+
+        // 이메일 입력 필드 참조 가져오기
+        var emailIdField = document.getElementById('email-id');
+        var emailDomainField = document.getElementById('email-domain');
+
+        // "회원 정보와 동일" 선택인 경우
+        if (radio.id === 'same-as-member') {
+            // 입력 필드를 비활성화하고 값 초기화
+            recipientNameField.disabled = true;
+            addr1Field.disabled = true;
+            addr2Field.disabled = true;
+            addr3Field.disabled = true;
+            addr4Field.disabled = true;
+            phonePrefixField.disabled = true;
+            phoneNumberField.disabled = true;
+            phoneNumber2Field.disabled = true;
+            emailIdField.disabled = true;
+            emailDomainField.disabled = true;
+
+            recipientNameField.value = membersNickname;
+            addr2Field.value = '광역시';
+            addr3Field.value = '';
+            addr4Field.value = '';
+            phonePrefixField.value = '010';  // 기본값 설정, 필요에 따라 변경
+            phoneNumberField.value = '';
+            phoneNumber2Field.value = '';
+            emailIdField.value = '';
+            emailDomainField.value = 'naver.com';  // 기본값 설정, 필요에 따라 변경
+        } else if (radio.id === 'new-destination') {
+            // "새로운 배송지" 선택인 경우
+            // 입력 필드를 활성화
+            recipientNameField.disabled = false;
+            addr1Field.disabled = false;
+            addr2Field.disabled = false;
+            addr3Field.disabled = false;
+            addr4Field.disabled = false;
+            phonePrefixField.disabled = false;
+            phoneNumberField.disabled = false;
+            phoneNumber2Field.disabled = false;
+            emailIdField.disabled = false;
+            emailDomainField.disabled = false;
+        }
+    }
+    </script>
     <div class="recipient-info">
         <h3>받으시는 분</h3>
         <div>
@@ -90,7 +153,7 @@
 
     <div class="delivery-message">
         <h3>배송메시지</h3>
-        <div>
+         <div>
             <textarea id="delivery-message" name="delivery-message" placeholder="배송 메시지를 입력하세요"></textarea>
         </div>
     </div>
@@ -139,53 +202,8 @@
 	        }
 	    }).open();
 	}
-
 		</script>
 
 
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <!-- jQuery -->
-            <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-            <!-- iamport.payment.js -->
-            <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-            <script>
-                var IMP = window.IMP;
-                IMP.init("내 가맹점 식별코드");
-
-                function requestPay() {
-                    IMP.request_pay({
-                        pg: "{html5_inicis}.{INIBillTst}",
-                        pay_method: "card",
-                        merchant_uid: "ORD20180131-0000011",   // 주문번호
-                        name: "노르웨이 회전 의자",
-                        amount: 64900,                         // 숫자 타입
-                        buyer_email: "gildong@gmail.com",
-                        buyer_name: "홍길동",
-                        buyer_tel: "010-4242-4242",
-                        buyer_addr: "서울특별시 강남구 신사동",
-                        buyer_postcode: "01181"
-                    }, function (rsp) { // callback
-                        $.ajax({
-                           type: 'POST',
-                           url: '/verify/' + rsp.imp_uid
-                        }).done(function(data) {
-                            if(rsp.paid_amount === data.response.amount){
-                                alert("결제 성공");
-                            } else {
-                                alert("결제 실패");
-                            }
-                        });
-                    });
-                }
-            </script>
-            <meta charset="UTF-8">
-            <title>Sample Payment</title>
-        </head>
-        <body>
-            <button onclick="requestPay()">결제하기</button> <!-- 결제하기 버튼 생성 -->
-        </body>
-        </html>
 </body>
 </html>
