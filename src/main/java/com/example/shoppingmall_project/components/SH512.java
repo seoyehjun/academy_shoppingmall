@@ -1,4 +1,4 @@
-package com.example.shoppingmall_project.conponents;
+package com.example.shoppingmall_project.components;
 
 import org.springframework.stereotype.Component;
 

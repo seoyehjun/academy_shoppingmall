@@ -1,6 +1,6 @@
 package com.example.shoppingmall_project.AOP;
 
-import com.example.shoppingmall_project.conponents.SH512;
+import com.example.shoppingmall_project.components.SH512;
 import com.example.shoppingmall_project.model.vo.MembersVO;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
