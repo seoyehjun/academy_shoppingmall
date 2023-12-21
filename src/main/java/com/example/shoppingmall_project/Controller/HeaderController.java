@@ -25,7 +25,7 @@ public class HeaderController {
 
     @GetMapping("/outer")
     public void outer(Model model){
-        model.addAttribute("menuList", is.getMenuImage(1));
+//        model.addAttribute("menuList", is.getMenuImage(1));
     }
 
     @GetMapping("/top")

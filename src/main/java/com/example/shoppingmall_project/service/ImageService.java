@@ -19,9 +19,9 @@ public class ImageService {
         return imageDAO.getAllImageNames();
     }
 
-    public ProductVO getMenuImage(int idx) {
-        return imageDAO.getMenuImageNames(idx);
-    }
+//    public ProductVO getMenuImage() {
+//        return imageDAO.getMenuImageNames();
+//    }
 
     public void addImage(Model model){
         model.addAttribute("imageList", getAllImageNames());
