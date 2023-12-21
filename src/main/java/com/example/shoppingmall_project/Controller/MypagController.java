@@ -53,7 +53,7 @@ public class MypagController
 	@PostMapping("/insert_ok")
 	public String board_insert_ok(@ModelAttribute("vo") BoardVO vo)
 	{
-		myPageService.InfoInsert(vo);//깃테스트 실험
+		myPageService.InfoInsert(vo);//깃테스트 실험2
 		return "redirect:/mypage/info";
 	}
 
