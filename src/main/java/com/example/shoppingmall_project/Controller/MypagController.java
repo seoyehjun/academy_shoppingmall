@@ -1,5 +1,6 @@
 package com.example.shoppingmall_project.Controller;
 
+import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.*;
 import com.example.shoppingmall_project.service.MyPageService;
 import net.coobird.thumbnailator.Thumbnails;
@@ -100,7 +101,7 @@ public class MypagController
 		model.addAttribute("CO_list",CO_list);
 		System.out.println("in controller");
 
-		return "/product2/orderProductforCart";
+		return "/mypage/orderProductforCart";
 	}
 	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
 	public String removeCart(Model model, HttpSession httpsession, @RequestParam("cart_idx") String cart_idx) throws Exception
@@ -161,12 +162,13 @@ public class MypagController
 	public String myPageMain(Model model, HttpSession httpsession
 			,HttpServletRequest request, @RequestParam(required = false,value="message")  String message)throws Exception
 	{
+		MembersVO membersVO;
 		ModelAndView mav = new ModelAndView();
-		//memberVO = (MemberVO)httpsession.getAttribute("memberInfo");
+		membersVO = (MembersVO)httpsession.getAttribute("user");
 		//String members_idx = memberVO.getMembers_idx()+"";
 		
 		//�α��� �����Ǹ� �� ���� �ּ� Ǯ�� members_idx�޾ƿ��� �ȴ�
-		List<O_P_OD_vo> myOrderList = myPageService.listMyOrderGoods("1");
+		List<O_P_OD_vo> myOrderList = myPageService.listMyOrderGoods(membersVO.getMembers_idx()+"");
 		httpsession.setAttribute("myOrderList", myOrderList);
 		httpsession.setAttribute("message",message);//cancelMyOrder에서 온다.
 		System.out.println("myOrderList size: "+myOrderList.size());
