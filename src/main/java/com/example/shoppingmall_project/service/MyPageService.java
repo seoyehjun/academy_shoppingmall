@@ -19,6 +19,11 @@ public class MyPageService
 	@Autowired
 	private MyPageDAO myPageDAO;
 
+	public void InfoInsert(JInquiries_VO vo)
+	{
+		myPageDAO.InfoInsert(vo);
+	}
+
 	public JInquiries_VO InfoDetailData(Integer no)
 	{
 		return myPageDAO.boardDetailData(no);

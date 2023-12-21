@@ -50,10 +50,13 @@ public class MypagController
 		return "/product2/orderProductforCart";
 	}*/
 
-	@PostMapping("/insert_ok")
-	public String board_insert_ok(@ModelAttribute("vo") BoardVO vo)
+	@PostMapping("/insert")
+	public String board_insert_ok(@ModelAttribute JInquiries_VO form, Model model,
+								  HttpSession httpsession)
 	{
-		myPageService.InfoInsert(vo);//깃테스트 실험2
+		MembersVO membersVO = (MembersVO)httpsession.getAttribute("user");
+		form.setMembers_idx(membersVO.getMembers_idx());
+		myPageService.InfoInsert(form);//깃테스트 실험2
 		return "redirect:/mypage/info";
 	}
 

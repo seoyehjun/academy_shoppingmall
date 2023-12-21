@@ -17,32 +17,37 @@
 <div class="container">
     <div class="row">
         <h3 class="text-center">글쓰기</h3>
-        <form method="post" action="insert_ok">
+        <form method="post" action="insert">
             <table class="table table-hover">
                 <tr>
                     <th class="danger text-right" width=15%>이름</th>
                     <td width=85%>
-                        <input type=text name=name size=15 class="input-sm">
+                        <input type=text name="members_name" size=15 class="input-sm">
+                    </td>
+                    <td>
+                        <input type="text" size=10 name="inquiries_category" id="domain-txt" />
+
+                        <select name="select_email" id="domain-list" onChange="" title="직접입력">
+                            <option value="상품문의">상품문의</option>
+                            <option value="구매후기">구매후기</option>
+                            <option value="입금배송문의">입금배송문의</option>
+                            <option value="교환반품문의">교환반품문의</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
                     <th class="danger text-right" width=15%>제목</th>
                     <td width=85%>
-                        <input type=text name=subject size=45 class="input-sm">
+                        <input type=text name="inquiries_title" size=45 class="input-sm">
                     </td>
                 </tr>
                 <tr>
                     <th class="danger text-right" width=15%>내용</th>
                     <td width=85%>
-                        <textarea rows="10" cols="50" name=content></textarea>
+                        <textarea rows="10" cols="50" name="inquiries_content"></textarea>
                     </td>
                 </tr>
-                <tr>
-                    <th class="danger text-right" width=15%>비밀번호</th>
-                    <td width=85%>
-                        <input type=password name=pwd size=10 class="input-sm">
-                    </td>
-                </tr>
+
                 <tr>
                     <td colspan="2" class="text-center">
                         <input type=submit value=글쓰기 class="btn btn-sm btn-primary">
@@ -56,4 +61,19 @@
     </div>
 </div>
 </body>
+
+<script>
+    //도메인 직접 입력 or domain option 선택
+    const domainListEl = document.querySelector('#domain-list')
+    const domainInputEl = document.querySelector('#domain-txt')
+    // select 옵션 변경 시
+    domainListEl.addEventListener('change', (event) => {
+        // option에 있는 도메인 선택 시
+
+        // 선택한 도메인을 input에 입력하고 disabled
+        domainInputEl.value = event.target.value
+        domainInputEl.disabled = true
+    })
+</script>
+
 </html>

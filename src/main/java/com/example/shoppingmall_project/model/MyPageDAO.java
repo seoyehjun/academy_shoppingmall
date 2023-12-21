@@ -14,6 +14,14 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface MyPageDAO 
 {
+	@Insert(
+			"insert into Inquiries(inquiries_title, inquiries_content" +
+					",inquiries_registration_date,inquiries_category,products_idx,members_idx) " +
+					"values(#{inquiries_title}, #{inquiries_content}," +
+					"sysdate, #{inquiries_category}, 77, #{members_idx}) "
+	)
+	public void InfoInsert(JInquiries_VO vo);
+
 	@Select("SELECT * "
 			+"FROM members m, inquiries i "
 			+"WHERE i.inquiries_idx=#{no} "
