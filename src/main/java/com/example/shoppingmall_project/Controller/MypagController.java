@@ -50,6 +50,18 @@ public class MypagController
 		return "/product2/orderProductforCart";
 	}*/
 
+	@PostMapping("/insert_ok")
+	public String board_insert_ok(@ModelAttribute("vo") BoardVO vo)
+	{
+		myPageService.InfoInsert(vo);//집가서 서비스부분 구현
+		return "redirect:/mypage/info";
+	}
+
+	@GetMapping("/insert")
+	public String board_insert()
+	{
+		return "mypage/insert";
+	}
 
 	@GetMapping("/detail")
 	public String Info_detail(String no,Model model)

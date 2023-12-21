@@ -30,7 +30,7 @@
             <table class="table">
                 <tr>
                     <td class="text-left">
-                        <a href="insert.do" class="btn btn-sm btn-danger">새글</a>
+                        <a href="/mypage/insert" class="btn btn-sm btn-danger">새글</a>
                     </td>
                 </tr>
             </table>

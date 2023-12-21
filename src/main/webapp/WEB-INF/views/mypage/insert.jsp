@@ -17,7 +17,7 @@
 <div class="container">
     <div class="row">
         <h3 class="text-center">글쓰기</h3>
-        <form method="post" action="insert_ok.do">
+        <form method="post" action="insert_ok">
             <table class="table table-hover">
                 <tr>
                     <th class="danger text-right" width=15%>이름</th>
