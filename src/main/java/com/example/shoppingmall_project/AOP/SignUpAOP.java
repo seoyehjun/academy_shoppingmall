@@ -16,7 +16,8 @@ public class SignUpAOP {
 
     @Autowired private SH512 hash;
 
-    @Before("execution(* com.example.shoppingmall_project.service.*(com.example.shoppingmall_project.model.vo, ..))")
+    @Before("execution(* com.example.shoppingmall_project.service.SignUpService.*(com.example.shoppingmall_project.model.vo.MembersVO, ..)) " +
+            "|| execution(* com.example.shoppingmall_project.service.LoginService.*(com.example.shoppingmall_project.model.vo.MembersVO, ..))")
     public void hash(JoinPoint jp) throws NoSuchAlgorithmException {
         MembersVO input = (MembersVO)jp.getArgs()[0];
 
