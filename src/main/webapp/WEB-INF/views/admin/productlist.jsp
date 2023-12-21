@@ -10,24 +10,26 @@
         <table>
             <tr>
                 <th>No</th>
-                <th>주문회원</th>
-                <th>주문일자</th>
                 <th>상품명</th>
-                <th>배송상태</th>
-                <th>주문량</th>
+                <th>가격</th>
+                <th>등록일</th>
+                <th>재고</th>
+                <th>카테고리</th>
+                <th></th>
                 <th></th>
             </tr>
             <c:forEach var="row" items="${list }">
                 <tr>
-                    <td>${row.orders_idx }</td>
-                    <td>${row.members_id }</td>
-                    <td>
-                        <fmt:formatDate value="${row.orders_date}" pattern="yyyy-MM-dd" />
-                    </td>
+                    <td>${row.products_idx }</td>
                     <td>${row.products_name }</td>
-                    <td>${row.orders_status }</td>
-                    <td>${row.quantity }개</td>
+                    <td>${row.products_price }</td>
+                    <td>
+                        <fmt:formatDate value="${row.products_registration_date}" pattern="yyyy-MM-dd" />
+                    </td>
+                    <td>${row.products_stock }</td>
+                    <td>${row.categories_name }</td>
                     <td><button>수정</button></td>
+                    <td><button>삭제</button></td>
                 </tr>
             </c:forEach>
         </table>

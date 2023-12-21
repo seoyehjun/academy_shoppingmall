@@ -9,25 +9,22 @@
         <section class="outer">
             <div class="best">
                 <h4>best item</h4>
-                <div class="bestlist">
-                    <c:forEach var="imageName" items="${imageList}">
+                <div class="outerlist" onclick="redirectToProductDetail(${product.products_idx}">
+                    <c:forEach var="imageName" items="${menuList.img_url}">
                         <c:set var="imagePath" value="/springboot/"/>
-                        <img src="${imagePath}${imageName}" alt="Image">
+                        <a href=""><img src="${imagePath}${imageName}" alt="Image"></a>
                         <br/>
                     </c:forEach>
                 </div>
             </div>
-            
-            <div>
-                <h4>new list</h4>
-                <div class="outerlist">
-                    16장씩 나열
-                </div>
-            </div>
 
         </section>
-
-
     </main>
+
+    <script>
+        function redirectToProductDetail(productIdx) {
+            window.location.href = '/menu/outer?productIdx=' + productIdx;
+        }
+    </script>
 </body>
 </html>

@@ -20,12 +20,13 @@ public class HeaderController {
     @ModelAttribute
     public void menu(Model model){
         hs.addCommonAttributes(model);
-        is.addImage(model);
     }
 
 
     @GetMapping("/outer")
-    public void outer(){}
+    public void outer(Model model){
+        model.addAttribute("menuList", is.getMenuImage(1));
+    }
 
     @GetMapping("/top")
     public void top(){}

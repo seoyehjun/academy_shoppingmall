@@ -1,13 +1,13 @@
-.bestlist img {
+.outerlist img {
     width: 200px;
     height: 300px;
     object-fit: cover;
 }
-.bestlist {
+.outerlist {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
-.bestlist img {
+.outerlist img {
     margin: 10px;
 }
