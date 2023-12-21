@@ -59,6 +59,12 @@ public interface ProductDAO {
 	
 	@Select("SELECT * FROM PRODUCTS WHERE PRODUCTS_IDX = #{productIdx}")
 	ProductVO selectProductByIdx(int productIdx);
-	
 
+
+	@Select("select p.products_idx, p.products_name, p.products_price, " +
+			"p.products_registration_date, p.products_stock, " +
+			"c.categories_name from products " +
+			"p join categories c on p.categories_idx = c.categories_idx " +
+			"order by p.products_idx desc")
+    List<ProductVO> productlist();
 }

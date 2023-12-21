@@ -55,7 +55,44 @@ a:hover {
     opacity: 0.5;
     background-color: #ffffff;
 }
-.menu .sub > li:hover {
+.acc .sub > li:hover {
+    background-color: #ffffff;
+    opacity: 0.5;
+}
+.acc ul {
+    list-style: none;
+    padding: 0;
+}
+.acc > ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+.acc li {
+    width: 150px;
+    padding: 5px;
+}
+.acc > ul > li:hover {
+    background-color: #ffffff;
+}
+.acc > ul > li {
+    position: relative;
+}
+.acc > ul > li > ul {
+    z-index: 3;
+    position: absolute;
+    left: 0;
+}
+.acc .sub {
+    display: none;
+}
+.acc > ul > li:hover ul {
+    display: block;
+}
+.acc .sub > li {
+    opacity: 0.5;
+    background-color: #ffffff;
+}
+.acc .sub > li:hover {
     background-color: #ffffff;
     opacity: 0.5;
 }

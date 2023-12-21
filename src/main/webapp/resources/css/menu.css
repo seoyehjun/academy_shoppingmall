@@ -1,0 +1,13 @@
+.outerlist img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+}
+.outerlist {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.outerlist img {
+    margin: 10px;
+}
