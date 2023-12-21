@@ -23,6 +23,21 @@ public interface OrdersDAO {
     int insertOrders(OrdersVO ordersVO);
 
 
-    @Select("select o.orders_idx, o.orders_date, p.products_name ,o.orders_status , od.quantity, m.members_id from orders o, products p, ordersd_details od, members m where od.orders_idx = o.orders_idx and od.products_idx = p.products_idx order by o.orders_date desc")
-    List<O_P_OD_vo> adminlist();
+
+
+    @Insert(" INSERT INTO cart (QUANTITY, PRODUCTS_IDX, MEMBERS_IDX, COLOR_IDX, SIZE_IDX) " +
+            "    SELECT 1 AS QUANTITY, " +
+            "           3 AS MEMBERS_IDX, " +
+            "           1 AS PRODUCTS_IDX, " +
+            "           (SELECT COLOR_IDX FROM COLOR WHERE COLOR = #{color}), " +
+            "           (SELECT SIZE_IDX FROM SIZE_TABLE WHERE SIZE_PRODUCT = #{size_product}) " +
+            "    FROM DUAL")
+    int insertCart(OrdersVO ordersVO);
+
+
+
+   @Insert("insert into favorites (products_idx, members_idx) " +
+           "        select #{products_idx} as PRODUCTS_IDX, " +
+           "                3 as MEMBERS_IDX from dual")
+    int insertFavorites(OrdersVO ordersVO);
 }
