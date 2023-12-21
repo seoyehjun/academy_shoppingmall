@@ -11,29 +11,63 @@
 <html>
 <head>
     <title>shoppingMall project</title>
-    <link rel="stylesheet" href="${cpath}/resources/css/style.css">
+    <link rel="stylesheet" href="${cpath}/resources/css/header.css">
 </head>
 <body>
 <header>
-    <h1><a href="http://localhost:8888">브랜드 명</a></h1>
+    <h3 class="logo"><a href="http://localhost:8888">SooDaSam <br> SHOP</a></h3>
+    <div class="menu">
+        <ul>
+            <li>
+                <a href="${cpath}/menu/outer">아우터</a>
+                <ul class="sub">
+                    <c:forEach var="row" items="${outer }">
+                        <li><a href="${cpath}/menu/outer/${row.categories_idx}">${row.categories_name}</a></li>
+                    </c:forEach>
+                </ul>
+            </li>
+            <li>
+                <a href="${cpath}/menu/top">상의</a>
+                <ul class="sub">
+                    <c:forEach var="row" items="${top }">
+                        <li><a href="${cpath}/menu/outer/${row.categories_idx}">${row.categories_name}</a></li>
+                    </c:forEach>
+                </ul>
+            </li>
+            <li>
+                <a href="${cpath}/menu/bottom">하의</a>
+                <ul class="sub">
+                    <c:forEach var="row" items="${bottom }">
+                        <li><a href="${cpath}/menu/outer/${row.categories_idx}">${row.categories_name}</a></li>
+                    </c:forEach>
+                </ul>
+            </li>
+            <li>
+                <a href="${cpath}/menu/accessory">악세사리</a>
+                <ul class="sub">
+                    <c:forEach var="row" items="${accessory }">
+                        <li><a href="${cpath}/menu/outer/${row.categories_idx}">${row.categories_name}</a></li>
+                    </c:forEach>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
-    <li><a href="${cpath }/product/homeProduct">Product</a></li>
+    <div class="acc">
 
-    <c:if test="${empty user }">
-        <a href="login">login</a>
-    </c:if>
+        <a href="${contextPath }/mypage/myCartList">🛒</a>
 
-    <c:if test="${not empty user }">
-        <li><a href="myPage">${user.members_nickname}</a></li>
-        <li><a href="logout">logout</a></li>
-    </c:if>
+        <a href="/signUp">JOIN</a>
 
+        <c:if test="${empty user }">
+            <a href="/login/login">LOGIN</a>
+        </c:if>
+
+        <c:if test="${not empty user }">
+            <a href="${cpath }/mypage/myPageMain">마이페이지</a>
+            <a href="/login/logout">LOGOUT</a>
+        </c:if>
+    </div>
 </header>
 
-
-
-<hr>
-
-</body>
-</html>
 
