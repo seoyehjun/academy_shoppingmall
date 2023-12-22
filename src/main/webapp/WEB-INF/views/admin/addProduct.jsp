@@ -13,19 +13,19 @@
                 </tr>
                 <tr>
                     <th><label for="products_name">상품명</label></th>
-                    <td><input type="text" name="productname" id="productname" placeholder="상품명 입력해주세요"></td>
+                    <td><input type="text" name="products_name" id="products_name" placeholder="상품명 입력해주세요"></td>
                 </tr>
                 <tr>
                     <th><label for="products_price">가격</label></th>
-                    <td><input type="text" name="productprice" id="productprice" placeholder="가격을 기입해주세요"></td>
+                    <td><input type="text" name="products_price" id="products_price" placeholder="가격을 기입해주세요"></td>
                 </tr>
                 <tr>
                     <th><label for="products_description">상품 정보</label></th>
-                    <td><textarea name="productcontents" id="productcontents" cols="50" rows="20"></textarea></td>
+                    <td><textarea name="products_description" id="products_description" cols="50" rows="20"></textarea></td>
                 </tr>
                 <tr>
                     <th><label for="admins_name">작성자</label></th>
-                    <td><input type="text" name="useremail" id="useremail" value="${admin.admins_name}" readonly></td>
+                    <td><input type="text" name="admins_name" id="admins_name" value="${admin.admins_name}" readonly></td>
                 </tr>
                 <tr>
                     <th><label for="files"> 이미지 파일</label></th>
@@ -34,7 +34,7 @@
                 </tr>
                 <tr>
                     <th colspan="2">
-                        <input type="button" id="submitButn" value="등록하기">
+                        <input type="submit" id="submitButn" value="등록하기">
                     </th>
                 </tr>
             </table>
