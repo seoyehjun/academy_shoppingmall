@@ -2,8 +2,11 @@ package com.example.shoppingmall_project.service;
 
 import com.example.shoppingmall_project.model.OrdersDAO;
 import com.example.shoppingmall_project.model.vo.OrdersVO;
+import com.example.shoppingmall_project.model.vo.mypagevo.O_P_OD_vo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrdersService {
