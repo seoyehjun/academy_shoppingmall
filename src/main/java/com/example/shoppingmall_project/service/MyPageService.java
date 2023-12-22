@@ -19,6 +19,14 @@ public class MyPageService
 	@Autowired
 	private MyPageDAO myPageDAO;
 
+	public List<ReplyVO> selectAllReplys(int inquiries_idx) {
+		System.out.println("inquiries_dx 번호는:"+ inquiries_idx);
+		List<ReplyVO> list = myPageDAO.selectAllReplys(inquiries_idx);
+		System.out.println("list.length(): "+list.size());
+		return list;
+
+	}
+
 	public void InfoInsert(JInquiries_VO vo)
 	{
 		myPageDAO.InfoInsert(vo);

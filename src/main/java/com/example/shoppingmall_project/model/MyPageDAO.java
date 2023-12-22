@@ -14,12 +14,17 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface MyPageDAO 
 {
+
+	@Select("select * from replys r " +
+			"where inquiries_idx = #{inquiries_idx}")
+	public List<ReplyVO> selectAllReplys(int inquiries_idx);
+
 	@Insert(
 			"insert into Inquiries(inquiries_title, inquiries_content" +
 					",inquiries_registration_date,inquiries_category,products_idx,members_idx) " +
 					"values(#{inquiries_title}, #{inquiries_content}," +
-					"sysdate, #{inquiries_category}, 77, #{members_idx}) "
-	)
+					"sysdate, #{inquiries_category}, 7, #{members_idx}) "
+	)//products_idx는 임의로 7로 고정시켜놓음 만약 상품페이지에서 문의글을 쓰고싶다면 조작해도될듯하다.
 	public void InfoInsert(JInquiries_VO vo);
 
 	@Select("SELECT * "

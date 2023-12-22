@@ -20,10 +20,7 @@
         <form method="post" action="insert">
             <table class="table table-hover">
                 <tr>
-                    <th class="danger text-right" width=15%>이름</th>
-                    <td width=85%>
-                        <input type=text name="members_name" size=15 class="input-sm">
-                    </td>
+                    <th class="danger text-right" width=15%>문의 종류</th>
                     <td>
                         <input type="text" size=10 name="inquiries_category" id="domain-txt" />
 

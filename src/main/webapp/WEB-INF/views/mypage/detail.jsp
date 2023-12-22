@@ -42,7 +42,7 @@
             <tr>
                 <td colspan="4" class="text-right">
                     <c:if test="${sessionScope.id!=null }">
-                        <a href="../board/reply.do?no=${vo.inquiries_idx }" class="btn btn-xs btn-danger">답변</a>
+                        <a href="../mypage/reply?idx=${vo.inquiries_idx }" class="btn btn-xs btn-danger">답변</a>
                         <a href="#" class="btn btn-xs btn-success">수정</a>
                         <a href="#" class="btn btn-xs btn-info">삭제</a>
                     </c:if>
@@ -52,5 +52,22 @@
         </table>
     </div>
 </div>
+
+<h5>답변 (${reCount })</h5>
+
+
+<table>
+    <c:forEach var="re" items="${replys }">
+        <tr>
+            <td>
+        <pre>
+        ${re.contents }
+        </pre>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+
+
 </body>
 </html>

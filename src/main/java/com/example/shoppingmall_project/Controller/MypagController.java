@@ -50,17 +50,26 @@ public class MypagController
 		return "/product2/orderProductforCart";
 	}*/
 
-	@PostMapping("/insert")
+	//@GetMapping("/reply")//답변양식으로 이동
+	//public String reply_insert(@RequestParam("idx") int inquiries_idx, Model model)
+	//{
+		//inquiries제목 바꾸기(답변완료)
+		//밑에 reply 달아주기
+
+	//	model.addAttribute("replys_list",myPageService.selectAllReplys(inquiries_idx));
+	//}
+
+	@PostMapping("/insert")//실제 글을 DB에 넣는 코드 Input값들은 Model로 받아준다.
 	public String board_insert_ok(@ModelAttribute JInquiries_VO form, Model model,
 								  HttpSession httpsession)
 	{
 		MembersVO membersVO = (MembersVO)httpsession.getAttribute("user");
 		form.setMembers_idx(membersVO.getMembers_idx());
-		myPageService.InfoInsert(form);//깃테스트 실험2
+		myPageService.InfoInsert(form);
 		return "redirect:/mypage/info";
 	}
 
-	@GetMapping("/insert")
+	@GetMapping("/insert")//글작성 양식으로 이동
 	public String board_insert()
 	{
 		return "mypage/insert";
@@ -73,8 +82,12 @@ public class MypagController
 		// 데이터베이스 연동
 		int temp_no = Integer.parseInt(no);
 		JInquiries_VO vo = myPageService.InfoDetailData(temp_no);
+		List<ReplyVO> replys = myPageService.selectAllReplys(Integer.parseInt(no));
 		// 데이터 전송
+
+		System.out.println("replys_length: "+replys.size());
 		model.addAttribute("vo", vo);
+		model.addAttribute("replys",replys);
 		return "mypage/detail";
 	}
 
