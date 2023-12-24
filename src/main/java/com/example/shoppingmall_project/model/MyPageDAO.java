@@ -70,11 +70,12 @@ public interface MyPageDAO
 	MemberVO givememember(int members_idx);
 	
 	@Select("select c.cart_idx, c.quantity, c.products_idx, c.members_idx,c.color_idx, c.size_idx"
-			+ " , p.products_name, p.products_price, st.size_product, ct.color" + 
-			" from cart c, products p, size_table st, color ct,products_color pc, products_size ps, members m" + 
+			+ " , p.products_name, p.products_price, st.size_product, ct.color, pi.img_url" +
+			" from cart c, products p, size_table st, color ct,products_color pc, products_size ps, members m,products_img pi" +
 			" where #{members_idx}= c.members_idx" + 
 			" and m.members_idx = #{members_idx}" + 
-			" and c.products_idx = p.products_idx" + 
+			" and c.products_idx = p.products_idx" +
+			" and p.products_idx = pi.products_idx" +
 			" and c.products_idx = pc.products_idx and pc.color_idx = ct.color_idx and c.color_idx = pc.color_idx" + 
 			" and c.products_idx = ps.products_idx and ps.size_idx = st.size_idx and c.size_idx = ps.size_idx")
 	List<Cart_vo> listMyCart(String members_idx);
@@ -95,7 +96,7 @@ public interface MyPageDAO
 			"            and ps.size_idx = od.size_idx and ps.products_idx = od.products_idx and ps.size_idx = st.size_idx" + 
 			"            and pc.color_idx = od.color_idx and pc.products_idx = od.products_idx and pc.color_idx = c.color_idx " + 
 			"            and o.orders_idx = #{orders_idx}")
-	O_OD_P_C_S_M_vo getOrderDetail(int orders_idx);
+	List<O_OD_P_C_S_M_vo> getOrderDetail(int orders_idx);
 
 
 	@Delete("delete from cart " +

@@ -279,7 +279,7 @@ public class MypagController
 	public String myOrderDetail(HttpSession httpsession, Model model, @RequestParam("orders_idx") int orders_idx )
 	throws Exception
 	{
-		O_OD_P_C_S_M_vo myorderdetail =  myPageService.getOrderDetail(orders_idx);
+		List<O_OD_P_C_S_M_vo> myorderdetail =  myPageService.getOrderDetail(orders_idx);
 		httpsession.setAttribute("myorderdetail", myorderdetail );
 		
 		return "/mypage/myOrderDetail";
@@ -287,14 +287,17 @@ public class MypagController
 	
 	
 	
-	private static String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";//�ش��� �Ʒ��� ��ǰ idx\img_url�������� �̹��� �־��ָ� �ȴ�.
+	private static String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_reposi";
 	
 	@RequestMapping("/thumbnails")
 	protected void thumbnails(@RequestParam("fileName") String fileName,
-                            	@RequestParam("goods_id") String goods_id,
+                            	@RequestParam("products_idx") String products_idx,
 			                 HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String filePath=CURR_IMAGE_REPO_PATH+"\\"+goods_id+"\\"+fileName;
+		String filePath=CURR_IMAGE_REPO_PATH+"\\"+products_idx+"\\"+fileName;
+
+		System.out.println("fileName:"+fileName);
+		System.out.println("products_idx:" + products_idx);
 
 		File image=new File(filePath);
 

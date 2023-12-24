@@ -111,7 +111,7 @@ public class MyPageService
 		return givememember(Integer.parseInt(members_idx));
 	}
 	
-	public O_OD_P_C_S_M_vo getOrderDetail(int orders_idx)throws Exception
+	public List<O_OD_P_C_S_M_vo> getOrderDetail(int orders_idx)throws Exception
 	{
 		return myPageDAO.getOrderDetail(orders_idx);
 	}

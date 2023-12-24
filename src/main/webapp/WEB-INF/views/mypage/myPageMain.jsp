@@ -79,7 +79,8 @@
 			
 			<c:otherwise><%--주문 상품이 존재할 경우 --%>
 			 <c:forEach var="order" items="${ myOrderList }" varStatus="i"><%--myOrderList에는 O_P_OD_vo의 리스트 있다.  --%>
-			  
+			  <c:choose>
+				<c:when test="${pre_orders_idx != order.orders_idx}">
 		
 		    <tr><%--실제 상품 --%>
 		    
@@ -95,11 +96,13 @@
 		     
 		     <td align="left"><%--주문row의 상품title --%>
 		      <strong>
-		       <c:if test="${order.orders_idx == order2.orders_idx }">
-		        <a href="${cpath }/goods/goodsDetail?goods_idx=${order.products_idx}">${order.products_name }/${order.quantity }개
-		        </a><br>                 <%--주문의 products_idx를 주면 상품 상세페이지로 연결되도록 해주세요 --%>
-		       </c:if>
+				  <c:forEach var="order2" items="${myOrderList}" varStatus="j">
+					  <c:if  test="${order.orders_idx ==order2.orders_idx}" >
+						  <a href="${cpath }/product/homeProduct?productIdx=${order2.products_idx}">${order2.products_name }/${order.quantity }개</a><br>
+					  </c:if>
+				  </c:forEach>
 		      </strong>
+
 		     </td>     
 		     
 		     <td>
@@ -135,7 +138,11 @@
 		     
 		     
 		    </tr><%--실제 상품 row --%>
-			</c:forEach>
+
+			   <c:set  var="pre_orders_idx" value="${order.orders_idx}" />
+			  </c:when>
+			 </c:choose>
+		    </c:forEach>
 			
 			</c:otherwise><%--주문 상품이 존재할 경우 --%>
 		</c:choose> <%--주문상품 있냐 없냐 여부 --%> 

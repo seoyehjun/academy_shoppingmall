@@ -6,7 +6,7 @@
 
 <h1>배송 현황</h1>
  <div style = "text-decoration: underline">
-  ${myorderdetail.orders_status }
+  ${myorderdetail[0].orders_status }
  </div>
  
 <h1>1. 주문 상세정보</h1>
@@ -25,43 +25,42 @@
    <td>예상적립금</td>
    
   </tr>
- 
+	<c:forEach var="item" items="${myorderdetail}" varStatus="cnt">
   <tr>
    
-   <td>${myorderdetail.orders_idx }</td>
+   <td>${item.orders_idx }</td>
    
-   <td>${myorderdetail.orders_date }</td>
+   <td>${item.orders_date }</td>
    
    <%--상품 이미지(링크연결) --%>
    <td class="godds_image">
-    <a href="${cpath }/products/productsDetail?products_idx=${myorderdetail.products_idx}">
+    <a href="${cpath }/product/homeProduct?productIdx=${item.products_idx}">
     <%--프로젝트 내 resources폴더에 공백 이미지 추가 --%>
-     <IMG width="75" alt="" src="${cpath }/thumbnails?products_idx=${myorderdetail.products_idx }&fileName=${myorderdetail.img_url }">
+     <IMG width="75" alt="" src="${cpath }/mypage/thumbnails?products_idx=${item.products_idx }&fileName=${item.img_url }">
     </a>
-    	dummy
    </td>
    
    <td><%--상품 이름(링크연결) --%>
     <h2>
     <%--상품 이름을 받아오기 위해 조인구문을 사용해야한다 --%>
-     <a href="${cpath }/products/productsDetail?products_idx=${myorderdetail.products_idx}">${myorderdetail.products_name}</a>
+     <a href="${cpath }/product/homeProduct?productIdx=${item.products_idx}">${item.products_name}</a>
     </h2>
    </td>
    
    
 	<td><%--수량 --%>
-	 <h4>${myorderdetail.quantity }개<h4>
+	 <h4>${item.quantity }개<h4>
 	</td>
 	
 	<%--옵션 --%>
 	<td>
-	 <h2>${myorderdetail.color}</h2>
+	 <h2>${item.color}</h2>
 	 <br>
-	 <h2>${myorderdetail.size_product }</h2>
+	 <h2>${item.size_product }</h2>
 	</td>
 	
 	<td><%--개당 가격 --%>
-	 <h2>${myorderdetail.products_price }</h2>
+	 <h2>${item.products_price }</h2>
 	</td>				
 					
 	<td><%--배송비 --%>
@@ -69,14 +68,15 @@
 	</td>
 		
 	<td><%--주문금액 합계 (가격 x 수량) --%>
-	 <h2>${myorderdetail.quantity * myorderdetail.products_price}원 </h2>
+	 <h2>${item.quantity * item.products_price}원 </h2>
 	</td>
 			
 	<td><%--적립은 가격의 5% --%>
-	 <h2>${myorderdetail.quantity * myorderdetail.products_price*0.05}원</h2>
+	 <h2>${item.quantity * item.products_price*0.05}원</h2>
 	</td>		
 	
   </tr>
+	</c:forEach>
   
  </tbody>
 </table>
@@ -95,14 +95,14 @@
 	<tr class="dot_line">
 	 <td class="fixed_join">받으실 분</td>
 	 <td>
-	  ${myorderdetail.orders_recipient_name }
+	  ${myorderdetail[0].orders_recipient_name }
 	 </td>
 	</tr>
 	
 	<tr class="dot_line">
 	 <td class="fixed_join">휴대폰번호</td>
 	 <td>
-	  ${myorderdetail.orders_recipient_phone }
+	  ${myorderdetail[0].orders_recipient_phone }
 	 </td>
 	</tr>
 
@@ -110,14 +110,14 @@
 	<tr class="dot_line">
 	 <td class="fixed_join">주소</td>
 	 <td>
-	  ${myorderdetail.orders_recipient_address}
+	  ${myorderdetail[0].orders_recipient_address}
 	 </td>
 	 </tr>
 	 
 	<tr class="dot_line">
 	 <td class="fixed_join">상세주소</td>
 	 <td>
-	  ${myorderdetail.orders_detailed_address}
+	  ${myorderdetail[0].orders_detailed_address}
 	 </td>
     </tr>
 

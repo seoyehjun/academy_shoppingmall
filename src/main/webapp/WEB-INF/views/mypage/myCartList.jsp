@@ -56,6 +56,7 @@
 
      var temp_input = document.createElement("input");
      temp_input.setAttribute("value", checkbox[i].value+"");
+     temp_input.setAttribute("hidden",true);
      // 임시 <input>태그 만들어서 value속성 정해준다.
 
      temp_input.name = "cart_list" ;
@@ -69,6 +70,7 @@
 
    var temp_input2 = document.createElement("input");
    temp_input2.setAttribute("value", total_price);
+   temp_input2.setAttribute("hidden", true);
    temp_input2.name = "total_price";
    formObj.appendChild(temp_input2);
 
@@ -159,15 +161,14 @@
    <c:forEach var="item" items="${myCartList }" varStatus="cnt">
   <%-- <c:set var="cart_goods_qty" value="${myCartList[cnt.count-1].cart_goods_qty}" />
     <c:set var="cart_id" value="${myCartList[cnt.count-1].cart_id}" /> --%>
-    <input type = "text" id="cart_idx" value="${item.cart_idx}">
 
     <td>
-     <input type="checkbox" name="checkbox"  checked  value="${item.cart_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
+     <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.cart_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
     </td>
 
     <td class="goods_image">
     <a href="${cpath}/products/productsDetail?goods_id=${item.products_idx }">
-     <img width="75" alt="" src="${cpath}/thumbnails.do?goods_id=${item.products_idx}&fileName=${item.img_url}"  />
+     <img width="75" alt="" src="${cpath}/mypage/thumbnails?products_idx=${item.products_idx}&fileName=${item.img_url}"  />
     </a>
    </td>
 
@@ -298,6 +299,8 @@
 
 
 <script>
+
+
  function delete_cart_goods(cart_idx)
  {
   var cart_idx=Number(cart_idx);
@@ -325,7 +328,7 @@
         {
             number = parseInt(number) + 1;
         }
-        else if(type === 'minus')
+        else if(type === 'minus' && number>0)
         {
             number = parseInt(number) - 1;
         }
