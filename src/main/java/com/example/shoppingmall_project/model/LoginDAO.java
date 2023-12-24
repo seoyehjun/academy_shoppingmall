@@ -1,6 +1,7 @@
 package com.example.shoppingmall_project.model;
 
 import com.example.shoppingmall_project.model.vo.MembersVO;
+import com.example.shoppingmall_project.model.vo.AdminsVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,7 @@ public interface LoginDAO {
     @Select("select * from members where members_id = #{members_id} and members_password = #{members_password}")
     MembersVO selectOne(MembersVO input);
 
+    @Select("select * from admins where admins_username = #{admins_username} and admins_password = #{admins_password}")
+    AdminsVO adminsLogin(AdminsVO input);
 }
+

@@ -12,13 +12,45 @@
 </head>
 <body>
     <main>
-        <section class="banner">
-                    <div class="slide">
-                        <h4>하이</h4>
-                    </div>
-                </section>
+            <section class="banner">
+                <div class="slide">
+                    <a href="#"><img src="/resources/img/image1.jpg"></a>
+                    <a href="#"><img src="/resources/img/image2.jpg"></a>
+                    <a href="#"><img src="/resources/img/image3.jpg"></a>
+                    <a href="#"><img src="/resources/img/image4.jpg"></a>
+                </div>
+            </section>
 
+            <section class="daily">
+                <div>
+                    <c:forEach var="row" items="${list }">
+                        <tr>
+                            <td><img src="/resources/img/${row.img_url }"></td>
+                        </tr>
+                    </c:forEach>
+                </div>
+            </section>
 
-    </main>
-</body>
-</html>
+            <section class="popular">
+                <div>
+                    <c:forEach var="row" items="${list }">
+                        <tr>
+                            <td>${row.img_url }</td>
+                        </tr>
+                    </c:forEach>
+                </div>
+            </section>
+
+            <section class="new product">
+                <div>
+                    <c:forEach var="row" items="${list }">
+                        <tr>
+                            <td>${row.img_url }</td>
+                        </tr>
+                    </c:forEach>
+                </div>
+            </section>
+
+        </main>
+    </body>
+    </html>

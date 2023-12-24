@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
+
 <%@ include file="../header.jsp" %><%--html body태그만 닫아주자 --%>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
