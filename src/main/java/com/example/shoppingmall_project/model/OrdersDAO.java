@@ -12,7 +12,7 @@ public interface OrdersDAO {
     @Insert(" INSERT INTO ORDERSD_DETAILS (QUANTITY, ORDERS_IDX, PRODUCTS_IDX, COLOR_IDX, SIZE_IDX) " +
             "    SELECT 1 AS QUANTITY, " +
             "           3 AS ORDERS_IDX, " +
-            "           4 AS PRODUCTS_IDX, " +
+            "           #{products_idx} AS PRODUCTS_IDX, " +
             "           (SELECT COLOR_IDX FROM COLOR WHERE COLOR = #{color}), " +
             "           (SELECT SIZE_IDX FROM SIZE_TABLE WHERE SIZE_PRODUCT = #{size_product}) " +
             "    FROM DUAL")
@@ -23,7 +23,7 @@ public interface OrdersDAO {
     @Insert(" INSERT INTO cart (QUANTITY, PRODUCTS_IDX, MEMBERS_IDX, COLOR_IDX, SIZE_IDX) " +
             "    SELECT 1 AS QUANTITY, " +
             "           3 AS MEMBERS_IDX, " +
-            "           1 AS PRODUCTS_IDX, " +
+            "           #{products_idx} AS PRODUCTS_IDX, " +
             "           (SELECT COLOR_IDX FROM COLOR WHERE COLOR = #{color}), " +
             "           (SELECT SIZE_IDX FROM SIZE_TABLE WHERE SIZE_PRODUCT = #{size_product}) " +
             "    FROM DUAL")

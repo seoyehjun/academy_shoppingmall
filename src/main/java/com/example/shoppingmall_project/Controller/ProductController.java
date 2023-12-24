@@ -26,9 +26,9 @@ public class ProductController {
     public void productHome(@RequestParam("productIdx") int productIdx, Model model) {
         model.addAttribute("list", ps.getProductOne(productIdx)); //product 정보
         model.addAttribute("review", is.getInquiries()); //리뷰
-        model.addAttribute("num", ps.getCount());	// 사이즈
-        model.addAttribute("color", ps.color());	// 색상
-        model.addAttribute("img", ps.getimg());	//이미지
+        model.addAttribute("num", ps.getCountForProduct(productIdx));	// 사이즈
+        model.addAttribute("color", ps.color(productIdx));	// 색상
+        model.addAttribute("img", ps.getimg(productIdx));	//이미지
     }
 
     @PostMapping("/homeProduct")

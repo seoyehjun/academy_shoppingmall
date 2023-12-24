@@ -45,6 +45,7 @@ public class OrderController {
         // OrdersVO에서 size_product와 color 값을 가져옴
         String size_product = input.getSize_product();
         String color = input.getColor();
+        int products_idx = input.getProducts_idx();
 
         System.out.println("color : " + color);
         System.out.println("size : " + size_product);
@@ -52,7 +53,7 @@ public class OrderController {
 
         if ("BUY".equals(action)) {
             // sizeProduct와 color 값을 사용하여 insertOrders 메서드 호출
-            int result = os.insertOrders(size_product, color);
+            int result = os.insertOrders(size_product, color, products_idx);
 
             // insert 성공 여부에 따라 리다이렉트 결정
             if (result > 0) {
@@ -61,7 +62,7 @@ public class OrderController {
                 model.addAttribute("color", color);
                 // 사용된 idx를 불러와서 사용함
                 int product_Idx = input.getProducts_idx();
-                ProductVO product = ps.getProductByIdx(product_Idx);
+                ProductVO product = ps.getProductByIdx(products_idx);
                 System.out.println("product" + product);
 
                 model.addAttribute("product", product);
@@ -78,7 +79,7 @@ public class OrderController {
             // 예: 장바구니 추가 로직
 
 
-            int result = os.insertCart(size_product, color);
+            int result = os.insertCart(size_product, color, products_idx);
             if (result > 0) {
 
             return "redirect:/product/homeProduct";
@@ -92,7 +93,7 @@ public class OrderController {
         } else if ("WISH".equals(action)) {
             // WISH LIST 버튼 클릭 시 수행할 로직
             // 예시로 1로 설정했습니다. 실제로는 어떻게 결정되는지에 따라 수정이 필요합니다.
-            int products_idx = 1;
+            products_idx = input.getProducts_idx();
             int result = os.insertFavorites(products_idx);
 
             if (result > 0) {

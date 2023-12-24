@@ -25,25 +25,25 @@ public class ProductService {
     }
 
 
-    public int getCount() {
+    public int getCountForProduct(int productIdx) {
 
-        return dao.countAll();
+        return dao.countAll(productIdx);
     }
 
 
-    public Object color() {
-        // TODO Auto-generated method stub
-        return dao.colorAll();
+    public Object color(int productIdx) {
+        return dao.colorAll(productIdx);
     }
 
 
-    public Object getimg() {
-        return dao.imgAll();
+    public Object getimg(int productIdx) {
+        return dao.imgAll(productIdx);
     }
 
 
     public ProductVO getProductByIdx(int productIdx) {
         return dao.selectProductByIdx(productIdx);
     }
+
 
 }

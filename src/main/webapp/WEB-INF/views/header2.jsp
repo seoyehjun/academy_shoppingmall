@@ -27,7 +27,7 @@
                         </c:forEach>
                     </ul>
             </li>
-            <li>
+
                 <a href="${cpath}/menu/top">상의</a>
                     <ul class="sub">
                         <c:forEach var="row" items="${top }">

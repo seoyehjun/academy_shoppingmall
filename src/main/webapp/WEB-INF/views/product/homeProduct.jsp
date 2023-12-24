@@ -6,14 +6,11 @@
 <body>
 	
 	<div class="board">
-		
-		<div >
-			<img class="img-1" src="../resources/img/cloth.jpg">
-		</div>
+	   		</div>
 		
 	
 		<div class="info">
-			<h2>[3oz]Kun string hoody padded jumper (4color)</h2>
+			<h2>${list[0].products_name}</h2>
 			<hr>
 			<h5>[추천상품]/[Best]</h5>
 
@@ -59,9 +56,9 @@
 				</table>
 				<br> 
 				
-				<input name="products_idx" type="hidden" value="1 ">
-				
-				 <div class="button">	
+				<input name="products_idx" type="hidden" value="${list[0].products_idx}">
+
+				 <div class="button">
 			        <button type="submit" class="works" name="action" value="BUY">BUY IT NOW</button><br>	    
 			        <button type="submit" class="works" name="action" value="ADD">ADD TO CART</button><br>
 			        <button type="submit" class="works" name="action" value="WISH">WISH LIST</button><br>
