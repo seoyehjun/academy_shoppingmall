@@ -118,8 +118,8 @@ public class MypagController
 		System.out.println("cart_list[0]: "+cart_list[0]);
 		System.out.println("executed");
 
-		//MemberVO memberVO = (MemberVO) httpsession.getAttribute("memberInfo");//세션 받아오기
-		MemberVO memberVO = myPageService.givememember(1);
+		MembersVO memberVO = (MembersVO) httpsession.getAttribute("user");//세션 받아오기
+		//MembersVO memberVO = myPageService.givememember(getmemberVO.getMembers_idx());
 		int members_idx = memberVO.getMembers_idx();
 
 		List<Cart_vo> CO_list = myPageService.orderCartGoods(cart_list, members_idx);
@@ -151,10 +151,10 @@ public class MypagController
 	public String myCartList(Model model, HttpSession httpsession, HttpServletRequest request) throws Exception
 	{
 		HttpSession session=request.getSession();
-		//MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
-		//int members_idx=memberVO.getMembers_idx();//세션소유자의 카트 목록 불러올 예정
+		MembersVO memberVO=(MembersVO)session.getAttribute("user");
+		int members_idx=memberVO.getMembers_idx();//세션소유자의 카트 목록 불러올 예정
 
-		List<Cart_vo> cartList=myPageService.myCartList(1);//세션memeber_idx의 cart 리스트를 불러온다.
+		List<Cart_vo> cartList=myPageService.myCartList(members_idx);//세션memeber_idx의 cart 리스트를 불러온다.
 		session.setAttribute("cartList", cartList);//카트row들과  카트에 들어있는 상품목록 가져온다.cartVO의 리스트들이다.
 		//mav.addObject("cartMap", cartMap);
 		return "mypage/myCartList";
@@ -166,10 +166,10 @@ public class MypagController
 											   @RequestParam("cart_goods_qty") int cart_goods_qty,
 											   HttpServletRequest request, HttpServletResponse response)  throws Exception
 	{
-		MemberVO memberVO;
+		MembersVO memberVO;
 		HttpSession session=request.getSession();
-		//memberVO=(MemberVO)session.getAttribute("memberInfo");
-		memberVO = myPageService.givememember(1);
+		memberVO=(MembersVO)session.getAttribute("user");
+		//memberVO = myPageService.givememember(1);
 		int members_idx=memberVO.getMembers_idx();
 		cartVO.setCart_idx(cart_idx);
 		cartVO.setMembers_idx(members_idx);
@@ -209,8 +209,7 @@ public class MypagController
 		ModelAndView mav = new ModelAndView();
 		
 
-		//MemberVO temp_member = httpsession.getAttribute("memberInfo");
-		MemberVO temp_member = myPageService.givememember(3);
+		MembersVO temp_member = (MembersVO)httpsession.getAttribute("user");
 		httpsession.setAttribute("memberInfo", temp_member);
 		
 		return "mypage/myDetailInfo";
@@ -231,7 +230,7 @@ public class MypagController
 		HttpSession session=request.getSession();
 		
 
-		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
+		MembersVO memberVO=(MembersVO)session.getAttribute("memberInfo");
 		String  member_idx=memberVO.getMembers_idx()+"";
 		System.out.println("member_idx : "+member_idx);
 		
@@ -261,7 +260,7 @@ public class MypagController
 
 		
 
-		memberVO=(MemberVO)myPageService.modifyMyInfo(memberMap);
+		memberVO=(MembersVO)myPageService.modifyMyInfo(memberMap);
 		System.out.println("Service well done");
 		session.removeAttribute("memberInfo");
 		session.setAttribute("memberInfo", memberVO);

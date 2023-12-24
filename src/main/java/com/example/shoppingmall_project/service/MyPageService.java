@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.example.shoppingmall_project.model.MyPageDAO;
 import com.example.shoppingmall_project.model.vo.InquiriesVO;
+import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,12 +99,12 @@ public class MyPageService
 		return myPageDAO.listMyOrderGoods(members_idx);
 	}
 	
-	public MemberVO givememember(int members_idx) throws Exception
+	public MembersVO givememember(int members_idx) throws Exception
 	{
 		return myPageDAO.givememember(members_idx);
 	}
 	
-	public MemberVO modifyMyInfo(Map memberMap) throws Exception
+	public MembersVO modifyMyInfo(Map memberMap) throws Exception
 	{
 		System.out.println("in service");
 		String members_idx = (String)memberMap.get("members_idx");

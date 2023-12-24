@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.shoppingmall_project.model.vo.InquiriesVO;
+import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -67,7 +68,7 @@ public interface MyPageDAO
 	
 	@Select("select * from members " + 
 			"            where members_idx=#{members_idx} " )
-	MemberVO givememember(int members_idx);
+	MembersVO givememember(int members_idx);
 	
 	@Select("select c.cart_idx, c.quantity, c.products_idx, c.members_idx,c.color_idx, c.size_idx"
 			+ " , p.products_name, p.products_price, st.size_product, ct.color, pi.img_url" +
