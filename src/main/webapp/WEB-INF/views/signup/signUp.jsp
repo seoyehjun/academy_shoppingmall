@@ -24,20 +24,21 @@
 		<br>
 		<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
 
+
 		<div class="form-group">
 			<h3>주소</h3>
 			<div style="display: flex; align-items: center;">
-				<input class="form-control" style="width: 40%;" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly">
+				<input class="form-control" style="width: 40%;" placeholder="우편번호" name="members_address_number" id="members_address_number" type="text" readonly="readonly">
 				<button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
 			</div>
 			<div style="margin-top: 5px;">
-				<input class="form-control" placeholder="도로명 주소" name="addr2" id="addr2" type="text" readonly="readonly" />
+				<input class="form-control" placeholder="도로명 주소" name="members_address" id="members_address" type="text" readonly="readonly" />
 			</div>
 			<div style="margin-top: 5px;">
-				<input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text" />
+				<input class="form-control" placeholder="상세주소" name="members_detailed_address" id="members_detailed_address" type="text" />
 			</div>
 			<div style="margin-top: 5px;">
-				<input class="form-control" placeholder="참고항목" name="addr4" id="addr4" type="text" />
+				<input class="form-control" placeholder="참고항목" name="members_address_building" id="members_address_building" type="text" />
 			</div>
 
 		<p><input name="members_phone_number" placeholder="전화번호" required></p>
@@ -123,14 +124,14 @@
 					if (extraAddr !== '') {
 						extraAddr = ' (' + extraAddr + ')';
 					}
-					document.getElementById("addr4").value = extraAddr;
+					document.getElementById("members_address_building").value = extraAddr;
 				} else {
-					document.getElementById("addr4").value = '';
+					document.getElementById("members_address_building").value = '';
 				}
 
-				document.getElementById('addr1').value = data.zonecode;
-				document.getElementById("addr2").value = addr;
-				document.getElementById("addr3").focus();
+				document.getElementById("members_address_number").value = data.zonecode;
+				document.getElementById("members_address").value = addr;
+				document.getElementById("members_detailed_address").focus();
 			}
 		}).open();
 	}

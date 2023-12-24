@@ -29,7 +29,7 @@ public class AdminController {
     @PostMapping("/addProduct")
     public String addProductData(ProductVO input){
 
-//        ps.addProductdata(input);
+        ps.addProductdata(input);
 
 
         return "admin/productlist";
