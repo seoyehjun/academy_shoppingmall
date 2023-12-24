@@ -24,10 +24,10 @@ public class AdminController {
     @GetMapping("/addProduct")
     public void addProduct(){}
 
-    @GetMapping("/orders")
+   /* @GetMapping("/orders")
     public void orders(Model model){
         model.addAttribute("list", os.adminOrder());
-    }
+    }*/
 
     @GetMapping("/members")
     public void members(Model model){
