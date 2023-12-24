@@ -6,7 +6,10 @@
 <body>
 	
 	<div class="board">
-	   		</div>
+		
+		<div >
+			<img class="img-1" src="/springboot/p1.jpg">
+		</div>
 		
 	
 		<div class="info">
@@ -71,7 +74,7 @@
 	<div class="main">
 		<c:forEach var="row" items="${img }">
 			<div>
-				<img class="main-1" src="${cpath }/img/${row.img_url }" width="400px" height="500px">
+				<img class="main-1" src="${cpath }/springboot/${row.img_url }" width="400px" height="500px">
 			</div>
 		</c:forEach>		
 	</div>

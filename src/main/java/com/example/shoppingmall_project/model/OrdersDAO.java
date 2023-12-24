@@ -1,9 +1,13 @@
 package com.example.shoppingmall_project.model;
 
 import com.example.shoppingmall_project.model.vo.OrdersVO;
+import com.example.shoppingmall_project.model.vo.mypagevo.O_P_OD_vo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 @Repository
@@ -17,6 +21,7 @@ public interface OrdersDAO {
             "           (SELECT SIZE_IDX FROM SIZE_TABLE WHERE SIZE_PRODUCT = #{size_product}) " +
             "    FROM DUAL")
     int insertOrders(OrdersVO ordersVO);
+
 
 
 

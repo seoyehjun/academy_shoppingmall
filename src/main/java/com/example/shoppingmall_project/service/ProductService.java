@@ -45,5 +45,7 @@ public class ProductService {
         return dao.selectProductByIdx(productIdx);
     }
 
-
+    public List<ProductVO> productList() {
+        return dao.productlist();
+    }
 }

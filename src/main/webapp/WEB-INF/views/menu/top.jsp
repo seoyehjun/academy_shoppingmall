@@ -2,21 +2,23 @@
          pageEncoding="UTF-8"%>
 
 <%@include file="../header.jsp"%>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <link rel="stylesheet" href="${cpath}/resources/css/home.css">
+<link rel="stylesheet" href="${cpath}/resources/css/menu.css">
 </head>
 <body>
     <main>
-        <section class="banner">
-                    <div class="slide">
-                        <h4>하이</h4>
-                    </div>
-                </section>
+        <section class="outer">
+            <div class="best">
+                <h4>best item</h4>
+                <div class="outerlist">
+                    <c:forEach var="imageName" items="${imageList}">
+                        <c:set var="imagePath" value="/springboot/"/>
+                        <img src="${imagePath}${imageName}" alt="Image">
+                        <br/>
+                    </c:forEach>
+                </div>
+            </div>
+
+        </section>
 
 
     </main>

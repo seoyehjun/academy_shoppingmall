@@ -13,7 +13,7 @@ import java.util.List;
 public interface TestDAO {
 
     // 테스틍용 DAO
-    @Select("select * from members order by members_idx  asc")
+    @Select("select * from members order by members_idx asc")
     List<MembersVO> selectAll();
 
 }

@@ -8,6 +8,7 @@ main {
     /*overflow: hidden;*/
 }
 
+
 .slide {
     display: flex;
     animation: slide 15s ease 1s infinite;
