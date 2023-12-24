@@ -13,4 +13,5 @@ public class ProductVO {
     private String products_name, img_url, products_description;
     private Date products_registration_date;
     private String products_is_deleted, size_product, color, categories_name;
+
 }
