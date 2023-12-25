@@ -33,11 +33,25 @@
 				formObj.appendChild(i_order_idx);
 				document.body.appendChild(formObj);
 				formObj.method="post";
-				formObj.action="${contextPath}/mypage/cancelMyOrder";
+				formObj.action="${cpath}/mypage/cancelMyOrder";
 				formObj.submit();
 			}
 		}
 
+		function delete_cart_goods(cart_idx)
+		{
+			var cart_idx=Number(cart_idx);
+			var formObj=document.createElement("form");
+			var i_cart = document.createElement("input");
+			i_cart.name="cart_idx";//input태그의 이름은 cart_idx 컨트롤러에서 RequestParam으로 받아보자
+			i_cart.value=cart_idx;
+
+			formObj.appendChild(i_cart);
+			document.body.appendChild(formObj);
+			formObj.method="post";
+			formObj.action="${cpath}/cart/removeCart";
+			formObj.submit();
+		}
 	</script>
 </head>
 
@@ -65,12 +79,13 @@
 			
 			<c:otherwise><%--주문 상품이 존재할 경우 --%>
 			 <c:forEach var="order" items="${ myOrderList }" varStatus="i"><%--myOrderList에는 O_P_OD_vo의 리스트 있다.  --%>
-			  
+			  <c:choose>
+				<c:when test="${pre_orders_idx != order.orders_idx}">
 		
 		    <tr><%--실제 상품 --%>
 		    
 		     <td><%--주문번호 --%>
-		      <a href="${contextPath }/mypage/myOrderDetail?orders_idx=${order.orders_idx}"><span>${order.orders_idx }</span></a>
+		      <a href="${cpath }/mypage/myOrderDetail?orders_idx=${order.orders_idx}"><span>${order.orders_idx }</span></a>
 		      <%--컨트롤러에서 받아서 주문 상세페이지 띄워주자 --%>
 		     </td>
 		     
@@ -81,11 +96,13 @@
 		     
 		     <td align="left"><%--주문row의 상품title --%>
 		      <strong>
-		       <c:if test="${order.orders_idx == order2.orders_idx }">
-		        <a href="${contextpath }/goods/goodsDetail?goods_idx=${order.products_idx}">${order.products_name }/${order.quantity }개
-		        </a><br>                 <%--주문의 products_idx를 주면 상품 상세페이지로 연결되도록 해주세요 --%>
-		       </c:if>
+				  <c:forEach var="order2" items="${myOrderList}" varStatus="j">
+					  <c:if  test="${order.orders_idx ==order2.orders_idx}" >
+						  <a href="${cpath }/product/homeProduct?productIdx=${order2.products_idx}">${order2.products_name }/${order.quantity }개</a><br>
+					  </c:if>
+				  </c:forEach>
 		      </strong>
+
 		     </td>     
 		     
 		     <td>
@@ -121,7 +138,11 @@
 		     
 		     
 		    </tr><%--실제 상품 row --%>
-			</c:forEach>
+
+			   <c:set  var="pre_orders_idx" value="${order.orders_idx}" />
+			  </c:when>
+			 </c:choose>
+		    </c:forEach>
 			
 			</c:otherwise><%--주문 상품이 존재할 경우 --%>
 		</c:choose> <%--주문상품 있냐 없냐 여부 --%> 
@@ -133,6 +154,7 @@
 	<h1>
 	
 	</h1>
+
 
 </body>
 </html>

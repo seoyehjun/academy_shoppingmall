@@ -59,7 +59,7 @@
 
         <a href="/signUp">JOIN</a>
 
-        <c:if test="${empty user }">
+        <c:if test="${empty user && empty admin }">
             <a href="/login/login">LOGIN</a>
         </c:if>
 
@@ -67,8 +67,6 @@
             <a href="${cpath }/mypage/myPageMain">마이페이지</a>
             <a href="/login/logout">LOGOUT</a>
         </c:if>
-
-
     </div>
 </header>
 

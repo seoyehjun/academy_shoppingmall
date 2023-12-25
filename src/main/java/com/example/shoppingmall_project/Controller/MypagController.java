@@ -1,3 +1,4 @@
+//PR이상하게 되어서 다시 커밋후 재시도
 package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.model.vo.MembersVO;
@@ -27,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@RequestMapping(value="/mypage")
+@RequestMapping(value={"/mypage","/product77"})
 public class MypagController
 {	
 	@Autowired 
@@ -39,6 +40,105 @@ public class MypagController
 
 	@Autowired
 	private Cart_vo cartVO ;
+
+	// https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=sim4858&logNo=221007278858
+	// redirect와 뷰네임 차이
+	/*@RequestMapping(value="/orderProductforCart", method=RequestMethod.POST)
+	public String orderProductforCart(Model model, HttpSession httpsession, HttpServletRequest request,
+	@RequestParam("cart_list")  String[] cart_list)
+	{
+		System.out.println("redirect completed");
+		return "/product2/orderProductforCart";
+	}*/
+
+	//@GetMapping("/reply")//답변양식으로 이동
+	//public String reply_insert(@RequestParam("idx") int inquiries_idx, Model model)
+	//{
+		//inquiries제목 바꾸기(답변완료)
+		//밑에 reply 달아주기
+
+	//	model.addAttribute("replys_list",myPageService.selectAllReplys(inquiries_idx));
+	//}
+
+	@PostMapping("/insert")//실제 글을 DB에 넣는 코드 Input값들은 Model로 받아준다.
+	public String board_insert_ok(@ModelAttribute JInquiries_VO form, Model model,
+								  HttpSession httpsession)
+	{
+		MembersVO membersVO = (MembersVO)httpsession.getAttribute("user");
+		form.setMembers_idx(membersVO.getMembers_idx());
+		myPageService.InfoInsert(form);
+		return "redirect:/mypage/info";
+	}
+
+	@GetMapping("/insert")//글작성 양식으로 이동
+	public String board_insert()
+	{
+		return "mypage/insert";
+	}
+
+	@GetMapping("/detail")
+	public String Info_detail(String no,Model model)
+	{
+		//Model => 해당 JSP로 데이터 전송
+		// 데이터베이스 연동
+		int temp_no = Integer.parseInt(no);
+		JInquiries_VO vo = myPageService.InfoDetailData(temp_no);
+		List<ReplyVO> replys = myPageService.selectAllReplys(Integer.parseInt(no));
+		// 데이터 전송
+
+		System.out.println("replys_length: "+replys.size());
+		model.addAttribute("vo", vo);
+		model.addAttribute("replys",replys);
+		return "mypage/detail";
+	}
+
+	@GetMapping(value = {"/info", "/info/{idx}"})
+	public String listInfos(Model model, HttpSession httpsession,
+					   @PathVariable(required = false) Integer idx)
+	{
+		// @required의 기본값은 true
+		// - idx에 무조건 값이 전달되어야 한다
+		System.out.println("info 실행");
+		Map<String, Object> result = myPageService.getInfos(idx);
+
+		model.addAttribute("Infolist", result.get("list"));
+		model.addAttribute("p", result.get("p"));
+
+		return "/mypage/list";
+	}
+
+
+
+
+	@RequestMapping(value="/orderCartGoods",method=RequestMethod.POST)
+	public String orderAllCart(Model model, HttpSession httpsession,
+							 	@RequestParam(value="cart_list") String[] cart_list,
+							   @RequestParam("total_price") int total_price
+	) throws Exception
+	{
+		System.out.println("cart_list[0]: "+cart_list[0]);
+		System.out.println("executed");
+
+		MembersVO memberVO = (MembersVO) httpsession.getAttribute("user");//세션 받아오기
+		//MembersVO memberVO = myPageService.givememember(getmemberVO.getMembers_idx());
+		int members_idx = memberVO.getMembers_idx();
+
+		List<Cart_vo> CO_list = myPageService.orderCartGoods(cart_list, members_idx);
+
+		model.addAttribute("memberInfo", memberVO);
+		model.addAttribute("total_price",total_price);
+		model.addAttribute("CO_list",CO_list);
+		System.out.println("in controller");
+
+		return "/mypage/orderProductforCart";
+	}
+	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
+	public String removeCart(Model model, HttpSession httpsession, @RequestParam("cart_idx") String cart_idx) throws Exception
+	{
+		myPageService.removeCart(cart_idx);
+		httpsession.setAttribute("message", "remove_Cart");
+		return "redirect:/mypage/myCartList";
+	}
 	@RequestMapping(value="/cancelMyOrder", method = RequestMethod.POST)
 	public String cancelMyOrder(Model model, HttpSession httpsession, @RequestParam("orders_idx") String orders_idx)throws Exception
 	{
@@ -52,26 +152,26 @@ public class MypagController
 	public String myCartList(Model model, HttpSession httpsession, HttpServletRequest request) throws Exception
 	{
 		HttpSession session=request.getSession();
-		//MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
-		//int members_idx=memberVO.getMembers_idx();//세션소유자의 카트 목록 불러올 예정
-		List<Cart_vo> cartList=myPageService.myCartList(1);//세션memeber_idx의 cart 리스트를 불러온다.
-		session.setAttribute("cartList", cartList);//카트row들과  카트에 들어있는 상품목록 가져온다.
+		MembersVO memberVO=(MembersVO)session.getAttribute("user");
+		int members_idx=memberVO.getMembers_idx();//세션소유자의 카트 목록 불러올 예정
+
+		List<Cart_vo> cartList=myPageService.myCartList(members_idx);//세션memeber_idx의 cart 리스트를 불러온다.
+		session.setAttribute("cartList", cartList);//카트row들과  카트에 들어있는 상품목록 가져온다.cartVO의 리스트들이다.
 		//mav.addObject("cartMap", cartMap);
 		return "mypage/myCartList";
 	}
 
+	@ResponseBody
 	@RequestMapping(value="/modifyCartQty" ,method = RequestMethod.POST)
-	public @ResponseBody String  modifyCartQty(@RequestParam("cart_idx") int cart_idx,
+	public String  modifyCartQty(@RequestParam("cart_idx") int cart_idx,
 											   @RequestParam("cart_goods_qty") int cart_goods_qty,
 											   HttpServletRequest request, HttpServletResponse response)  throws Exception
 	{
-		MembersVO membersVO;
+		MembersVO memberVO;
 		HttpSession session=request.getSession();
-
-		//memberVO=(MemberVO)session.getAttribute("memberInfo");
-
-		membersVO = myPageService.givememember(1);
-		int members_idx=membersVO.getMembers_idx();
+		memberVO=(MembersVO)session.getAttribute("user");
+		//memberVO = myPageService.givememember(1);
+		int members_idx=memberVO.getMembers_idx();
 		cartVO.setCart_idx(cart_idx);
 		cartVO.setMembers_idx(members_idx);
 		cartVO.setQuantity(cart_goods_qty);
@@ -91,12 +191,13 @@ public class MypagController
 	public String myPageMain(Model model, HttpSession httpsession
 			,HttpServletRequest request, @RequestParam(required = false,value="message")  String message)throws Exception
 	{
+		MembersVO membersVO;
 		ModelAndView mav = new ModelAndView();
-		//memberVO = (MemberVO)httpsession.getAttribute("memberInfo");
+		membersVO = (MembersVO)httpsession.getAttribute("user");
 		//String members_idx = memberVO.getMembers_idx()+"";
 		
 		//�α��� �����Ǹ� �� ���� �ּ� Ǯ�� members_idx�޾ƿ��� �ȴ�
-		List<O_P_OD_vo> myOrderList = myPageService.listMyOrderGoods("1");
+		List<O_P_OD_vo> myOrderList = myPageService.listMyOrderGoods(membersVO.getMembers_idx()+"");
 		httpsession.setAttribute("myOrderList", myOrderList);
 		httpsession.setAttribute("message",message);//cancelMyOrder에서 온다.
 		System.out.println("myOrderList size: "+myOrderList.size());
@@ -109,8 +210,7 @@ public class MypagController
 		ModelAndView mav = new ModelAndView();
 		
 
-		//MemberVO temp_member = httpsession.getAttribute("memberInfo");
-		MembersVO temp_member = myPageService.givememember(3);
+		MembersVO temp_member = (MembersVO)httpsession.getAttribute("user");
 		httpsession.setAttribute("memberInfo", temp_member);
 		
 		return "mypage/myDetailInfo";
@@ -125,14 +225,15 @@ public class MypagController
 			                 @RequestParam("value")  String value, Model model,
 			               HttpServletRequest request, HttpServletResponse response)  throws Exception 
 	{
-		
+		System.out.println("12321321321321332");
 		Map<Object,Object> memberMap=new HashMap<Object,Object>();
 		String val_list[]=null;
 		HttpSession session=request.getSession();
 		
 
-		MembersVO membersVO=(MembersVO) session.getAttribute("memberInfo");
-		String  member_idx=membersVO.getMembers_idx()+"";
+		MembersVO memberVO=(MembersVO)session.getAttribute("memberInfo");
+		String  member_idx=memberVO.getMembers_idx()+"";
+		System.out.println("member_idx : "+member_idx);
 		
 		String temp;
 		if(attribute.equals("tel"))
@@ -160,9 +261,10 @@ public class MypagController
 
 		
 
-		membersVO=(MembersVO) myPageService.modifyMyInfo(memberMap);
+		memberVO=(MembersVO)myPageService.modifyMyInfo(memberMap);
+		System.out.println("Service well done");
 		session.removeAttribute("memberInfo");
-		session.setAttribute("memberInfo", membersVO);
+		session.setAttribute("memberInfo", memberVO);
 		
 		//return "mypage/myPageMain";
 		String message = null;
@@ -177,7 +279,7 @@ public class MypagController
 	public String myOrderDetail(HttpSession httpsession, Model model, @RequestParam("orders_idx") int orders_idx )
 	throws Exception
 	{
-		O_OD_P_C_S_M_vo myorderdetail =  myPageService.getOrderDetail(orders_idx);
+		List<O_OD_P_C_S_M_vo> myorderdetail =  myPageService.getOrderDetail(orders_idx);
 		httpsession.setAttribute("myorderdetail", myorderdetail );
 		
 		return "/mypage/myOrderDetail";
@@ -185,14 +287,17 @@ public class MypagController
 	
 	
 	
-	private static String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";//�ش��� �Ʒ��� ��ǰ idx\img_url�������� �̹��� �־��ָ� �ȴ�.
+	private static String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_reposi";
 	
 	@RequestMapping("/thumbnails")
 	protected void thumbnails(@RequestParam("fileName") String fileName,
-                            	@RequestParam("goods_id") String goods_id,
+                            	@RequestParam("products_idx") String products_idx,
 			                 HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String filePath=CURR_IMAGE_REPO_PATH+"\\"+goods_id+"\\"+fileName;
+		String filePath=CURR_IMAGE_REPO_PATH+"\\"+products_idx+"\\"+fileName;
+
+		System.out.println("fileName:"+fileName);
+		System.out.println("products_idx:" + products_idx);
 
 		File image=new File(filePath);
 
