@@ -55,11 +55,11 @@
 
     <div class="acc">
 
-        <a href="${contextPath }/mypage/myCartList">🛒</a>
+        <a href="${cpath }/mypage/myCartList">🛒</a>
 
         <a href="/signUp">JOIN</a>
 
-        <c:if test="${empty user && empty admin }">
+        <c:if test="${empty user }">
             <a href="/login/login">LOGIN</a>
         </c:if>
 
@@ -68,21 +68,6 @@
             <a href="/login/logout">LOGOUT</a>
         </c:if>
 
-        <ul>
-            <li>
-                <c:if test="${not empty admin }">
-                    <a href="${cpath }/admin/main">관리자</a>
-                    <ul class="sub">
-                        <li>
-                            <a href="${cpath}/admin/members">회원관리</a>
-                            <a href="${cpath}/admin/orders">상품현황</a>
-                            <a href="${cpath}/admin/addProduct">상품추가</a>
-                        </li>
-                    </ul>
-                    <a href="/login/logout">LOGOUT</a>
-                </c:if>
-            </li>
-        </ul>
 
     </div>
 </header>
