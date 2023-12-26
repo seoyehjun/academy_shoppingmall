@@ -31,20 +31,19 @@ public class ProductService {
     }
 
 
-    public int getCount() {
+    public int getCountForProduct(int productIdx) {
 
-        return dao.countAll();
+        return dao.countAll(productIdx);
     }
 
 
-    public Object color() {
-        // TODO Auto-generated method stub
-        return dao.colorAll();
+    public Object color(int productIdx) {
+        return dao.colorAll(productIdx);
     }
 
 
-    public Object getimg() {
-        return dao.imgAll();
+    public Object getimg(int productIdx) {
+        return dao.imgAll(productIdx);
     }
 
 
@@ -56,12 +55,12 @@ public class ProductService {
         return dao.productlist();
     }
 
+    public List<ProductVO> productList(int idx) {
+        return dao.productlist();
+    }
 
+    public List<ProductVO> menuProduct(int idx) {
+        return dao.selectMenu(idx);
+    }
 
-
-//    public int addProductdata(ProductVO input) {
-//
-//        MultipartFile file = input.getUpload();
-//        input.setImg(file.getOriginalFilename());
-//    }
 }
