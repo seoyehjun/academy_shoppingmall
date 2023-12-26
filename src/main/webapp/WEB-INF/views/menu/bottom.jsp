@@ -14,10 +14,11 @@
                         <div class="row">
                     </c:if>
                     <div class="product" onclick="redirectToProductDetail(${product.products_idx})">
-                        <div><img src="${product.img_url}" alt="Product Image"/></div>
+                    <c:set var="imagePath" value="/springboot/" />
+                        <c:forEach items="${img}" var="img" begin="0" end="2">
+                            <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image"/></div>
+                        </c:forEach>
                         <div>${product.products_name}</div>
-                            <%--                <div>${product.color}</div>--%>
-                            <%--                <div>${product.size_product}</div>--%>
                         <div>${product.products_price}원</div>
                     </div>
                     <!-- 4개의 상품이 끝나면 행 종료 -->

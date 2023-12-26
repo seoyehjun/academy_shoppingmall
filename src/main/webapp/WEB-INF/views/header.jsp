@@ -56,10 +56,10 @@
     <div class="acc">
 
         <a href="${cpath }/mypage/myCartList">🛒</a>
-
-        <a href="/signUp">JOIN</a>
+        <a href="${cpath }/mypage/info">board</a>
 
         <c:if test="${empty user && empty admin }">
+            <a href="/signUp">JOIN</a>
             <a href="/login/login">LOGIN</a>
         </c:if>
 

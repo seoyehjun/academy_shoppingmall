@@ -6,10 +6,7 @@ import com.example.shoppingmall_project.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,7 @@ public class HeaderController {
     @ModelAttribute
     public void menu(Model model){
         hs.addCommonAttributes(model);
+        hs.getImg(model);
     }
 
 
@@ -31,20 +29,47 @@ public class HeaderController {
     public void outer(Model model){
         model.addAttribute("list", ps.menuProduct(1));
     }
+    @GetMapping("/outer/{idx}")
+    public  String outerList(@PathVariable int idx, Model model){
+        model.addAttribute("list", hs.getSub(idx));
+
+        return "menu/outer";
+    }
 
     @GetMapping("/top")
     public void top(Model model){
-        model.addAttribute("list", ps.getProduct());
+        model.addAttribute("list", ps.menuProduct(2));
+    }
+
+    @GetMapping("/top/{idx}")
+    public  String topList(@PathVariable int idx, Model model){
+        model.addAttribute("list", hs.getSub(idx));
+
+        return "menu/outer";
     }
 
     @GetMapping("/bottom")
     public void bottom(Model model){
-        model.addAttribute("list", ps.getProduct());
+        model.addAttribute("list", ps.menuProduct(3));
+    }
+
+    @GetMapping("/bottom/{idx}")
+    public  String bottomList(@PathVariable int idx, Model model){
+        model.addAttribute("list", hs.getSub(idx));
+
+        return "menu/outer";
     }
 
     @GetMapping("/accessory")
     public void accessory(Model model){
-        model.addAttribute("list", ps.getProduct());
+        model.addAttribute("list", ps.menuProduct(4));
+    }
+
+    @GetMapping("/accessory/{idx}")
+    public  String accist(@PathVariable int idx, Model model){
+        model.addAttribute("list", hs.getSub(idx));
+
+        return "menu/outer";
     }
 
     @PostMapping("/outer")

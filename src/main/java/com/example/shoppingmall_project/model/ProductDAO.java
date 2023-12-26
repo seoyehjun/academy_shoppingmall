@@ -68,17 +68,12 @@ public interface ProductDAO {
 			"order by p.products_idx desc")
     List<ProductVO> productlist();
 
-	@Select("SELECT " +
-			"products.products_idx, " +
-			"MAX(products.products_name) AS products_name, " +
-			"MAX(products.products_description) AS products_description, " +
-			"LISTAGG(products_img.img_url, ',') WITHIN GROUP (ORDER BY products_img.img_url) AS img_url, " +
-			"MAX(categories.parentcategory_idx) AS parentcategory_idx " +
-			"FROM products " +
-			"JOIN categories ON products.categories_idx = categories.categories_idx " +
-			"JOIN products_img ON products.products_idx = products_img.products_idx " +
-			"WHERE categories.parentcategory_idx = #{parentcategory_idx} " +
-			"GROUP BY products.products_idx")
+	@Select("select p.products_idx, p.products_name, p.products_price, " +
+			"c.categories_name, c.parentcategory_idx " +
+			"from products p " +
+			"join categories c on p.categories_idx = c.categories_idx " +
+			"where parentcategory_idx = #{parentcategory_idx} " +
+			"order by p.products_idx desc")
 	List<ProductVO> selectMenu(int idx);
 
 }

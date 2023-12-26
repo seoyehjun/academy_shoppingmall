@@ -28,6 +28,7 @@ public class HomeController {
     public void menu(Model model){
         hs.addCommonAttributes(model);
         is.addImage(model);
+        hs.getImg(model);
     }
 
     @GetMapping

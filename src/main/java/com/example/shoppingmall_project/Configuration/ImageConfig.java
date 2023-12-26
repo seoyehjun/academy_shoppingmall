@@ -11,14 +11,5 @@ public class ImageConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry){
 
         registry.addResourceHandler("/springboot/**").addResourceLocations("file:///C:/springboot/");
-        String[] imageUrls = getImageUrls();
-        for (String imageUrl : imageUrls) {
-            registry.addResourceHandler("/springboot/" + imageUrl).addResourceLocations("file:///C:/springboot/" + imageUrl);
-        }
-    }
-
-    private String[] getImageUrls() {
-        String imgUrlsString = "image1.jpg,image2.jpg,image3.jpg";
-        return imgUrlsString.split(",");
     }
 }

@@ -50,6 +50,10 @@ public class ProductService {
         return dao.productlist();
     }
 
+    public List<ProductVO> productList(int idx) {
+        return dao.productlist();
+    }
+
     public List<ProductVO> menuProduct(int idx) {
         return dao.selectMenu(idx);
     }
