@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
@@ -16,6 +16,7 @@
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <head>
+
 
  <c:if test="${message=='remove_Cart'}">
   <script>
@@ -225,6 +226,7 @@
 --%>
   </form>
 
+
   <c:set  var="totalGoodsPrice" value="${totalGoodsPrice+item.products_price*item.quantity }" />
   <c:set  var="totalGoodsNum" value="${totalGoodsNum+1 }" />
     </tr>
@@ -258,7 +260,7 @@
 
   <td>
    <p id="p_totalGoodsPrice">
-    <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
+    <fmt:formatNumber value="${totalGoodsPrice}" type="number" var="total_goods_price" />
     ${total_goods_price}원
    </p>
    <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
@@ -290,15 +292,19 @@
  </tbody>
 </table>
 
+<c:if test="${myCartList ne null}">
 <a href="javascript:fn_order_all_cart()">
  모두 주문
 </a>
+</c:if>
 
 </body>
 
 
 
 <script>
+
+
 
 
  function delete_cart_goods(cart_idx)
@@ -396,6 +402,10 @@
            }
           }
   ); //end ajax
+ }
+ function Calculator()
+ {
+  let total = Number(document.getElementById(""))
  }
 
 
