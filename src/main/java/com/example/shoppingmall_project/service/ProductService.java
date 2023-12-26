@@ -16,8 +16,8 @@ public class ProductService {
     @Autowired
     private ProductDAO dao;
 
-    @Value("file:E:/boardImg/")
-    private Resource dir;
+//    @Value("file:E:/boardImg/")
+//    private Resource dir;
 
 
     public List<ProductVO> getProduct() {
@@ -55,6 +55,8 @@ public class ProductService {
     public List<ProductVO> productList() {
         return dao.productlist();
     }
+
+
 
 
 //    public int addProductdata(ProductVO input) {

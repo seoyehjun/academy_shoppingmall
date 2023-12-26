@@ -25,6 +25,7 @@
                         <td>
                             <fmt:formatDate value="${row.members_join_date}" pattern="yyyy-MM-dd" />
                         </td>
+                        <td><button>배송 수정</button></td>
                     </tr>
                 </c:forEach>
             </table>

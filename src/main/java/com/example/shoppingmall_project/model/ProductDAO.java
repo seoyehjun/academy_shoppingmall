@@ -3,6 +3,7 @@ package com.example.shoppingmall_project.model;
 import java.util.List;
 
 import com.example.shoppingmall_project.model.vo.ProductVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -67,4 +68,6 @@ public interface ProductDAO {
 			"p join categories c on p.categories_idx = c.categories_idx " +
 			"order by p.products_idx desc")
     List<ProductVO> productlist();
+
+
 }

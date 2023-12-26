@@ -21,20 +21,28 @@ public class AdminService {
     @Value("file:E:/boardImg/")
     private Resource dir;
 
-//        public int addProductdata(ProductVO input) throws IOException {
-//
-////            MultipartFile file = input.getUpload();
-//            input.setImg_url(file.getOriginalFilename());
-//
-//            int row = dao.insert(input);
-//            String idx = dao.selectIdx();
-//
-//            File newDir = new File(dir.getFile(), idx);
-//            newDir.mkdir();
-//
-//            File dst = new File(newDir, file.getOriginalFilename());
-//            file.transferTo(dst);
-//
-//            return row;
-//    }
+        public int addProductdata(ProductVO input) throws IOException {
+
+            MultipartFile file = input.getUpload();
+            input.setImg_url(file.getOriginalFilename());
+
+            int row = dao.insert(input);
+            String idx = dao.selectIdx();
+
+            File newDir = new File(dir.getFile(), idx);
+            newDir.mkdir();
+
+            File dst = new File(newDir, file.getOriginalFilename());
+            file.transferTo(dst);
+
+            return row;
+    }
+
+    public int product_delete(int productsIdx) {
+        return dao.product_delete(productsIdx);
+    }
+
+    public int product_update(int productsIdx) {
+            return dao.product_update(productsIdx);
+    }
 }
