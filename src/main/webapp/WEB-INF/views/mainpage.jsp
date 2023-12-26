@@ -17,11 +17,11 @@
     <main>
         <section class="banner">
             <div class="slide">
-                <a href="#"><img src="/springboot//p1.jpg"></a>
-                <a href="#"><img src="/springboot//p2.jpg"></a>
-                <a href="#"><img src="/springboot//p3.jpg"></a>
-                <a href="#"><img src="/springboot//p4.jpg"></a>
-                <a href="#"><img src="/springboot//p5.jpg"></a>
+                <a href="#"><img src="/springboot/banner/p1.jpg"></a>
+                <a href="#"><img src="/springboot/banner/p2.jpg"></a>
+                <a href="#"><img src="/springboot/banner/p3.jpg"></a>
+                <a href="#"><img src="/springboot/banner/p4.jpg"></a>
+                <a href="#"><img src="/springboot/banner/p5.jpg"></a>
             </div>
         </section>
 
