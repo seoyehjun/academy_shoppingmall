@@ -2,6 +2,7 @@ package com.example.shoppingmall_project.service;
 
 import com.example.shoppingmall_project.model.HeaderDAO;
 import com.example.shoppingmall_project.model.vo.HeaderVO;
+import com.example.shoppingmall_project.model.vo.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -23,5 +24,13 @@ public class HeaderService {
         model.addAttribute("top", getOuter(2));
         model.addAttribute("bottom", getOuter(3));
         model.addAttribute("accessory", getOuter(4));
+    }
+
+    public void getImg(Model model){
+        model.addAttribute("img", dao.getImg());
+    }
+
+    public List<ProductVO> getSub(int idx){
+        return dao.selectSubMenu(idx);
     }
 }
