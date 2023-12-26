@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="cpath"  value="${pageContext.request.cpath}"  />
 <c:set var="myCartList"  value="${cartMap.myCartList}"  />
 <c:set var="myGoodsList"  value="${cartMap.myGoodsList}"  />
 
@@ -71,7 +71,7 @@
 			$.ajax({
 				type : "post",
 				async : false, //false인 경우 동기식으로 처리한다.
-				url : "${contextPath}/cart/modifyCartQty.do",
+				url : "${cpath}/cart/modifyCartQty.do",
 				data : {
 					goods_id:goods_id,
 					cart_goods_qty:cart_goods_qty
@@ -106,7 +106,7 @@
 			formObj.appendChild(i_cart);
 			document.body.appendChild(formObj);
 			formObj.method="post";
-			formObj.action="${contextPath}/cart/removeCartGoods.do";
+			formObj.action="${cpath}/cart/removeCartGoods.do";
 			formObj.submit();
 		}
 
@@ -142,7 +142,7 @@
 
 			document.body.appendChild(formObj);
 			formObj.method="post";
-			formObj.action="${contextPath}/order/orderEachGoods.do";
+			formObj.action="${cpath}/order/orderEachGoods.do";
 			formObj.submit();
 		}
 
@@ -178,7 +178,7 @@
 			}
 
 			objForm.method="post";
-			objForm.action="${contextPath}/order/orderAllCartGoods.do";
+			objForm.action="${cpath}/order/orderAllCartGoods.do";
 			objForm.submit();
 		}
 
@@ -213,13 +213,13 @@
 				<c:set var="cart_id" value="${myCartList[cnt.count-1].cart_id}" />
 			<td><input type="checkbox" name="checked_goods"  checked  value="${item.goods_id }"  onClick="calcGoodsPrice(${item.goods_sales_price },this)"></td>
 			<td class="goods_image">
-				<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-					<img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"  />
+				<a href="${cpath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+					<img width="75" alt="" src="${cpath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"  />
 				</a>
 			</td>
 			<td>
 				<h2>
-					<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</a>
+					<a href="${cpath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</a>
 				</h2>
 			</td>
 			<td class="price"><span>${item.goods_price }원</span></td>
@@ -232,7 +232,7 @@
 			<td>
 				<input type="text" id="cart_goods_qty" name="cart_goods_qty" size=3 value="${cart_goods_qty}"><br><!--장바구니 개개의 갯수 <input>형식이다.-->
 				<a href="javascript:modify_cart_qty(${item.goods_id },${item.goods_sales_price*0.9 },${cnt.count-1 });" >
-					<img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
+					<img width=25 alt=""  src="${cpath}/resources/image/btn_modify_qty.jpg">
 				</a>
 			</td>
 			<td>
@@ -242,19 +242,19 @@
 				</strong> </td>
 			<td>
 				<a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
-					<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
+					<img width="75" alt=""  src="${cpath}/resources/image/btn_order.jpg">
 				</a><br>
 				<a href="#">
 					<img width="75" alt=""
-						 src="${contextPath}/resources/image/btn_order_later.jpg">
+						 src="${cpath}/resources/image/btn_order_later.jpg">
 				</a><br>
 				<a href="#">
 					<img width="75" alt=""
-						 src="${contextPath}/resources/image/btn_add_list.jpg">
+						 src="${cpath}/resources/image/btn_add_list.jpg">
 				</A><br>
 				<a href="javascript:delete_cart_goods('${cart_id}');"">
 				<img width="75" alt=""
-					 src="${contextPath}/resources/image/btn_delete.jpg">
+					 src="${cpath}/resources/image/btn_delete.jpg">
 				</a>
 			</td>
 		</form>
@@ -297,14 +297,14 @@
 			<input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
 		</td>
 		<td>
-			<img width="25" alt="" src="${contextPath}/resources/image/plus.jpg">
+			<img width="25" alt="" src="${cpath}/resources/image/plus.jpg">
 		</td>
 		<td>
 			<p id="p_totalDeliveryPrice">${totalDeliveryPrice }원  </p>
 			<input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
 		</td>
 		<td>
-			<img width="25" alt="" src="${contextPath}/resources/image/minus.jpg">
+			<img width="25" alt="" src="${cpath}/resources/image/minus.jpg">
 		</td>
 		<td>
 			<p id="p_totalSalesPrice">
@@ -313,7 +313,7 @@
 			<input id="h_totalSalesPrice"type="hidden" value="${totalSalesPrice}" />
 		</td>
 		<td>
-			<img width="25" alt="" src="${contextPath}/resources/image/equal.jpg">
+			<img width="25" alt="" src="${cpath}/resources/image/equal.jpg">
 		</td>
 		<td>
 			<p id="p_final_totalPrice">
@@ -328,10 +328,10 @@
 
 	<br><br>
 	<a href="javascript:fn_order_all_cart_goods()">
-		<img width="75" alt="" src="${contextPath}/resources/image/btn_order_final.jpg">
+		<img width="75" alt="" src="${cpath}/resources/image/btn_order_final.jpg">
 	</a>
 	<a href="#">
-		<img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
+		<img width="75" alt="" src="${cpath}/resources/image/btn_shoping_continue.jpg">
 	</a>
 
 
