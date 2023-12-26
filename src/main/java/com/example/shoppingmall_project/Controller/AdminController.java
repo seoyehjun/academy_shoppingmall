@@ -8,10 +8,7 @@ import com.example.shoppingmall_project.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -67,18 +64,19 @@ public class AdminController {
         return "redirect:/admin/productlist";
     }
     
-    @GetMapping("/updateProducts")
-    public String updateProductsPage(){
+    @GetMapping("/updateProducts/{products_idx}")
+    public String updateProductsPage(@PathVariable int products_idx){
         // 상품 수정 페이지 이동
+        adminService.getProductOne(products_idx);
         return "admin/updateProduct";
     }
 
-    @PostMapping("/admin/updateProduct/${products_idx}")
+    @PostMapping("/updateProduct/{products_idx}")
     public String updateProducts(ProductVO input) {
         // 상품 수정
         adminService.product_update(input.getProducts_idx());
 
-        return "redirect:/admin/productlist";
+        return "admin.updateProduct";
     }
 
 

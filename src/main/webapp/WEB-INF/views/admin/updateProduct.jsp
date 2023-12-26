@@ -7,7 +7,7 @@
 </head>
 <body>
 <section>
-    <form method="post" action="/admin/updateProduct/${products_idx}" enctype="multipart/form-datad">
+    <form method="post" action="admin/updateProduct/${products_idx}" enctype="multipart/form-datad">
         <table id="container">
             <tr>
                 <td id="result" colspan="2"></td>

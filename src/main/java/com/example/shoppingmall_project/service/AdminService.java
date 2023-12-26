@@ -45,4 +45,9 @@ public class AdminService {
     public int product_update(int productsIdx) {
             return dao.product_update(productsIdx);
     }
+
+    public int getProductOne(int products_Idx) { return dao.selectOne(products_Idx);}
+
 }
+
+

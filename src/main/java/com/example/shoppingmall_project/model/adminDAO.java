@@ -20,6 +20,12 @@ public interface adminDAO {
     @Delete("delete from products where products_idx = #{productsIdx}")
     int product_delete(int productsIdx);
 
-    @Update("update from")
+    @Update("update products set products_name = #{products_name}" +
+            "products_price = #{products_price}" +
+            "products_description = #{products_description}" +
+            " where products_idx = #{productsIdx} ")
     int product_update(int productsIdx);
+
+    @Select("select from products where products_idx = #{productsIdx}")
+    int selectOne(int productsIdx);
 }

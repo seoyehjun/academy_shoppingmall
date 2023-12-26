@@ -28,7 +28,7 @@
                     </td>
                     <td>${row.products_stock }</td>
                     <td>${row.categories_name }</td>
-                    <td><button>수정</button></td>
+                    <td><a href="${cpath}/admin/updateProducts/${row.products_idx}"><button>수정</button></a></td>
                     <td><a href="${cpath}/admin/delete/${row.products_idx}"><button>상품 삭제</button></a></td>
                 </tr>
             </c:forEach>
