@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.shoppingmall_project.model.MyPageDAO;
+import com.example.shoppingmall_project.model.vo.FavoritesVO;
 import com.example.shoppingmall_project.model.vo.InquiriesVO;
 import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.*;
@@ -20,7 +21,13 @@ public class MyPageService
 	@Autowired
 	private MyPageDAO myPageDAO;
 
-	public List<ReplyVO> selectAllReplys(int inquiries_idx) {
+	public List<FavoritesVO> getwishlist(int members_idx)
+	{
+		return myPageDAO.getwishlist(members_idx);
+	}
+
+	public List<ReplyVO> selectAllReplys(int inquiries_idx)
+	{
 		System.out.println("inquiries_dx 번호는:"+ inquiries_idx);
 		List<ReplyVO> list = myPageDAO.selectAllReplys(inquiries_idx);
 		System.out.println("list.length(): "+list.size());

@@ -59,6 +59,14 @@ public class MypagController
 
 	//	model.addAttribute("replys_list",myPageService.selectAllReplys(inquiries_idx));
 	//}
+	@GetMapping("/WishList")
+	public String go_to_wishlist(Model model, HttpSession httpSession)
+	{
+		MembersVO user = (MembersVO)httpSession.getAttribute("user");
+		myPageService.getwishlist(user.getMembers_idx());
+
+		return "/mypage/WishList";
+	}
 
 	@PostMapping("/insert")//실제 글을 DB에 넣는 코드 Input값들은 Model로 받아준다.
 	public String board_insert_ok(@ModelAttribute JInquiries_VO form, Model model,
@@ -104,7 +112,7 @@ public class MypagController
 		model.addAttribute("Infolist", result.get("list"));
 		model.addAttribute("p", result.get("p"));
 
-		return "/mypage/list";
+		return "/mypage/info";
 	}
 
 
@@ -152,11 +160,18 @@ public class MypagController
 	public String myCartList(Model model, HttpSession httpsession, HttpServletRequest request) throws Exception
 	{
 		HttpSession session=request.getSession();
-		MembersVO memberVO=(MembersVO)session.getAttribute("user");
-		int members_idx=memberVO.getMembers_idx();//세션소유자의 카트 목록 불러올 예정
 
-		List<Cart_vo> cartList=myPageService.myCartList(members_idx);//세션memeber_idx의 cart 리스트를 불러온다.
-		session.setAttribute("cartList", cartList);//카트row들과  카트에 들어있는 상품목록 가져온다.cartVO의 리스트들이다.
+		MembersVO memberVO=(MembersVO)session.getAttribute("user");
+		if(memberVO != null)
+		{
+			int members_idx = memberVO.getMembers_idx();//세션소유자의 카트 목록 불러올 예정
+
+			List<Cart_vo> cartList = myPageService.myCartList(members_idx);//세션memeber_idx의 cart 리스트를 불러온다.
+			session.setAttribute("cartList", cartList);//카트row들과  카트에 들어있는 상품목록 가져온다.cartVO의 리스트들이다.
+		}
+		else {
+			session.removeAttribute("cartList");
+		}
 		//mav.addObject("cartMap", cartMap);
 		return "mypage/myCartList";
 	}

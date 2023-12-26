@@ -3,6 +3,7 @@ package com.example.shoppingmall_project.model;
 import java.util.List;
 import java.util.Map;
 
+import com.example.shoppingmall_project.model.vo.FavoritesVO;
 import com.example.shoppingmall_project.model.vo.InquiriesVO;
 import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.*;
@@ -15,6 +16,10 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface MyPageDAO 
 {
+
+	@Select
+			("select * from favorites where members_idx = #{members_idx} ")
+	public List<FavoritesVO> getwishlist(int members_idx);
 
 	@Select("select * from replys r " +
 			"where inquiries_idx = #{inquiries_idx}")
