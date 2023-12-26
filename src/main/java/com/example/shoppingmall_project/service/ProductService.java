@@ -48,4 +48,13 @@ public class ProductService {
     public List<ProductVO> productList() {
         return dao.productlist();
     }
+
+    public List<ProductVO> productList(int idx) {
+        return dao.productlist();
+    }
+
+    public List<ProductVO> menuProduct(int idx) {
+        return dao.selectMenu(idx);
+    }
+
 }
