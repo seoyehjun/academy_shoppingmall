@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
     <section class="WebName">
         <img alt="" src="">
     </section>
@@ -28,8 +28,8 @@
                     </td>
                     <td>${row.products_stock }</td>
                     <td>${row.categories_name }</td>
-                    <td><button>수정</button></td>
-                    <td><button>삭제</button></td>
+                    <td><a href="${cpath}/admin/updateProducts/${row.products_idx}"><button>수정</button></a></td>
+                    <td><a href="${cpath}/admin/delete/${row.products_idx}"><button>상품 삭제</button></a></td>
                 </tr>
             </c:forEach>
         </table>
