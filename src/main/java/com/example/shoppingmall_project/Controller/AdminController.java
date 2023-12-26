@@ -42,8 +42,12 @@ public class AdminController {
 //    }
 
     @GetMapping("/members")
-    public void members(Model model){
+    public String members(Model model){
         model.addAttribute("list", as.getTable());
+        model.a
+
+
+        return "admin/members";
     }
 
     @GetMapping("/productlist")
@@ -65,18 +69,20 @@ public class AdminController {
     }
     
     @GetMapping("/updateProducts/{products_idx}")
-    public String updateProductsPage(@PathVariable int products_idx){
+    public String updateProductsPage(@PathVariable int products_idx, Model model){
         // 상품 수정 페이지 이동
-        adminService.getProductOne(products_idx);
+        model.addAttribute("productTable",adminService.getProductOne(products_idx));
+
         return "admin/updateProduct";
     }
 
     @PostMapping("/updateProduct/{products_idx}")
-    public String updateProducts(ProductVO input) {
+    public String updateProducts(@PathVariable int products_idx, ProductVO input ) {
         // 상품 수정
-        adminService.product_update(input.getProducts_idx());
+        input.setProducts_idx(products_idx);
+        adminService.product_update(input);
 
-        return "admin.updateProduct";
+        return "redirect:/admin/productlist";
     }
 
 
