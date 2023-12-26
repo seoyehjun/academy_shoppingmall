@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface OrdersDAO {
     @Insert(" INSERT INTO ORDERSD_DETAILS (QUANTITY, ORDERS_IDX, PRODUCTS_IDX, COLOR_IDX, SIZE_IDX) " +
-            "    SELECT 1 AS QUANTITY, " +
+            "    SELECT #{quantity} AS QUANTITY, " +
             "           3 AS ORDERS_IDX, " +
             "           #{products_idx} AS PRODUCTS_IDX, " +
             "           (SELECT COLOR_IDX FROM COLOR WHERE COLOR = #{color}), " +
@@ -26,18 +26,18 @@ public interface OrdersDAO {
 
 
     @Insert(" INSERT INTO cart (QUANTITY, PRODUCTS_IDX, MEMBERS_IDX, COLOR_IDX, SIZE_IDX) " +
-            "    SELECT 1 AS QUANTITY, " +
-            "           3 AS MEMBERS_IDX, " +
+            "    SELECT #{quantity} AS QUANTITY, " +
+            "           #{members_idx} AS MEMBERS_IDX, " +
             "           #{products_idx} AS PRODUCTS_IDX, " +
             "           (SELECT COLOR_IDX FROM COLOR WHERE COLOR = #{color}), " +
             "           (SELECT SIZE_IDX FROM SIZE_TABLE WHERE SIZE_PRODUCT = #{size_product}) " +
             "    FROM DUAL")
-    int insertCart(OrdersVO ordersVO);
+    int insertCart(OrdersVO ordersVO, int members_idx, String size_product, String color, int products_idx, int quantity);
 
 
 
    @Insert("insert into favorites (products_idx, members_idx) " +
            "        select #{products_idx} as PRODUCTS_IDX, " +
-           "                3 as MEMBERS_IDX from dual")
-    int insertFavorites(OrdersVO ordersVO);
+           "               #{members_idx} as MEMBERS_IDX from dual")
+    int insertFavorites(OrdersVO ordersVO, int members_idx, int products_idx);
 }

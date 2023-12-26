@@ -1,6 +1,7 @@
 package com.example.shoppingmall_project.Controller;
 
 
+import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.OrdersVO;
 import com.example.shoppingmall_project.model.vo.ProductVO;
 import com.example.shoppingmall_project.service.HeaderService;
@@ -9,6 +10,8 @@ import com.example.shoppingmall_project.service.ProductService;
 import com.example.shoppingmall_project.service.TestService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +29,9 @@ public class OrderController {
     @Autowired
     private OrdersService os;
 
+    @Autowired
+    private HttpSession session;
+
     @Autowired private HeaderService hs;
 
     @ModelAttribute
@@ -40,7 +46,11 @@ public class OrderController {
     }
 
     @PostMapping("/orderProduct")
-    public String orderProduct(OrdersVO input, @RequestParam(name = "action") String action, Model model, HttpServletResponse response) {
+    public String orderProduct(@RequestParam(name = "quantity") int quantity, OrdersVO input,
+                               @RequestParam(name = "action") String action, Model model,
+                               HttpServletResponse response, HttpSession httpSession) {
+
+
         // 로그 또는 디버깅 메시지 추가
         System.out.println("Received data: " + input);
 
@@ -48,14 +58,21 @@ public class OrderController {
         String size_product = input.getSize_product();
         String color = input.getColor();
         int products_idx = input.getProducts_idx();
+        MembersVO membersVO = (MembersVO) httpSession.getAttribute("user");
+
+
+
+
 
         System.out.println("color : " + color);
         System.out.println("size : " + size_product);
         System.out.println("idx : " + input.getProducts_idx());
+        System.out.println("Received quantity: " + quantity);
+
 
         if ("BUY".equals(action)) {
             // sizeProduct와 color 값을 사용하여 insertOrders 메서드 호출
-            int result = os.insertOrders(size_product, color, products_idx);
+            int result = os.insertOrders(size_product, color, products_idx, quantity);
 
             // insert 성공 여부에 따라 리다이렉트 결정
             if (result > 0) {
@@ -64,13 +81,14 @@ public class OrderController {
                 model.addAttribute("color", color);
                 // 사용된 idx를 불러와서 사용함
                 int product_Idx = input.getProducts_idx();
+
                 ProductVO product = ps.getProductByIdx(products_idx);
                 System.out.println("product" + product);
 
                 model.addAttribute("product", product);
 
                 // 성공 시 리다이렉트
-                return "/product2/orderProduct";
+                return "redirect:/product2/orderProduct";
             } else {
                 // 실패 시 예외 처리 또는 다른 동작 수행
                 // 예: response.sendRedirect("/error");
@@ -81,10 +99,10 @@ public class OrderController {
             // 예: 장바구니 추가 로직
 
 
-            int result = os.insertCart(size_product, color, products_idx);
+            int result = os.insertCart(size_product, color, products_idx, quantity);
             if (result > 0) {
 
-            return "redirect:/product/homeProduct";
+            return "redirect:/mypage/myCartList";
 
             } else {
                 // 실패 시 예외 처리 또는 다른 동작 수행
@@ -100,7 +118,7 @@ public class OrderController {
 
             if (result > 0) {
 
-                return "redirect:/product/homeProduct";
+                return "redirect:/mypage/wishList";
 
             }else {
                 // 실패 시 예외 처리 또는 다른 동작 수행

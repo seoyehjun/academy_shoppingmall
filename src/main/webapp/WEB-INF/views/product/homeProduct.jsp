@@ -56,9 +56,25 @@
 						</select>
 						<td>
 					</tr>
+					 <tr>
+                         <th>수량</th>
+                         <td>
+                             <div class="quantity-container">
+                                 <button type="button" onclick="decrementQuantity()">-</button>
+                                 <input type="text" id="quantityInput" name="quantity" value="1" readonly>
+                                 <button type="button" onclick="incrementQuantity()">+</button>
+                             </div>
+                         </td>
+                     </tr>
 				</table>
 				<br> 
-				
+
+				<div>
+                        <h3>수량 및 가격</h3>
+                        <p>선택한 수량: <span id="selectedQuantity">1</span></p>
+                        <p>총 가격: <span id="totalPrice">${list[0].products_price}</span></p>
+                </div>
+
 				<input name="products_idx" type="hidden" value="${list[0].products_idx}">
 
 				 <div class="button">
@@ -69,8 +85,85 @@
     			</div>
 			</form>
 		</div>
-		
 	</div>
+	<script>
+        function updateTotalPrice() {
+            var quantityInput = document.getElementById('quantityInput');
+            var selectedQuantity = document.getElementById('selectedQuantity');
+            var selectedSize = document.getElementById('selectedSize');
+            var selectedColor = document.getElementById('selectedColor');
+            var totalPriceSpan = document.getElementById('totalPrice');
+            var unitPrice = ${list[0].products_price};
+
+            var sizeProductElement = document.getElementsByName('size_product')[0];
+            var colorElement = document.getElementsByName('color')[0];
+
+            var sizeProduct = sizeProductElement.value;
+            var color = colorElement.value;
+
+            var sizeProductText = sizeProductElement.options[sizeProductElement.selectedIndex].text;
+            var colorText = colorElement.options[colorElement.selectedIndex].text;
+
+            // 여기에서 선택한 sizeProduct와 color를 사용하여 가격을 업데이트
+            // 예를 들어, 서버에서 해당 조합에 대한 가격을 가져와야 함
+            // 아래는 가상의 코드
+            var updatedPrice = getUpdatedPrice(sizeProduct, color);
+
+            var quantity = parseInt(quantityInput.value);
+            selectedQuantity.innerText = quantity;
+            selectedSize.innerText = sizeProductText;
+            selectedColor.innerText = colorText;
+
+            var totalPrice = updatedPrice * quantity;
+            totalPriceSpan.innerText = formatPrice(totalPrice) + '원';
+        }
+
+        // 가상의 함수: 서버에서 해당 조합에 대한 가격을 가져옴
+        function getUpdatedPrice(sizeProduct, color) {
+            // 여기에서 서버로 Ajax 요청을 보내고, 응답으로 가격을 받아옴
+            // 가상의 코드
+            return 10000; // 서버 응답에 따라서 실제 가격을 반환
+        }
+    </script>
+
+
+   <script>
+       function decrementQuantity() {
+           var quantityInput = document.getElementById('quantityInput');
+           var currentQuantity = parseInt(quantityInput.value);
+
+           if (currentQuantity > 1) {
+               quantityInput.value = currentQuantity - 1;
+               updateTotalPrice();
+           }
+       }
+
+       function incrementQuantity() {
+           var quantityInput = document.getElementById('quantityInput');
+           var currentQuantity = parseInt(quantityInput.value);
+
+           quantityInput.value = currentQuantity + 1;
+           updateTotalPrice();
+       }
+
+       function formatPrice(price) {
+           // 정수 부분만 남기고 소수 부분은 제거
+           return price.toFixed(2).replace(/\.00$/, '');
+       }
+
+       function updateTotalPrice() {
+           var quantityInput = document.getElementById('quantityInput');
+           var selectedQuantity = document.getElementById('selectedQuantity');
+           var totalPriceSpan = document.getElementById('totalPrice');
+           var unitPrice = ${list[0].products_price};
+
+           var quantity = parseInt(quantityInput.value);
+           selectedQuantity.innerText = quantity;
+
+           var totalPrice = unitPrice * quantity;
+           totalPriceSpan.innerText = formatPrice(totalPrice) + '원';
+       }
+   </script>
 	<div class="main">
 		<c:forEach var="row" items="${img }">
 			<div>
