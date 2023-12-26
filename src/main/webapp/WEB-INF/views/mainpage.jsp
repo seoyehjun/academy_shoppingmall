@@ -17,12 +17,17 @@
     <main>
         <section class="banner">
             <div class="slide">
-                <a href="#"><img src="/springboot/p1.jpg"></a>
-                <a href="#"><img src="/springboot/p2.jpg"></a>
-                <a href="#"><img src="/springboot/p3.jpg"></a>
-                <a href="#"><img src="/springboot/p4.jpg"></a>
+                <a href="#"><img src="/springboot//p1.jpg"></a>
+                <a href="#"><img src="/springboot//p2.jpg"></a>
+                <a href="#"><img src="/springboot//p3.jpg"></a>
+                <a href="#"><img src="/springboot//p4.jpg"></a>
+                <a href="#"><img src="/springboot//p5.jpg"></a>
             </div>
         </section>
+
+        <h2 class="listname">New Product List</h2>
+        <br>
+
 
         <div class="clothing-products">
             <c:forEach items="${list}" var="product" varStatus="status" begin="0" end="7">
@@ -31,9 +36,9 @@
                     <div class="row">
                 </c:if>
                 <div class="product" onclick="redirectToProductDetail(${product.products_idx})">
-                    <c:forEach items="${imageList}" var="img">
+                    <c:forEach items="${img}" var="img" begin="0" end="2">
                     <c:set var="imagePath" value="/springboot/" />
-                    <div><img src="${imagePath}${img}" alt="Product Image"/></div>
+                    <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image"/></div>
                     </c:forEach>
                     <div>${product.products_name}</div>
                         <%--                <div>${product.color}</div>--%>

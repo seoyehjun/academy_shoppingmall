@@ -12,5 +12,4 @@ public class ImageConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/springboot/**").addResourceLocations("file:///C:/springboot/");
     }
-
 }
