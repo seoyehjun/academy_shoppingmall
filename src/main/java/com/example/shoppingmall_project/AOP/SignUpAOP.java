@@ -1,4 +1,4 @@
-package com.example.shoppingmall_project.AOP;
+/*package com.example.shoppingmall_project.AOP;
 
 import com.example.shoppingmall_project.components.SH512;
 import com.example.shoppingmall_project.model.vo.MembersVO;
@@ -29,4 +29,4 @@ public class SignUpAOP {
 
     }
 
-}
+}*/
