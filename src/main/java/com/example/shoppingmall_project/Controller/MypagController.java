@@ -59,11 +59,11 @@ public class MypagController
 
 	//	model.addAttribute("replys_list",myPageService.selectAllReplys(inquiries_idx));
 	//}
-	@GetMapping("/WishList")
+	@GetMapping("/wishList")
 	public String go_to_wishlist(Model model, HttpSession httpSession)
 	{
 		MembersVO user = (MembersVO)httpSession.getAttribute("user");
-		myPageService.getwishlist(user.getMembers_idx());
+		//myPageService.getwishlist(user.getMembers_idx());
 
 		return "/mypage/WishList";
 	}

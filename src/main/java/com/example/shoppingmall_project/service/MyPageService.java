@@ -21,7 +21,7 @@ public class MyPageService
 	@Autowired
 	private MyPageDAO myPageDAO;
 
-	public List<FavoritesVO> getwishlist(int members_idx)
+	public List<Favorites_plusVO> getwishlist(int members_idx)
 	{
 		return myPageDAO.getwishlist(members_idx);
 	}

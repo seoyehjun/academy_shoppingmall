@@ -19,7 +19,7 @@ public interface MyPageDAO
 
 	@Select
 			("select * from favorites where members_idx = #{members_idx} ")
-	public List<FavoritesVO> getwishlist(int members_idx);
+	public List<Favorites_plusVO> getwishlist(int members_idx);
 
 	@Select("select * from replys r " +
 			"where inquiries_idx = #{inquiries_idx}")

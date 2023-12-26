@@ -6,7 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="cpath"  value="${pageContext.request.contextPath}"  />
-<c:set var="mywishlist"  value="${cartList}"  />
+<c:set var="mywishlist"  value="${map}"  />
 <%--<c:set var="myProductsList"  value="${cartMap.myProductsList}"  />--%>
 
 <c:set  var="totalGoodsPrice" value="0"/>
