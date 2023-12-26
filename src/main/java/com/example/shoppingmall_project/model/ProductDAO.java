@@ -67,4 +67,13 @@ public interface ProductDAO {
 			"p join categories c on p.categories_idx = c.categories_idx " +
 			"order by p.products_idx desc")
     List<ProductVO> productlist();
+
+	@Select("select p.products_idx, p.products_name, p.products_price, " +
+			"c.categories_name, c.parentcategory_idx " +
+			"from products p " +
+			"join categories c on p.categories_idx = c.categories_idx " +
+			"where parentcategory_idx = #{parentcategory_idx} " +
+			"order by p.products_idx desc")
+	List<ProductVO> selectMenu(int idx);
+
 }

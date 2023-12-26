@@ -7,20 +7,34 @@
 <body>
     <main>
         <section class="outer">
-            <div class="best">
-                <h4>best item</h4>
-                <div class="outerlist">
-                    <c:forEach var="imageName" items="${imageList}">
-                        <c:set var="imagePath" value="/springboot/"/>
-                        <img src="${imagePath}${imageName}" alt="Image">
-                        <br/>
-                    </c:forEach>
-                </div>
+            <div class="clothing-products">
+                <c:forEach items="${list}" var="product" varStatus="status" begin="0" end="7">
+                    <!-- 4개의 상품마다 새로운 행 시작 -->
+                    <c:if test="${status.index % 4 == 0}">
+                        <div class="row">
+                    </c:if>
+                    <div class="product" onclick="redirectToProductDetail(${product.products_idx})">
+                    <c:set var="imagePath" value="/springboot/" />
+                        <c:forEach items="${img}" var="img" begin="0" end="2">
+                            <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image"/></div>
+                        </c:forEach>
+                        <div>${product.products_name}</div>
+                        <div>${product.products_price}원</div>
+                    </div>
+                    <!-- 4개의 상품이 끝나면 행 종료 -->
+                    <c:if test="${status.index % 4 == 3 || status.last}">
+                        </div>
+                    </c:if>
+                </c:forEach>
             </div>
 
         </section>
-
-
     </main>
+
+    <script>
+        function redirectToProductDetail(productIdx) {
+            window.location.href = '/product/homeProduct?productIdx=' + productIdx;
+        }
+    </script>
 </body>
 </html>
