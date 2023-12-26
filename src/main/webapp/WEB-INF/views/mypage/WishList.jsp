@@ -6,7 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="cpath"  value="${pageContext.request.contextPath}"  />
-<c:set var="mywishlist"  value="${map}"  />
+<c:set var="mywishlist"  value="${ mywishlist }"  />
 <%--<c:set var="myProductsList"  value="${cartMap.myProductsList}"  />--%>
 
 <c:set  var="totalGoodsPrice" value="0"/>
@@ -27,7 +27,8 @@
 
             function init()
             {
-                alert("장바구니 삭제");
+                alert("찜목록 삭제");
+                <c:remove var="message"/>
             }
         </script>
     </c:if>
@@ -159,12 +160,12 @@
 
     <tr>
         <form name="frm_order_all_cart">
-            <c:forEach var="item" items="${mywishlist }" varStatus="cnt">
+            <c:forEach var="item" items="${ mywishlist }" varStatus="cnt">
                 <%-- <c:set var="cart_goods_qty" value="${mywishlist[cnt.count-1].cart_goods_qty}" />
                   <c:set var="cart_id" value="${mywishlist[cnt.count-1].cart_id}" /> --%>
 
             <td>
-                <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.cart_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
+                <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.favorites_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
             </td>
 
             <td class="goods_image">
@@ -183,24 +184,11 @@
                 <span>${item.products_price }원</span>
             </td>
 
-            <td>
-                <input type='button' onclick='count("minus",${item.cart_idx},${cnt.count-1})' value='-'/>
-                <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--장바구니 개개의 갯수 <input>형식이다.-->
-                <input type='button' onclick='count("plus",${item.cart_idx},${cnt.count-1})' value='+'/>
-                <a href="javascript:modify_cart_qty('${item.cart_idx }','${cnt.count-1 }');" >
-                    <img width=25 alt=""  src="${cpath}/resources/image/btn_modify_qty.jpg">
-                </a>
-            </td>
+
+
 
             <td>
-                <strong>
-                    <fmt:formatNumber  value="${item.quantity*item.products_price}" type="number" var="total_sales_price" />
-                        ${total_sales_price}원<!--장바구니 개개의 금액 총합-->
-                </strong>
-            </td>
-
-            <td>
-                <a href="javascript:delete_cart_goods('${item.cart_idx}');">
+                <a href="javascript:delete_wish_elements('${item.favorites_idx}');">
                     삭제
                 </a>
             </td>
@@ -227,8 +215,7 @@
         </form>
 
 
-        <c:set  var="totalGoodsPrice" value="${totalGoodsPrice+item.products_price*item.quantity }" />
-        <c:set  var="totalGoodsNum" value="${totalGoodsNum+1 }" />
+
     </tr>
     </c:forEach>
 
@@ -307,18 +294,18 @@
 
 
 
-    function delete_cart_goods(cart_idx)
+    function delete_wish_elements(favorites_idx)
     {
-        var cart_idx=Number(cart_idx);
+        var favorites_idx=Number(favorites_idx);
         var formObj=document.createElement("form");
         var i_cart = document.createElement("input");
-        i_cart.name="cart_idx";
-        i_cart.value=cart_idx;
+        i_cart.name="favorites_idx";
+        i_cart.value=favorites_idx;
 
         formObj.appendChild(i_cart);
         document.body.appendChild(formObj);
         formObj.method="post";
-        formObj.action="${cpath}/mypage/removeCart";
+        formObj.action="${cpath}/mypage/removeWish";
         formObj.submit();
     }
     function count(type,cart_idx, index)

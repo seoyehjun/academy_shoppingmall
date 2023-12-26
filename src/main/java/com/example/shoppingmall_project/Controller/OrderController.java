@@ -115,14 +115,14 @@ public class OrderController {
         } else if ("WISH".equals(action)) {
             // WISH LIST 버튼 클릭 시 수행할 로직
             // 예시로 1로 설정했습니다. 실제로는 어떻게 결정되는지에 따라 수정이 필요합니다.
-            Map<String,Object> map=new HashMap<>();
+            /*Map<String,Object> map=new HashMap<>();
             map.put("quantity", input.getQuantity());
             map.put("color", input.getColor());
             map.put("size_product", input.getSize_product());
-            httpSession.setAttribute("plusdataforwish", map);
+            httpSession.setAttribute("plusdataforwish", map);*/
 
-            products_idx = input.getProducts_idx();
-            int result = os.insertFavorites(products_idx);
+            //products_idx = input.getProducts_idx();
+            int result = os.insertFavorites(input);
 
             if (result > 0) {
 

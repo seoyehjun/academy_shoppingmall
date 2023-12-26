@@ -38,11 +38,9 @@ public class OrdersService {
                 ordersVO.getColor(), ordersVO.getProducts_idx(), ordersVO.getQuantity());
     }
 
-    public int insertFavorites(int products_idx) {
-        OrdersVO ordersVO = new OrdersVO();
-        ordersVO.setProducts_idx(products_idx);
+    public int insertFavorites(OrdersVO ordersVO) {
         MembersVO memberVO = (MembersVO) httpSession.getAttribute("user");
-        int members_idx = memberVO.getMembers_idx();
-        return dao.insertFavorites(ordersVO, members_idx, ordersVO.getProducts_idx() );
+        ordersVO.setMembers_idx(memberVO.getMembers_idx());
+        return dao.insertFavorites(ordersVO);
     }
 }

@@ -6,8 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Favorites_plusVO
+public class FavoritesVO
 {
     int favorites_idx, products_idx, members_idx;
-    int quantity;
+    int color_idx, size_idx,products_price ;
+
+    String products_name, color, img_url, size_product;
 }

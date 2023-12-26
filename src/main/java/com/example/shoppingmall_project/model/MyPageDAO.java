@@ -3,7 +3,6 @@ package com.example.shoppingmall_project.model;
 import java.util.List;
 import java.util.Map;
 
-import com.example.shoppingmall_project.model.vo.FavoritesVO;
 import com.example.shoppingmall_project.model.vo.InquiriesVO;
 import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.*;
@@ -17,9 +16,22 @@ import org.springframework.stereotype.Repository;
 public interface MyPageDAO 
 {
 
-	@Select
-			("select * from favorites where members_idx = #{members_idx} ")
-	public List<Favorites_plusVO> getwishlist(int members_idx);
+	@Delete("delete from favorites" +
+			" where favorites_idx = #{favorites_idx}")
+	public void removeWish(int favorites_idx);
+	@Select("select f.favorites_idx, f.products_idx, f.members_idx, f.color_idx, f.size_idx, " +
+			"       p.products_name, p.products_price, st.size_product, ct.color, pi.img_url" +
+			" from favorites f, products p, size_table st, color ct, products_color pc, products_size ps, products_img pi" +
+			" where f.members_idx = #{members_idx}" +
+			"  and f.products_idx = p.products_idx" +
+			"  and p.products_idx = pi.products_idx" +
+			"  and f.products_idx = pc.products_idx" +
+			"  and pc.color_idx = ct.color_idx" +
+			"  and f.color_idx = pc.color_idx" +
+			"  and f.products_idx = ps.products_idx" +
+			"  and ps.size_idx = st.size_idx" +
+			"  and f.size_idx = ps.size_idx")
+	public List<FavoritesVO> getwishlist(int members_idx);
 
 	@Select("select * from replys r " +
 			"where inquiries_idx = #{inquiries_idx}")

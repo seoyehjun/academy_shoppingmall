@@ -36,8 +36,11 @@ public interface OrdersDAO {
 
 
 
-   @Insert("insert into favorites (products_idx, members_idx) " +
+   @Insert("insert into favorites (products_idx, members_idx, color_idx, size_idx) " +
            "        select #{products_idx} as PRODUCTS_IDX, " +
-           "               #{members_idx} as MEMBERS_IDX from dual")
-    int insertFavorites(OrdersVO ordersVO, int members_idx, int products_idx);
+           "               #{members_idx} as MEMBERS_IDX, " +
+           "               (SELECT color_idx FROM color WHERE color = #{color}), " +
+           "               (SELECT size_idx FROM size_table WHERE size_product = #{size_product}) " +
+           " FROM dual")
+    int insertFavorites(OrdersVO ordersVO);
 }

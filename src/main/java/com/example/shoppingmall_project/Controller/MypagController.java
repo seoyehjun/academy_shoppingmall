@@ -59,11 +59,20 @@ public class MypagController
 
 	//	model.addAttribute("replys_list",myPageService.selectAllReplys(inquiries_idx));
 	//}
+
+	@RequestMapping(value="/removeWish", method= RequestMethod.POST)
+	public String removeWish(Model model, HttpSession httpsession, @RequestParam("favorites_idx") int favorites_idx) throws Exception
+	{
+		System.out.println("favorites : "+ favorites_idx);
+		myPageService.removeWish(favorites_idx);
+		httpsession.setAttribute("message", "remove_Wish");
+		return "redirect:/mypage/myCartList";
+	}
 	@GetMapping("/wishList")
 	public String go_to_wishlist(Model model, HttpSession httpSession)
 	{
 		MembersVO user = (MembersVO)httpSession.getAttribute("user");
-		//myPageService.getwishlist(user.getMembers_idx());
+		httpSession.setAttribute("mywishlist", myPageService.getwishlist(user.getMembers_idx() ) );
 
 		return "/mypage/WishList";
 	}
