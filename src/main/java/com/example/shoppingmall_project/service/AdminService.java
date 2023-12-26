@@ -1,5 +1,6 @@
 package com.example.shoppingmall_project.service;
 
+import com.example.shoppingmall_project.model.vo.AdminOrdersVO;
 import com.example.shoppingmall_project.model.vo.ProductVO;
 import com.example.shoppingmall_project.model.adminDAO;
 
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class AdminService {
@@ -48,6 +50,17 @@ public class AdminService {
 
     public ProductVO getProductOne(int products_Idx) { return dao.selectOne(products_Idx);}
 
+    public AdminOrdersVO getOrdersOne(int orders_idx){
+            return dao.orderSelectOne(orders_idx);
+    }
+
+    public List<AdminOrdersVO> orderlist() {
+            return dao.orderSelectAll();
+    }
+
+    public int orderUpdate(AdminOrdersVO input) {
+            return dao.order_update(input);
+    }
 }
 
 

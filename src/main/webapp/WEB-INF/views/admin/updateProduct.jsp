@@ -30,7 +30,7 @@
                 <td><textarea name="products_description" id="products_description" cols="50" rows="20" required>${productTable.products_description}</textarea></td>
             </tr>
 
-            <tr><
+<%--            <tr><--%>
 
             <%--                <tr>--%>
             <%--                    현재는 관리자 로그인을 통해서 들어가는게 아니라 작성 안해도 된다.    --%>
