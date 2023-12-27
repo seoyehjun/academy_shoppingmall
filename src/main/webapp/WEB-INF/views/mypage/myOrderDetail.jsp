@@ -33,12 +33,12 @@
    <td>${item.orders_date }</td>
    
    <%--상품 이미지(링크연결) --%>
-   <td class="godds_image">
-    <a href="${cpath }/product/homeProduct?productIdx=${item.products_idx}">
-    <%--프로젝트 내 resources폴더에 공백 이미지 추가 --%>
-     <IMG width="75" alt="" src="${cpath }/mypage/thumbnails?products_idx=${item.products_idx }&fileName=${item.img_url }">
-    </a>
-   </td>
+	  <td class="goods_image">
+		  <c:set var="imagePath" value="/springboot/" />
+		  <c:forEach items="${img}" var="img" begin="0" end="2">
+			  <div><img src="${imagePath}${item.products_idx}/${img.img_url}" alt="Product Image"/></div>
+		  </c:forEach>
+	  </td>
    
    <td><%--상품 이름(링크연결) --%>
     <h2>

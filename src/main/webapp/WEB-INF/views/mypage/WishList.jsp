@@ -15,6 +15,8 @@
 <c:set  var="totalDiscountedPrice" value="0" /> <!-- 총 할인금액 -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
+
 <head>
 
 
@@ -134,14 +136,13 @@
 <table class="list_view">
     <tbody align=center >
 
-    <tr style="background:#33ff00" >
-        <td class="fixed" >구분</td>
-        <td colspan=2 class="fixed">상품명</td>
-        <td>정가</td>
-        <td>판매가</td>
-        <td>수량</td>
-        <td>합계</td>
-        <td>주문</td>
+    <tr >
+        <th class="fixed" >구분</th>
+        <th>이미지</th>
+        <th colspan=2 class="fixed">상품명</th>
+        <th>정가</th>
+        <th>수량</th>
+        <th></th>
     </tr>
 
     <c:choose>
@@ -168,6 +169,13 @@
                 <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.favorites_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
             </td>
 
+                <td class="goods_image">
+                    <c:set var="imagePath" value="/springboot/" />
+                    <c:forEach items="${img}" var="img" begin="0" end="2">
+                        <div><img src="${imagePath}${item.products_idx}/${img.img_url}" alt="Product Image"/></div>
+                    </c:forEach>
+                </td>
+
             <td class="goods_image">
                 <a href="${cpath}/products/productsDetail?goods_id=${item.products_idx }">
                     <img width="75" alt="" src="${cpath}/mypage/thumbnails?products_idx=${item.products_idx}&fileName=${item.img_url}"  />
@@ -187,9 +195,15 @@
 
 
 
-            <td>
+            <td><!--POST 방식으로 넘기고 싶다면 자바스크립트를 이용해야한다-->
                 <a href="javascript:delete_wish_elements('${item.favorites_idx}');">
                     삭제
+                </a>
+            </td>
+
+            <td>
+                <a href="javascript:toCartfromWish('${item.favorites_idx}');">
+                    장바구니 추가
                 </a>
             </td>
 
@@ -299,6 +313,8 @@
         var favorites_idx=Number(favorites_idx);
         var formObj=document.createElement("form");
         var i_cart = document.createElement("input");
+
+        i_cart.setAttribute("hidden",true);
         i_cart.name="favorites_idx";
         i_cart.value=favorites_idx;
 
@@ -306,6 +322,22 @@
         document.body.appendChild(formObj);
         formObj.method="post";
         formObj.action="${cpath}/mypage/removeWish";
+        formObj.submit();
+    }
+    function toCartfromWish(favorites_idx)
+    {
+        var favorites_idx=Number(favorites_idx);
+        var formObj=document.createElement("form");
+        var i_cart = document.createElement("input");
+
+        i_cart.setAttribute("hidden",true);
+        i_cart.name="favorites_idx";
+        i_cart.value=favorites_idx;
+
+        formObj.appendChild(i_cart);
+        document.body.appendChild(formObj);
+        formObj.method="post";
+        formObj.action="${cpath}/mypage/toCartfromWish";
         formObj.submit();
     }
     function count(type,cart_idx, index)

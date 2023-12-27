@@ -3,30 +3,23 @@
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="../header.jsp" %>
 
 <!DOCTYPE html>
 <html>
 
+<link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <style type="text/css">
-        .row {
-            margin: 0px auto;
-            width:800px;
-        }
-        .btd {
-            font-size: 8pt;
-        }
-    </style>
 </head>
 
 <body>
+
 <div class="container">
     <div class="row">
+        <br>
         <h3 class="text-center">Q & A</h3>
-
+        <br>
             <table class="table">
                 <tr>
                     <td class="text-left">

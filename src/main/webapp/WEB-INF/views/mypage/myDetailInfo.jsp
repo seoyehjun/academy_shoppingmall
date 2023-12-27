@@ -2,6 +2,9 @@
 		 pageEncoding="UTF-8"%>
 
 <%@ include file="../header.jsp" %><%--html body태그만 닫아주자 --%>
+
+
+<link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <head>
@@ -116,9 +119,9 @@ function fn_modify_member_info(attribute){
 <h3>내 상세 정보</h3>
  <form name="frm_mod_member">
   <div id="detail_table">
-   <table>
+   <table style="width:60%">
    	<tbody>
-   	
+    <tr><th colspan="5">내정보 수정</th></tr>
    	 <tr class="dot_line">
    	  <td class="fixed_join">아이디</td>
    	  <td><input name="members_idx" type="text" size="20" value="${memberInfo.members_id }" disabled/></td>

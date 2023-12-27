@@ -20,6 +20,12 @@ public class MyPageService
 	@Autowired
 	private MyPageDAO myPageDAO;
 
+	public void toCartfromWish(int favorites_idx)
+	{
+		myPageDAO.toCartfromWish(favorites_idx);
+		myPageDAO.removeWish(favorites_idx);
+	}
+
 	public void removeWish(int favorites_idx)
 	{
 		myPageDAO.removeWish(favorites_idx);

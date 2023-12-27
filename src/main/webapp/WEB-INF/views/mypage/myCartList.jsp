@@ -14,6 +14,8 @@
 <c:set  var="totalDeliveryPrice" value="0" /> <!-- 총 배송비 -->
 <c:set  var="totalDiscountedPrice" value="0" /> <!-- 총 할인금액 -->
 
+
+<link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <head>
 
@@ -23,6 +25,7 @@
    window.onload=function()//페이지 로딩과 동시에 실행되는 함수
    {
     init();
+    <c:remove var="message"/>
    }
 
    function init()
@@ -130,17 +133,18 @@
 <body>
 
 
+<br><br><br>
 <table class="list_view">
   <tbody align=center >
 
-  <tr style="background:#33ff00" >
-   <td class="fixed" >구분</td>
-   <td colspan=2 class="fixed">상품명</td>
-   <td>정가</td>
-   <td>판매가</td>
-   <td>수량</td>
-   <td>합계</td>
-   <td>주문</td>
+  <tr>
+   <th class="fixed" >구분</th>
+   <th>이미지</th>
+   <th>상품명</th>
+   <th>정가</th>
+   <th>수량</th>
+   <th>합계</th>
+   <th>주문</th>
  </tr>
 
  <c:choose>
@@ -168,9 +172,10 @@
     </td>
 
     <td class="goods_image">
-    <a href="${cpath}/products/productsDetail?goods_id=${item.products_idx }">
-     <img width="75" alt="" src="${cpath}/mypage/thumbnails?products_idx=${item.products_idx}&fileName=${item.img_url}"  />
-    </a>
+     <c:set var="imagePath" value="/springboot/" />
+     <c:forEach items="${img}" var="img" begin="0" end="2">
+      <div><img src="${imagePath}${item.products_idx}/${img.img_url}" alt="Product Image"/></div>
+     </c:forEach>
    </td>
 
    <td>
@@ -199,10 +204,8 @@
     </strong>
    </td>
 
-    <td>
-    <a href="javascript:delete_cart_goods('${item.cart_idx}');">
-    삭제
-    </a>
+    <td><!--a 태그를 사용해도 잘동작,하지만 button을 사용할거면 type="button"을 잊어선 안된다-->
+     <button type="button" class="custom-btn btn-5" onclick="javascript:delete_cart_goods('${item.cart_idx}')"><span>${item.cart_idx}</span></button>
     </td>
 
     <%--
@@ -293,9 +296,8 @@
 </table>
 
 <c:if test="${myCartList ne null}">
-<a href="javascript:fn_order_all_cart()">
- 모두 주문
-</a>
+
+<div>     </div><button class="custom-btn btn-16" onclick="javascript:fn_order_all_cart()" >모두 주문</button>
 </c:if>
 
 </body>
@@ -309,9 +311,11 @@
 
  function delete_cart_goods(cart_idx)
  {
+  console.log("executed well");
   var cart_idx=Number(cart_idx);
   var formObj=document.createElement("form");
   var i_cart = document.createElement("input");
+  i_cart.setAttribute("hidden",true);
   i_cart.name="cart_idx";
   i_cart.value=cart_idx;
 
@@ -319,7 +323,7 @@
   document.body.appendChild(formObj);
   formObj.method="post";
   formObj.action="${cpath}/mypage/removeCart";
-  formObj.submit();
+  formObj.submit();// form 안에 있는 button태그는 기본적으로 submit이다.
  }
     function count(type,cart_idx, index)
     {
