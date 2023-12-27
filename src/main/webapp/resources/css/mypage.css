@@ -9,6 +9,19 @@ th, td {
     padding: 10px;
 }
 */
+.paging{
+    display: inline;
+}
+
+.row{
+    display: flex;
+    flex-direction: column;
+}
+
+.menu, page{
+    padding-left: 140px;
+}
+
 table {
     border-collapse: collapse;
     width: 80%;
@@ -29,7 +42,23 @@ th {
     color: #ddd;
 }
 
+.reply {
+    font-family: arial;
+    font-size: 24px;
+    margin: 25px;
+    width: 350px;
+    height: 200px;
+    outline: dashed 1px black;
+}
 
+.reply_child {
+    text-align: left;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    /* 수평 중앙 정렬하기 */
+    margin: 0 auto;
+}
 
 /* 테이블 비율 */
 th:nth-child(1),
@@ -38,6 +67,11 @@ td:nth-child(1) {
 }
 
 /*밑에부터 버튼*/
+.button_position{
+    display: flex;
+    justify-content: center;
+}
+
 .btn-gradient {
     margin: 5px;
 }

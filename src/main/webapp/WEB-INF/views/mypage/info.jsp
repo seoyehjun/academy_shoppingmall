@@ -48,20 +48,21 @@
                 </tr>
             </c:forEach>
         </table>
+        <ul class="menu page">
+            <c:if test="${p.prev }">
+                <li class="paging"><a href="${cpath }/mypage/info/${p.begin - 1 }">이전</a></li>
+            </c:if>
+
+            <c:forEach var="i" begin="${p.begin }" end="${p.end }">
+                <li class="paging"><a href="${cpath }/mypage/info/${i }">${i }</a></li>
+            </c:forEach>
+
+            <c:if test="${p.next }">
+                <li class="paging"><a href="${cpath }/mypage/info/${p.end + 1 }">다음</a></li>
+            </c:if>
+        </ul>
     </div>
-    <ul class="menu page">
-        <c:if test="${p.prev }">
-            <li><a href="${cpath }/mypage/info/${p.begin - 1 }">이전</a></li>
-        </c:if>
 
-        <c:forEach var="i" begin="${p.begin }" end="${p.end }">
-            <li><a href="${cpath }/mypage/info/${i }">${i }</a></li>
-        </c:forEach>
-
-        <c:if test="${p.next }">
-            <li><a href="${cpath }/mypage/info/${p.end + 1 }">다음</a></li>
-        </c:if>
-    </ul>
 </div>
 </body>
 </html>

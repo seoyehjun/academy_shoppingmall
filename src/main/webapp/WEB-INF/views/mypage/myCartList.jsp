@@ -50,6 +50,7 @@
 
    var length = checkbox.length;
    console.log("length:"+length)
+   var count =0;
    for(var i=0; i<length;i++)
    {
 
@@ -57,19 +58,25 @@
     {
      //cart_list[i] = checkbox[i].value;
      //cart_list.push(checkbox[i].value);
-
+     count= count+1;
      var temp_input = document.createElement("input");
      temp_input.setAttribute("value", checkbox[i].value+"");
      temp_input.setAttribute("hidden",true);
      // 임시 <input>태그 만들어서 value속성 정해준다.
 
      temp_input.name = "cart_list" ;
-     // 임시 <input>태그의 name 속성 정해준다.
+     // 임시 <input>태그의 name 속성 정해준다. --> cart_list라는 이름을 가진 input태그들을 밑의form태그에 붙여준다.
 
      formObj.appendChild(temp_input);
      // 임시 <input>태그들을 formObj태그에 붙여준다.(formOnject는 위에서 임시로 만든거임)
 
     }
+   }
+   if(count==0)
+   {
+    location.replace("/mypage/myCartList");
+    alert("선택된 품목이 없습니다!");
+    return;
    }
 
    var temp_input2 = document.createElement("input");
@@ -180,7 +187,7 @@
 
    <td>
     <h2>
-     <a href="${cpath}/goods/goodsDetail.do?goods_id=${item.products_idx }">${item.products_name }</a>
+     <a href="${cpath}/product/homeProduct?productIdx=${item.products_idx}">${item.products_name }</a>
     </h2>
    </td>
 
@@ -205,7 +212,7 @@
    </td>
 
     <td><!--a 태그를 사용해도 잘동작,하지만 button을 사용할거면 type="button"을 잊어선 안된다-->
-     <button type="button" class="custom-btn btn-5" onclick="javascript:delete_cart_goods('${item.cart_idx}')"><span>${item.cart_idx}</span></button>
+     <button type="button" class="custom-btn btn-5" onclick="javascript:delete_cart_goods('${item.cart_idx}')"><span>삭제</span></button>
     </td>
 
     <%--
@@ -297,7 +304,7 @@
 
 <c:if test="${myCartList ne null}">
 
-<div>     </div><button class="custom-btn btn-16" onclick="javascript:fn_order_all_cart()" >모두 주문</button>
+ <div class="button_position"><button class="custom-btn btn-16" onclick="javascript:fn_order_all_cart()" >모두 주문</button></div>
 </c:if>
 
 </body>
