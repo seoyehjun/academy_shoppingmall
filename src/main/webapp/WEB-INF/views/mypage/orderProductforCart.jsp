@@ -2,6 +2,7 @@
          pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
+<link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
 <head>
     <script>
     window.onload=function()
@@ -32,26 +33,28 @@
 
 <div class="container">
 
-    <div class="product-container">
-
-        <div class="product-header">
-            <div class="product-header-item">제품명</div>
-            <div class="product-header-item">가격</div>
-            <div class="product-header-item">색상</div>
-            <div class="product-header-item">사이즈</div>
-            <div class="product-header-item">갯수</div>
+        <table>
+        <tr>
+            <th class="product-header-item">제품명</th>
+            <th class="product-header-item">가격</th>
+            <th class="product-header-item">색상</th>
+            <th class="product-header-item">사이즈</th>
+            <th class="product-header-item">갯수</th>
             <!-- 필요한 다른 제품 정보들의 헤더 추가 -->
-        </div>
+        </tr>
+
         <c:forEach var="item" items="${CO_list}">
-            <div class="product-row">
-                <div class="product-item">${item.products_name}</div>
-                <div class="product-item">${item.products_price}</div>
-                <div class="product-item">${item.color}</div>
-                <div class="product-item">${item.size_product}</div>
-                <div class="product-item">${item.quantity}</div>
+            <tr>
+                <td class="product-item">${item.products_name}</td>
+                <td class="product-item">${item.products_price}</td>
+                <td class="product-item">${item.color}</td>
+                <td class="product-item">${item.size_product}</td>
+                <td class="product-item">${item.quantity}</td>
                 <!-- 필요한 다른 제품 정보들의 값 추가 -->
-            </div>
+            </tr>
         </c:forEach>
+        </table>
+
         <h2>배송 정보</h2>
 
         <div class="delivery-destination">

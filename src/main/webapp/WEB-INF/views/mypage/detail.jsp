@@ -46,27 +46,29 @@
                         <a href="#" class="btn btn-xs btn-success">수정</a>
                         <a href="#" class="btn btn-xs btn-info">삭제</a>
                     </c:if>
-                    <a href="../mypage/lst" class="btn btn-xs btn-warning">목록</a>
+                    <button class="custom-btn btn-5" onclick="history.back()" >목록</button>
                 </td>
             </tr>
         </table>
+
+        <div class="reply">
+            <h5 class="reply_child">답변 (${reCount })</h5>
+
+
+            <table class="reply_child">
+                <c:forEach var="re" items="${replys }">
+                    <tr>
+                        <td>
+                <pre class="reply_child">
+                ${re.contents }
+                </pre>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
     </div>
 </div>
-
-<h5>답변 (${reCount })</h5>
-
-
-<table>
-    <c:forEach var="re" items="${replys }">
-        <tr>
-            <td>
-        <pre>
-        ${re.contents }
-        </pre>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
 
 
 </body>
