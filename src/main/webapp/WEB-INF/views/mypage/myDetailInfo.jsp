@@ -13,6 +13,7 @@
 
 window.onload=function()
 {
+	<c:set var="memberInfo"  value="${memberInfo}"  />
 	selectBoxInit();//select태그 기본값 정하는 함수	
 }
 
@@ -115,6 +116,7 @@ function fn_modify_member_info(attribute){
 }
 </script>
 </head>
+
 <body>
 <h3>내 상세 정보</h3>
  <form name="frm_mod_member">

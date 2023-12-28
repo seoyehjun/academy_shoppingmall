@@ -74,7 +74,7 @@ public class MypagController
 	{
 		myPageService.toCartfromWish(favorites_idx);
 		httpSession.removeAttribute("mywishlist");
-		return "redirect:/mypage/myCartList";
+		return "redirect:/mypage/wishList";
 	}
 
 	@RequestMapping(value="/removeWish", method= RequestMethod.POST)
@@ -306,9 +306,12 @@ public class MypagController
 		
 
 		memberVO=(MembersVO)myPageService.modifyMyInfo(memberMap);
-		System.out.println("Service well done");
-		session.removeAttribute("memberInfo");
-		session.setAttribute("memberInfo", memberVO);
+		session.removeAttribute("user");
+		System.out.println("member_idx: "+member_idx);
+		session.setAttribute( "user",myPageService.givememember(  Integer.parseInt(member_idx)    )  );
+		MembersVO RmemberVO = (MembersVO)session.getAttribute("user");
+		System.out.println("new index is: "+ RmemberVO.getMembers_idx());
+		session.setAttribute("memberInfo", RmemberVO);
 		
 		//return "mypage/myPageMain";
 		String message = null;

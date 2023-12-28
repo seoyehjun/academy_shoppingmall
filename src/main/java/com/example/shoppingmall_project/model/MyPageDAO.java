@@ -28,11 +28,11 @@ public interface MyPageDAO
 			" where favorites_idx = #{favorites_idx}")
 	public void removeWish(int favorites_idx);
 	@Select("select f.favorites_idx, f.products_idx, f.members_idx, f.color_idx, f.size_idx, " +
-			"       p.products_name, p.products_price, st.size_product, ct.color, pi.img_url" +
-			" from favorites f, products p, size_table st, color ct, products_color pc, products_size ps, products_img pi" +
+			"       p.products_name, p.products_price, st.size_product, ct.color/*, pi.img_url*/" +
+			" from favorites f, products p, size_table st, color ct, products_color pc, products_size ps/*, products_img pi*/" +
 			" where f.members_idx = #{members_idx}" +
 			"  and f.products_idx = p.products_idx" +
-			"  and p.products_idx = pi.products_idx" +
+			"  /*and p.products_idx = pi.products_idx*/" +
 			"  and f.products_idx = pc.products_idx" +
 			"  and pc.color_idx = ct.color_idx" +
 			"  and f.color_idx = pc.color_idx" +
