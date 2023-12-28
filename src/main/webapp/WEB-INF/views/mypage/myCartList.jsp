@@ -181,7 +181,7 @@
     <td class="goods_image">
      <c:set var="imagePath" value="/springboot/" />
      <c:forEach items="${img}" var="img" begin="0" end="2">
-      <div><img src="${imagePath}${item.products_idx}/${img.img_url}" alt="Product Image"/></div>
+      <div><img class="thumbnails" src="${imagePath}${item.products_idx}/${img.img_url}" alt="Product Image"/></div>
      </c:forEach>
    </td>
 
@@ -345,7 +345,7 @@
         {
             number = parseInt(number) + 1;
         }
-        else if(type === 'minus' && number>0)
+        else if(type === 'minus' && number>1)
         {
             number = parseInt(number) - 1;
         }

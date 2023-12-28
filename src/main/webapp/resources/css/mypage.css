@@ -9,6 +9,10 @@ th, td {
     padding: 10px;
 }
 */
+.thumbnails{
+    width: 30px;
+    height: 50px;
+}
 
 .od_title{
     padding-left: 165px;
