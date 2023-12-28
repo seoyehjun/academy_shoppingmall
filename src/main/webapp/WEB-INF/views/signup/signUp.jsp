@@ -28,17 +28,22 @@
 		<div class="form-group">
 			<h3>주소</h3>
 			<div style="display: flex; align-items: center;">
-				<input class="form-control" style="width: 40%;" placeholder="우편번호" name="members_address_number" id="members_address_number" type="text" readonly="readonly">
-				<button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
+				<input class="form-control" style="width: 40%;" placeholder="우편번호"
+					   name="members_address_number" id="members_address_number" type="text" readonly="readonly">
+				<button type="button" class="btn btn-default" onclick="execPostCode();">
+					<i class="fa fa-search"></i> 우편번호 찾기</button>
 			</div>
 			<div style="margin-top: 5px;">
-				<input class="form-control" placeholder="도로명 주소" name="members_address" id="members_address" type="text" readonly="readonly" />
+				<input class="form-control" placeholder="도로명 주소"
+					   name="members_address" id="members_address" type="text" readonly="readonly" />
 			</div>
 			<div style="margin-top: 5px;">
-				<input class="form-control" placeholder="상세주소" name="members_detailed_address" id="members_detailed_address" type="text" />
+				<input class="form-control" placeholder="상세주소"
+					   name="members_detailed_address" id="members_detailed_address" type="text" />
 			</div>
 			<div style="margin-top: 5px;">
-				<input class="form-control" placeholder="참고항목" name="members_address_building" id="members_address_building" type="text" />
+				<input class="form-control" placeholder="참고항목"
+					   name="members_address_building" id="members_address_building" type="text" />
 			</div>
 
 		<p><input name="members_phone_number" placeholder="전화번호" required></p>
@@ -85,7 +90,7 @@
 		if(number1 === number2){
 			alert("인증되었습니다.");
 		}else{
-			alert("번호가 다릅니다.");
+			alert("인증에 실패하였습니다.");
 		}
 	}
 

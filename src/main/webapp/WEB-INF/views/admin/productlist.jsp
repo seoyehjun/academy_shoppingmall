@@ -2,6 +2,8 @@
          pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 
+<link rel="stylesheet" href="${cpath}/resources/css/admin.css">
+
     <section class="WebName">
         <img alt="" src="">
     </section>

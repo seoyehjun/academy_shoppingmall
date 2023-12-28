@@ -33,23 +33,24 @@ public interface adminDAO {
     ProductVO selectOne(int products_Idx);
 
     @Select("SELECT " +
+            "od.orders_idx, " +
+            "o.orders_date, " +
             "m.members_id, " +
             "m.members_name, " +
-            "o.orders_date, " +
-            "o.orders_idx, " +
-            "o.ORDERS_STATUS, " +
-            "p.products_name, " +
-            "p.products_price, " +
+            "p.products_name ," +
             "c.color, " +
-            "s.size_product " +
-            "FROM orders o " +
-            "INNER JOIN members m ON o.members_idx = m.members_idx " +
-            "INNER JOIN ordersd_details od ON o.orders_idx = od.orders_idx " +
-            "INNER JOIN products p ON od.products_idx = p.products_idx " +
-            "INNER JOIN products_color pc ON p.products_idx = pc.products_idx " +
-            "INNER JOIN color c ON pc.color_idx = c.color_idx " +
-            "INNER JOIN products_size ps ON p.products_idx = ps.products_idx " +
-            "INNER JOIN size_table s ON ps.size_idx = s.size_idx")
+            "s.size_product, " +
+            "p.products_price, " +
+            "o.orders_status " +
+            "FROM " +
+            "ordersd_details od " +
+            "JOIN orders o ON od.orders_idx = o.orders_idx " +
+            "JOIN members m ON o.members_idx = m.members_idx " +
+            "JOIN products p ON od.products_idx = p.products_idx " +
+            "JOIN products_color pc ON od.products_idx = pc.products_idx AND od.color_idx = pc.color_idx " +
+            "JOIN color c ON pc.color_idx = c.color_idx " +
+            "JOIN products_size ps ON od.products_idx = ps.products_idx AND od.size_idx = ps.size_idx " +
+            "JOIN size_table s ON ps.size_idx = s.size_idx ")
     List<AdminOrdersVO> orderSelectAll();
 
     @Select("SELECT " +
