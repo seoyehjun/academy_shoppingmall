@@ -6,7 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="cpath"  value="${pageContext.request.contextPath}"  />
-<c:set var="mywishlist"  value="${cartList}"  />
+<c:set var="mywishlist"  value="${ mywishlist }"  />
 <%--<c:set var="myProductsList"  value="${cartMap.myProductsList}"  />--%>
 
 <c:set  var="totalGoodsPrice" value="0"/>
@@ -15,6 +15,8 @@
 <c:set  var="totalDiscountedPrice" value="0" /> <!-- 총 할인금액 -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
+
 <head>
 
 
@@ -27,7 +29,8 @@
 
             function init()
             {
-                alert("장바구니 삭제");
+                alert("찜목록 삭제");
+                <c:remove var="message"/>
             }
         </script>
     </c:if>
@@ -133,14 +136,13 @@
 <table class="list_view">
     <tbody align=center >
 
-    <tr style="background:#33ff00" >
-        <td class="fixed" >구분</td>
-        <td colspan=2 class="fixed">상품명</td>
-        <td>정가</td>
-        <td>판매가</td>
-        <td>수량</td>
-        <td>합계</td>
-        <td>주문</td>
+    <tr >
+        <th class="fixed" >구분</th>
+        <th>이미지</th>
+        <th colspan=2 class="fixed">상품명</th>
+        <th>정가</th>
+        <th>수량</th>
+        <th></th>
     </tr>
 
     <c:choose>
@@ -159,13 +161,20 @@
 
     <tr>
         <form name="frm_order_all_cart">
-            <c:forEach var="item" items="${mywishlist }" varStatus="cnt">
+            <c:forEach var="item" items="${ mywishlist }" varStatus="cnt">
                 <%-- <c:set var="cart_goods_qty" value="${mywishlist[cnt.count-1].cart_goods_qty}" />
                   <c:set var="cart_id" value="${mywishlist[cnt.count-1].cart_id}" /> --%>
 
             <td>
-                <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.cart_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
+                <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.favorites_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
             </td>
+
+                <td class="goods_image">
+                    <c:set var="imagePath" value="/springboot/" />
+                    <c:forEach items="${img}" var="img" begin="0" end="2">
+                        <div><img class="thumbnails" src="${imagePath}${item.products_idx}/${img.img_url}" alt="Product Image"/></div>
+                    </c:forEach>
+                </td>
 
             <td class="goods_image">
                 <a href="${cpath}/products/productsDetail?goods_id=${item.products_idx }">
@@ -183,25 +192,18 @@
                 <span>${item.products_price }원</span>
             </td>
 
-            <td>
-                <input type='button' onclick='count("minus",${item.cart_idx},${cnt.count-1})' value='-'/>
-                <input type="text" id="cart_goods_qty" name="cart_goods_qty" class="cart_goods_qty" size=3 value="${item.quantity}"><br><!--장바구니 개개의 갯수 <input>형식이다.-->
-                <input type='button' onclick='count("plus",${item.cart_idx},${cnt.count-1})' value='+'/>
-                <a href="javascript:modify_cart_qty('${item.cart_idx }','${cnt.count-1 }');" >
-                    <img width=25 alt=""  src="${cpath}/resources/image/btn_modify_qty.jpg">
+
+
+
+            <td><!--POST 방식으로 넘기고 싶다면 자바스크립트를 이용해야한다-->
+                <a href="javascript:delete_wish_elements('${item.favorites_idx}');">
+                    삭제
                 </a>
             </td>
 
             <td>
-                <strong>
-                    <fmt:formatNumber  value="${item.quantity*item.products_price}" type="number" var="total_sales_price" />
-                        ${total_sales_price}원<!--장바구니 개개의 금액 총합-->
-                </strong>
-            </td>
-
-            <td>
-                <a href="javascript:delete_cart_goods('${item.cart_idx}');">
-                    삭제
+                <a href="javascript:toCartfromWish('${item.favorites_idx}');">
+                    장바구니 추가
                 </a>
             </td>
 
@@ -227,8 +229,7 @@
         </form>
 
 
-        <c:set  var="totalGoodsPrice" value="${totalGoodsPrice+item.products_price*item.quantity }" />
-        <c:set  var="totalGoodsNum" value="${totalGoodsNum+1 }" />
+
     </tr>
     </c:forEach>
 
@@ -241,62 +242,7 @@
 <br><br>
 
 
-<table  width=80%   class="list_view" style="background:#cacaff">
-    <tbody>
-    <tr  align=center  class="fixed" >
-        <td class="fixed">총 상품수 </td>
-        <td>총 상품금액</td>
-        <td>  </td>
-        <td>총 배송비</td>
-        <td>  </td>
-        <td>최종 결제금액</td>
-    </tr>
 
-    <tr cellpadding=40  align=center >
-        <td id="">
-            <p id="p_totalGoodsNum">${totalGoodsNum}개 </p>
-            <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
-        </td>
-
-        <td>
-            <p id="p_totalGoodsPrice">
-                <fmt:formatNumber value="${totalGoodsPrice}" type="number" var="total_goods_price" />
-                ${total_goods_price}원
-            </p>
-            <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
-        </td>
-
-        <td>
-            <img width="25" alt="" src="${cpath}/resources/image/plus.png">
-        </td>
-
-        <td>
-            <p id="p_totalDeliveryPrice">${totalDeliveryPrice }원  </p>
-            <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
-        </td>
-
-
-        <td>
-            <img width="25" alt="" src="${cpath}/resources/image/equal.png">
-        </td>
-
-        <td>
-            <p id="p_final_totalPrice">
-                <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
-                ${total_price}원
-            </p>
-            <input id="h_final_totalPrice" name="total_price" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
-        </td>
-
-    </tr>
-    </tbody>
-</table>
-
-<c:if test="${mywishlist ne null}">
-    <a href="javascript:fn_order_all_cart()">
-        모두 주문
-    </a>
-</c:if>
 
 </body>
 
@@ -307,18 +253,36 @@
 
 
 
-    function delete_cart_goods(cart_idx)
+    function delete_wish_elements(favorites_idx)
     {
-        var cart_idx=Number(cart_idx);
+        var favorites_idx=Number(favorites_idx);
         var formObj=document.createElement("form");
         var i_cart = document.createElement("input");
-        i_cart.name="cart_idx";
-        i_cart.value=cart_idx;
+
+        i_cart.setAttribute("hidden",true);
+        i_cart.name="favorites_idx";
+        i_cart.value=favorites_idx;
 
         formObj.appendChild(i_cart);
         document.body.appendChild(formObj);
         formObj.method="post";
-        formObj.action="${cpath}/mypage/removeCart";
+        formObj.action="${cpath}/mypage/removeWish";
+        formObj.submit();
+    }
+    function toCartfromWish(favorites_idx)
+    {
+        var favorites_idx=Number(favorites_idx);
+        var formObj=document.createElement("form");
+        var i_cart = document.createElement("input");
+
+        i_cart.setAttribute("hidden",true);
+        i_cart.name="favorites_idx";
+        i_cart.value=favorites_idx;
+
+        formObj.appendChild(i_cart);
+        document.body.appendChild(formObj);
+        formObj.method="post";
+        formObj.action="${cpath}/mypage/toCartfromWish";
         formObj.submit();
     }
     function count(type,cart_idx, index)

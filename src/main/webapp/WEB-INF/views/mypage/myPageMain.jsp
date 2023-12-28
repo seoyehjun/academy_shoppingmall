@@ -3,6 +3,8 @@
 
 <%@ include file="../header.jsp" %>
 
+<link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
+
 <head>
 	<meta charset="utf-8">
 	<c:if test="${message=='cancel_order'}">
@@ -56,25 +58,24 @@
 </head>
 
 <body>
-
-<a href="/mypage/myDetailInfo"> 내정보 수정 </a>
+<button class="custom-btn btn-16" onclick="location.href='/mypage/myDetailInfo' ">내정보 수정</button>
 <%--orders 와 orders_details를 조인해서 같은 VO로 묶어서 가져와라 --%>
 <br><br>
-	<table class="list_view">
+	<table>
 		<tbody align=center>
 			
-			<tr style="background: #008080">
-				<td>주문번호</td>
-				<td>주문일자</td>
-				<td>주문상품</td>
-				<td>주문상태</td>
-				<td>주문취소</td>
+			<tr>
+				<th>주문번호</th>
+				<th>주문일자</th>
+				<th>주문상품</th>
+				<th>주문상태</th>
+				<th>주문취소</th>
 			</tr>
 		<c:set var="orders_status" value="${order.Orders_status }"/>	
 		<c:choose><%--주문한상품이 있을경우 or 없을경우 --%>
 			<c:when test="${ empty myOrderList }"><%--주문 상품이 없을 경우 --%>
 			<tr>
-				<td colspan=5 class="fixed">
+				<td colspan=5>
 					<strong>주문한 상품이 없습니다. </strong>
 				</td>
 			</tr>
@@ -88,7 +89,7 @@
 		    <tr><%--실제 상품 --%>
 		    
 		     <td><%--주문번호 --%>
-		      <a href="${cpath }/mypage/myOrderDetail?orders_idx=${order.orders_idx}"><span>${order.orders_idx }</span></a>
+		      <a href="${cpath }/mypage/myOrderDetail?orders_idx=${order.orders_idx}"><span>${order.orders_idx } 주문 상세</span></a>
 		      <%--컨트롤러에서 받아서 주문 상세페이지 띄워주자 --%>
 		     </td>
 		     
@@ -131,10 +132,10 @@
 		     <td><%--배송 취소 기능 --%>
 		      	<c:choose>
 		      	 <c:when test="${order.orders_status=='배송 준비중' }">
-		      	  <input type="button" onClick="fn_cancel_order('${order.orders_idx}')" value="주문취소"/>
+				  <a href="javascript:fn_cancel_order('${order.orders_idx}')" class="btn-gradient green small">주문 취소</a>
 		      	 </c:when>
 		      	 <c:otherwise>
-		      	  <input type="button" onClick="fn_cancel_order('${order.orders_idx}')" value="주문취소" disabled />
+				  <a  class="btn-gradient green small" style =  "rgb(88,68,68); opacity : 0.3;" >Button</a>
 		      	 </c:otherwise>
 		      	</c:choose>
 		     </td>
