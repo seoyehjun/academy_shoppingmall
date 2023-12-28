@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @Service
 public class OrdersService {
@@ -38,12 +39,10 @@ public class OrdersService {
         return dao.insertCart(quantity, products_idx, membersIdx, color, size_Product);
     }
 
-    public int insertFavorites(int products_idx) {
-        OrdersVO ordersVO = new OrdersVO();
-        ordersVO.setProducts_idx(products_idx);
+    public int insertFavorites(OrdersVO ordersVO) throws SQLIntegrityConstraintViolationException {
         MembersVO memberVO = (MembersVO) httpSession.getAttribute("user");
-        int members_idx = memberVO.getMembers_idx();
-        return dao.insertFavorites(ordersVO, members_idx, ordersVO.getProducts_idx());
+        ordersVO.setMembers_idx(memberVO.getMembers_idx());
+        return dao.insertFavorites(ordersVO);
     }
 
 

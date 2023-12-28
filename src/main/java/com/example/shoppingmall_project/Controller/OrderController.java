@@ -19,7 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.datatransfer.DataFlavor;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/product2")
@@ -69,7 +72,7 @@ public class OrderController {
     @PostMapping("/orderProduct")
     public String orderProduct(@RequestParam(name = "quantity") int quantity, OrdersVO input,
                                @RequestParam(name = "action") String action, Model model,
-                               HttpServletResponse response, HttpSession httpSession) {
+                               HttpServletResponse response, HttpSession httpSession) throws SQLIntegrityConstraintViolationException {
 
 
         // 로그 또는 디버깅 메시지 추가
@@ -142,8 +145,16 @@ public class OrderController {
         } else if ("WISH".equals(action)) {
             // WISH LIST 버튼 클릭 시 수행할 로직
             // 예시로 1로 설정했습니다. 실제로는 어떻게 결정되는지에 따라 수정이 필요합니다.
-            products_idx = input.getProducts_idx();
-            int result = os.insertFavorites(products_idx);
+            /*Map<String,Object> map=new HashMap<>();
+            map.put("quantity", input.getQuantity());
+            map.put("color", input.getColor());
+            map.put("size_product", input.getSize_product());
+            httpSession.setAttribute("plusdataforwish", map);*/
+
+            //products_idx = input.getProducts_idx();
+            System.out.println("wellexecuted");
+            Integer result = os.insertFavorites(input);
+            System.out.println("result: "+result);
 
             if (result > 0) {
 
@@ -152,14 +163,22 @@ public class OrderController {
             } else {
                 // 실패 시 예외 처리 또는 다른 동작 수행
                 // 예: response.sendRedirect("/error");
-                return "redirect:/error"; // 실패 시 리다이렉트 경로
+                return "/mypage/error"; // 실패 시 리다이렉트 경로
             }
 
-        }
-
+            }
+    
         // 추가적인 로직이 필요한 경우 처리
         return "redirect:/error";
+        }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public String SQLExep() {
+        System.out.println("insert exception ");
+
+        return "/mypage/error";
     }
+
 
 
 //    @PostMapping("/addToDatabase")
