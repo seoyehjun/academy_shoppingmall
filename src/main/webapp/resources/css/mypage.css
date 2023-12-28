@@ -9,6 +9,13 @@ th, td {
     padding: 10px;
 }
 */
+.delivery_state{
+    margin:0 auto;
+    text-align: center;
+    background-color: rgb(88,68,68,0.1);
+    color: rgb(255,0,0,0.7);
+}
+
 .thumbnails{
     width: 30px;
     height: 50px;

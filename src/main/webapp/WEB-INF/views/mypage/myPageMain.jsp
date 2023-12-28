@@ -89,7 +89,7 @@
 		    <tr><%--실제 상품 --%>
 		    
 		     <td><%--주문번호 --%>
-		      <a href="${cpath }/mypage/myOrderDetail?orders_idx=${order.orders_idx}"><span>${order.orders_idx } 주문 상세</span></a>
+		      <a href="${cpath }/mypage/myOrderDetail?orders_idx=${order.orders_idx}"><span>${order.orders_idx }.   주문 상세</span></a>
 		      <%--컨트롤러에서 받아서 주문 상세페이지 띄워주자 --%>
 		     </td>
 		     
@@ -135,7 +135,7 @@
 				  <a href="javascript:fn_cancel_order('${order.orders_idx}')" class="btn-gradient green small">주문 취소</a>
 		      	 </c:when>
 		      	 <c:otherwise>
-				  <a  class="btn-gradient green small" style =  "rgb(88,68,68); opacity : 0.3;" >Button</a>
+				  <a  class="btn-gradient green small" style =  "rgb(88,68,68); opacity : 0.3;" >주문 취소</a>
 		      	 </c:otherwise>
 		      	</c:choose>
 		     </td>

@@ -4,8 +4,8 @@
 
 <link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
 
-<h1>배송 현황</h1>
- <div style = "text-decoration: underline">
+ <h1 class="od_title">배송 현황</h1>
+ <div class="delivery_state" style = "text-decoration: underline">
   ${myorderdetail[0].orders_status }
  </div>
  
