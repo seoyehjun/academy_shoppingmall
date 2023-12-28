@@ -2,27 +2,29 @@
 		 pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
-
+<link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
 
 <h1>배송 현황</h1>
  <div style = "text-decoration: underline">
   ${myorderdetail[0].orders_status }
  </div>
  
-<h1>1. 주문 상세정보</h1>
+
 <table class="list_view" style="width:80%">
+
  <tbody align=center>
-  <tr style="background: #008080">
-   <td>주문 번호</td>
-   <td>주문 일자</td>
-   <td>썸네일</td>
-   <td>주문상품명</td>
-   <td>수량</td>
-   <td>옵션,사이즈</td>
-   <td>주문금액</td>
-   <td>배송비</td>
-   <td>주문금액합계</td>
-   <td>예상적립금</td>
+ <h1 class="od_title">1. 주문 상세정보</h1>
+  <tr>
+   <th>주문 번호</th>
+   <th>주문 일자</th>
+   <th>썸네일</th>
+   <th>주문상품명</th>
+   <th>수량</th>
+   <th>옵션,사이즈</th>
+   <th>주문금액</th>
+   <th>배송비</th>
+   <th>주문금액합계</th>
+   <th>예상적립금</th>
    
   </tr>
 	<c:forEach var="item" items="${myorderdetail}" varStatus="cnt">
@@ -80,7 +82,7 @@
   
  </tbody>
 </table>
-<h1>2.배송지 정보 및 주문자 정보</h1>
+<h1 class="od_title">2.배송지 정보 및 주문자 정보</h1>
  <div class="detail_table">
   <table>
    <tbody>
@@ -110,7 +112,7 @@
 	<tr class="dot_line">
 	 <td class="fixed_join">주소</td>
 	 <td>
-	  ${myorderdetail[0].orders_recipient_address}
+	  ${myorderdetail[0].orders_address}
 	 </td>
 	 </tr>
 	 

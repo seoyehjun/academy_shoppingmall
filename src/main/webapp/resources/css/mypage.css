@@ -9,6 +9,13 @@ th, td {
     padding: 10px;
 }
 */
+
+.od_title{
+    padding-left: 165px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
 .paging{
     display: inline;
 }

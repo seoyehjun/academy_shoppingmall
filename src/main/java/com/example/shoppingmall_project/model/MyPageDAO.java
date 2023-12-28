@@ -107,18 +107,18 @@ public interface MyPageDAO
 	List<Cart_vo> listMyCart(String members_idx);
 
 	@Select("select o.orders_idx, o.orders_date, o.orders_status" + 
-			"			,o.orders_recipient_address, o.orders_detailed_address" + 
+			"			,o.orders_address, o.orders_detailed_address" +
 			"			,o.orders_recipient_phone, o.orders_recipient_name" + 
 			"			,od.quantity" + 
 			"			,p.products_idx, p.products_name, p.products_price " + 
-			"			,pi.img_url" + 
+			//"			,pi.img_url" +
 			"			,c.color" + 
 			"			,st.size_product" + 
-			"			from orders o, ordersd_details od, products p, products_img pi, color c, size_table st" + 
+			"			from orders o, ordersd_details od, products p/*, products_img pi*/, color c, size_table st" +
 			"			,products_color pc, products_size ps " + 
 			"            where o.orders_idx = od.orders_idx" + 
 			"            and od.products_idx = p.products_idx" + 
-			"            and p.products_idx = pi.products_idx" + 
+			//"            and p.products_idx = pi.products_idx" +
 			"            and ps.size_idx = od.size_idx and ps.products_idx = od.products_idx and ps.size_idx = st.size_idx" + 
 			"            and pc.color_idx = od.color_idx and pc.products_idx = od.products_idx and pc.color_idx = c.color_idx " + 
 			"            and o.orders_idx = #{orders_idx}")
