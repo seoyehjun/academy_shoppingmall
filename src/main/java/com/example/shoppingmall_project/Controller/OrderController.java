@@ -8,6 +8,7 @@ import com.example.shoppingmall_project.service.HeaderService;
 import com.example.shoppingmall_project.service.OrdersService;
 import com.example.shoppingmall_project.service.ProductService;
 import com.example.shoppingmall_project.service.TestService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.datatransfer.DataFlavor;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
@@ -35,17 +37,36 @@ public class OrderController {
     @Autowired
     private HttpSession session;
 
-    @Autowired private HeaderService hs;
+    @Autowired
+    private HeaderService hs;
 
     @ModelAttribute
-    public void menu(Model model){
+    public void menu(Model model) {
         hs.addCommonAttributes(model);
     }
 
     @GetMapping("/orderProduct")
-    public String orderProductGet(Model model, HttpServletRequest request) {
+    public String orderProductGet(@RequestParam(name = "idx") int productIdx, Model model, HttpSession httpSession) {
+        // 회원 정보 가져오기
+        MembersVO membersVO = (MembersVO) httpSession.getAttribute("user");
+        // 모델에 회원 정보 추가
+        model.addAttribute("members", membersVO);  // 모델에 members 속성 추가;
+
+        ProductVO productVO = ps.getProductByIdx(productIdx);
+        System.out.println("Product Name: " + productVO.getProducts_name());  // 디버깅을 위한 출력
+        System.out.println("Product Price: " + productVO.getProducts_price());  // 디버깅을 위한 출력
+
+        model.addAttribute("product", productVO);
 
         return "product2/orderProduct";
+
+    }
+
+    @GetMapping("/addToDatabase")
+    public String addToDatabaseGet() {
+        // GET 요청에 대한 응답 처리
+        // 예: return "redirect:/"; 또는 다른 경로로 리다이렉트
+        return "redirect:/";
     }
 
     @PostMapping("/orderProduct")
@@ -64,8 +85,13 @@ public class OrderController {
         MembersVO membersVO = (MembersVO) httpSession.getAttribute("user");
 
 
+        model.addAttribute("members", membersVO);
 
-
+        if (color == null || color.isEmpty() || size_product == null || size_product.isEmpty()) {
+            model.addAttribute("error", "Color and size must be selected.");
+            // 에러 메시지를 모델에 추가하고 다시 선택 페이지로 이동
+            return "product2/orderProduct";
+        }
 
         System.out.println("color : " + color);
         System.out.println("size : " + size_product);
@@ -74,24 +100,27 @@ public class OrderController {
 
 
         if ("BUY".equals(action)) {
-            // sizeProduct와 color 값을 사용하여 insertOrders 메서드 호출
             int result = os.insertOrders(size_product, color, products_idx, quantity);
 
             // insert 성공 여부에 따라 리다이렉트 결정
             if (result > 0) {
-                // 성공 시 모델에 데이터 추가
-                model.addAttribute("size_product", size_product);
                 model.addAttribute("color", color);
-                // 사용된 idx를 불러와서 사용함
-                int product_Idx = input.getProducts_idx();
+                model.addAttribute("size_product", size_product);
 
-                ProductVO product = ps.getProductByIdx(products_idx);
-                System.out.println("product" + product);
 
-                model.addAttribute("product", product);
+                // 리다이렉트 대신에 포워드 사용
+                // 제품 정보를 다시 가져와서 모델에 추가
+                ProductVO productVO = ps.getProductByIdx(products_idx);
+                model.addAttribute("product", productVO);
 
-                // 성공 시 리다이렉트
-                return "redirect:/product2/orderProduct";
+                double unitPrice = productVO.getProducts_price();
+                double totalPrice = unitPrice * quantity;
+
+                model.addAttribute("totalPrice", totalPrice);
+                model.addAttribute("quantity", quantity);
+
+
+                return "product2/orderProduct";
             } else {
                 // 실패 시 예외 처리 또는 다른 동작 수행
                 // 예: response.sendRedirect("/error");
@@ -105,7 +134,7 @@ public class OrderController {
             int result = os.insertCart(size_product, color, products_idx, quantity);
             if (result > 0) {
 
-            return "redirect:/mypage/myCartList";
+                return "redirect:/mypage/myCartList";
 
             } else {
                 // 실패 시 예외 처리 또는 다른 동작 수행
@@ -131,15 +160,17 @@ public class OrderController {
 
                 return "redirect:/mypage/wishList";
 
-            }else if(result == null) {
+            } else {
                 // 실패 시 예외 처리 또는 다른 동작 수행
                 // 예: response.sendRedirect("/error");
                 return "/mypage/error"; // 실패 시 리다이렉트 경로
             }
 
+            }
+    
+        // 추가적인 로직이 필요한 경우 처리
+        return "redirect:/error";
         }
-            return "redirect:/error";
-    }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public String SQLExep() {
@@ -148,5 +179,45 @@ public class OrderController {
         return "/mypage/error";
     }
 
-}
 
+
+//    @PostMapping("/addToDatabase")
+//    @ResponseBody
+//    public String addToDatabase(
+//            @RequestParam(name = "addr2") String addr2,
+//            @RequestParam(name = "addr3") String addr3,
+//            @RequestParam(name = "phone-number") String phoneNumber,
+//            @RequestParam(name = "email") String email,
+//            @RequestParam(name = "delivery-message") String deliveryMessage,
+//            @RequestParam(name = "members_nickname") String membersNickname,
+//            @RequestParam(name = "members_idx") String membersIdx,
+//            @RequestParam(name = "total_Price") String totalPrice
+//    ) {
+//        // 값이 정상적으로 받아와지는지 확인하기 위해 로깅 문 추가
+//        System.out.println("받아온 값 확인:");
+//        System.out.println("addr2: " + addr2);
+//        System.out.println("addr3: " + addr3);
+//        System.out.println("phone-number: " + phoneNumber);
+//        System.out.println("email: " + email);
+//        System.out.println("delivery-message: " + deliveryMessage);
+//        System.out.println("members_nickname: " + membersNickname);
+//        System.out.println("members_idx: " + membersIdx);
+//        System.out.println("total_Price: " + totalPrice);
+//
+//        // totalPrice를 double로 변환
+//        double convertedTotalPrice = Double.parseDouble(totalPrice);
+//
+//        // 여기에서 주문 정보를 추가하는 로직을 작성
+//        // 필요하다면 OrdersService에 해당 로직을 추가하고, 여기서 호출하여 사용
+//
+//        // 추가된 주문 정보를 데이터베이스에 삽입하는 코드 (추가 작성 필요)
+//        // int result = ordersService.addOrder(...);
+//
+////        if (result > 0) {
+//            // 추가된 주문 정보를 데이터베이스에 삽입
+//            return "success"; // 성공 시 클라이언트에게 success를 반환
+//        } else {
+//            return "failure"; // 주문 정보 삽입 실패 시 클라이언트에게 실패를 반환
+//        }
+//    }
+}

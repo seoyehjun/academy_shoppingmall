@@ -3,7 +3,6 @@
 body {
     width: 1200px;
     margin: 0 auto;
-    
 }
 
 .board {
@@ -13,12 +12,11 @@ body {
     justify-content: space-between;
 }
 
-.img-1 {
-   width: 550px;
-   height: 700px;
+.board img {
+    width: 700px;
+
 
 }
-
 .info {
 	margin-left: 5%;
 	width: 45%;

@@ -10,4 +10,12 @@ public class OrdersVO {
     private int products_idx, color_idx, size_idx;
     private String color;
     private String size_product;
+    private String ordersRecipientAddress;
+    private String ordersDetailedAddress;
+    private String ordersRecipientPhone;
+    private Double ordersTotalPrice;
+    private int membersIdx;
+    private String ordersRecipientName;
+
+
 }
