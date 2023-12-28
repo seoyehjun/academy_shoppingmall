@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class OrderController {
     @PostMapping("/orderProduct")
     public String orderProduct(@RequestParam(name = "quantity") int quantity, OrdersVO input,
                                @RequestParam(name = "action") String action, Model model,
-                               HttpServletResponse response, HttpSession httpSession) {
+                               HttpServletResponse response, HttpSession httpSession) throws SQLIntegrityConstraintViolationException {
 
 
         // 로그 또는 디버깅 메시지 추가
@@ -122,20 +123,30 @@ public class OrderController {
             httpSession.setAttribute("plusdataforwish", map);*/
 
             //products_idx = input.getProducts_idx();
-            int result = os.insertFavorites(input);
+            System.out.println("wellexecuted");
+            Integer result = os.insertFavorites(input);
+            System.out.println("result: "+result);
 
             if (result > 0) {
 
                 return "redirect:/mypage/wishList";
 
-            }else {
+            }else if(result == null) {
                 // 실패 시 예외 처리 또는 다른 동작 수행
                 // 예: response.sendRedirect("/error");
-                return "redirect:/error"; // 실패 시 리다이렉트 경로
+                return "/mypage/error"; // 실패 시 리다이렉트 경로
             }
 
+        }
+            return "redirect:/error";
     }
-        return "redirect:/error";
-}
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public String SQLExep() {
+        System.out.println("insert exception ");
+
+        return "/mypage/error";
+    }
+
 }
 

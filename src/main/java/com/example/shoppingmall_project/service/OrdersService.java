@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @Service
 public class OrdersService {
 
@@ -38,7 +40,7 @@ public class OrdersService {
                 ordersVO.getColor(), ordersVO.getProducts_idx(), ordersVO.getQuantity());
     }
 
-    public int insertFavorites(OrdersVO ordersVO) {
+    public int insertFavorites(OrdersVO ordersVO) throws SQLIntegrityConstraintViolationException {
         MembersVO memberVO = (MembersVO) httpSession.getAttribute("user");
         ordersVO.setMembers_idx(memberVO.getMembers_idx());
         return dao.insertFavorites(ordersVO);
