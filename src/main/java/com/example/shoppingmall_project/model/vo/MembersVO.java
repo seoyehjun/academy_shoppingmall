@@ -9,7 +9,8 @@ import java.util.Date;
 @Setter
 public class MembersVO {
     private int members_idx, members_points, members_ssn;
-    private String members_id, members_password, members_nickname, members_email, members_address,
-            members_detailed_address, members_phone_number, members_name, members_withdawn;
+    private String members_id, members_password, members_nickname, members_email,
+            members_address_number, members_address, members_detailed_address, members_address_building,
+            members_phone_number, members_name, members_withdawn;
     private Date members_join_date;
 }

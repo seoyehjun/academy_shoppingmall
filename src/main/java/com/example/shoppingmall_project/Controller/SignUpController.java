@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class MembersController {
+public class SignUpController {
 	
 	@Autowired
 	private SignUpService ms;
@@ -35,7 +35,7 @@ public class MembersController {
 	}
 	
 	@PostMapping("signUp")
-	public String signUp(MembersVO input, Model model) {
+	public String signUp(MembersVO input) {
 		
 		ms.signUp(input);
 		
