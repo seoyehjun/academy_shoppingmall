@@ -7,9 +7,13 @@
 	
 	<div class="board">
 		
-		<div >
-			<img class="img-1" src="/springboot/p1.jpg">
-		</div>
+		<c:forEach items="${list}" var="product" begin="0" end="0">
+			 <c:forEach items="${img}" var="img" begin="0" end="0">
+             <c:set var="imagePath" value="/springboot/" />
+             <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image"/></div>
+             </c:forEach>
+        </c:forEach>
+
 		
 	
 		<div class="info">
@@ -32,7 +36,7 @@
 				</tr>
 				<br>
 			</c:if>
-			<form action="${cpath}/product2/orderProduct" method="POST">
+			<form action="${cpath}/product2/orderProduct" method="POST" onsubmit="return validateForm();">
 				<table>
 					<tr> 
 						<th>사이즈</th>
@@ -42,6 +46,7 @@
     							<option>${list[i].size_product}</option>
 								</c:forEach> 
 						</select>
+
 						<td>
 					</tr>
 					<br> 
@@ -54,6 +59,7 @@
 								<option>${row.color }</option>
 								</c:forEach>
 						</select>
+
 						<td>
 					</tr>
 					 <tr>
@@ -87,45 +93,42 @@
 		</div>
 	</div>
 	<script>
+            function validateForm() {
+                var sizeProduct = document.getElementsByName("size_product")[0].value;
+                var color = document.getElementsByName("color")[0].value;
+
+                if (sizeProduct === "사이즈를 선택하세요" || color === "상품 및 색상을 선택하세요") {
+                    alert("색상과 사이즈를 선택해주세요.");
+                    return false;
+                }
+
+                return true;
+            }
+        </script>
+	<script>
         function updateTotalPrice() {
             var quantityInput = document.getElementById('quantityInput');
             var selectedQuantity = document.getElementById('selectedQuantity');
-            var selectedSize = document.getElementById('selectedSize');
-            var selectedColor = document.getElementById('selectedColor');
             var totalPriceSpan = document.getElementById('totalPrice');
             var unitPrice = ${list[0].products_price};
 
-            var sizeProductElement = document.getElementsByName('size_product')[0];
-            var colorElement = document.getElementsByName('color')[0];
-
-            var sizeProduct = sizeProductElement.value;
-            var color = colorElement.value;
-
-            var sizeProductText = sizeProductElement.options[sizeProductElement.selectedIndex].text;
-            var colorText = colorElement.options[colorElement.selectedIndex].text;
-
-            // 여기에서 선택한 sizeProduct와 color를 사용하여 가격을 업데이트
-            // 예를 들어, 서버에서 해당 조합에 대한 가격을 가져와야 함
-            // 아래는 가상의 코드
-            var updatedPrice = getUpdatedPrice(sizeProduct, color);
-
             var quantity = parseInt(quantityInput.value);
             selectedQuantity.innerText = quantity;
-            selectedSize.innerText = sizeProductText;
-            selectedColor.innerText = colorText;
 
-            var totalPrice = updatedPrice * quantity;
-            totalPriceSpan.innerText = formatPrice(totalPrice) + '원';
+            var totalPrice = unitPrice * quantity;
+
+            // 소수점 이하 값이 .00이면 삭제하고 아니면 그대로 표시
+            var formattedTotalPrice = (totalPrice % 1 === 0) ? totalPrice.toFixed(0) : totalPrice.toFixed(2);
+
+            // 총 가격 span 업데이트
+            totalPriceSpan.innerText = formatPrice(formattedTotalPrice) + '원';
         }
 
-        // 가상의 함수: 서버에서 해당 조합에 대한 가격을 가져옴
-        function getUpdatedPrice(sizeProduct, color) {
-            // 여기에서 서버로 Ajax 요청을 보내고, 응답으로 가격을 받아옴
-            // 가상의 코드
-            return 10000; // 서버 응답에 따라서 실제 가격을 반환
+        function formatPrice(price) {
+            // 정수 부분만 남기고 소수 부분은 제거
+            return price.replace(/\.00$/, '');
         }
     </script>
-
 
    <script>
        function decrementQuantity() {
@@ -165,11 +168,13 @@
        }
    </script>
 	<div class="main">
-		<c:forEach var="row" items="${img }">
-			<div>
-				<img class="main-1" src="${cpath }/springboot/${row.img_url }" width="400px" height="500px">
-			</div>
-		</c:forEach>		
+        <div>
+            <c:forEach items="${list}" var="product" begin="0" end="0">
+                <c:forEach items="${img}" var="img" begin="0" end="100">
+                <img class="main-1" src="${cpath }/springboot/${product.products_idx}/${img.img_url }" width="400px" height="500px">
+                </c:forEach>
+            </c:forEach>
+        </div>
 	</div>
 	
 	<footer>

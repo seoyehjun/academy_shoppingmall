@@ -3,6 +3,7 @@ package com.example.shoppingmall_project.model;
 import java.util.List;
 
 import com.example.shoppingmall_project.model.vo.ProductVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

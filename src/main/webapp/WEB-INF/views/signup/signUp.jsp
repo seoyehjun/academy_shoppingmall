@@ -24,8 +24,23 @@
 		<br>
 		<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
 
-		<p><input name="members_address" placeholder="주소" required></p>
-		<p><input name="members_detailed_address" placeholder="상세주소" required></p>
+
+		<div class="form-group">
+			<h3>주소</h3>
+			<div style="display: flex; align-items: center;">
+				<input class="form-control" style="width: 40%;" placeholder="우편번호" name="members_address_number" id="members_address_number" type="text" readonly="readonly">
+				<button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
+			</div>
+			<div style="margin-top: 5px;">
+				<input class="form-control" placeholder="도로명 주소" name="members_address" id="members_address" type="text" readonly="readonly" />
+			</div>
+			<div style="margin-top: 5px;">
+				<input class="form-control" placeholder="상세주소" name="members_detailed_address" id="members_detailed_address" type="text" />
+			</div>
+			<div style="margin-top: 5px;">
+				<input class="form-control" placeholder="참고항목" name="members_address_building" id="members_address_building" type="text" />
+			</div>
+
 		<p><input name="members_phone_number" placeholder="전화번호" required></p>
 		<p><input name="members_name" placeholder="이름" required></p>
 		<p><input name="members_ssn" placeholder="주민번호" required></p>
@@ -83,6 +98,43 @@
 	}
 
 
+</script>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function execPostCode() {
+		new daum.Postcode({
+			oncomplete: function (data) {
+				var addr = '';
+				var extraAddr = '';
+
+				if (data.userSelectedType === 'R') {
+					addr = data.roadAddress;
+				} else {
+					addr = data.jibunAddress;
+				}
+
+				if (data.userSelectedType === 'R') {
+					if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+						extraAddr += data.bname;
+					}
+					if (data.buildingName !== '' && data.apartment === 'Y') {
+						extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+					}
+					if (extraAddr !== '') {
+						extraAddr = ' (' + extraAddr + ')';
+					}
+					document.getElementById("members_address_building").value = extraAddr;
+				} else {
+					document.getElementById("members_address_building").value = '';
+				}
+
+				document.getElementById("members_address_number").value = data.zonecode;
+				document.getElementById("members_address").value = addr;
+				document.getElementById("members_detailed_address").focus();
+			}
+		}).open();
+	}
 </script>
 
 
