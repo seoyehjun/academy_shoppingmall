@@ -1,5 +1,4 @@
-<!--https://kimvampa.tistory.com/267-->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
@@ -20,34 +19,13 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <head>
 
+
+ <c:if test="${message=='remove_Cart'}">
   <script>
-
-   document.addEventListener('DOMContentLoaded', function() {
-    var checkboxes = document.querySelectorAll('input[type=checkbox][name=checkbox]');
-
-    console.log('run');
-
-    for (var checkbox of checkboxes)
-    {
-     checkbox.addEventListener('change', function(event)
-     {
-      if (event.target.checked) {
-       alert(`${event.target.value} is checked`);
-      }
-      else {
-       alert(`${event.target.value} is unchecked`);
-      }
-     });
-    }
-   }, false);
-
    window.onload=function()//페이지 로딩과 동시에 실행되는 함수
    {
-    <c:if test="${message=='remove_Cart'}">
     init();
     <c:remove var="message"/>
-
-
    }
 
    function init()
@@ -59,7 +37,6 @@
 
  <script>
 
-
   function fn_order_all_cart()
   {
 
@@ -67,6 +44,7 @@
    document.body.appendChild(formObj);
    //	alert("모두 주문하기");
    var total_price = document.getElementsByName("total_price")[0].value;
+   //  console.log("total_price"+total_price);
    var checkbox=document.getElementsByName("checkbox");
    //var cart_list = [];
 
@@ -111,6 +89,37 @@
    formObj.action="${cpath}/mypage/orderCartGoods";
    formObj.submit();
    console.log(formObj);
+   //console.log("cart_list[0]:"+cart_list[0]);
+   //console.log("cart_list[1]:"+cart_list[1]);
+
+  /* $.ajax({
+    type : "post",
+    async : false, //false인 경우 동기식으로 처리한다.
+    url : "${cpath}/product2/orderCartGoods",
+    data : {
+     cart_list:cart_list,
+     total_price: total_price
+    },
+    dataType:"json",
+
+    success : function(data, textStatus) {
+     //alert(data);
+     if(data.trim()=='modify_success'){
+      alert("수량을 변경했습니다!!");
+     }else{
+      alert("다시 시도해 주세요!!");
+     }
+
+    },
+    error : function(data, textStatus) {
+     alert("에러가 발생했습니다."+data);
+    },
+    complete : function(data, textStatus) {
+     //alert("작업을완료 했습니다");
+
+    }
+   }); //end ajax */
+
 
   }
 
@@ -166,7 +175,7 @@
     <c:set var="cart_id" value="${myCartList[cnt.count-1].cart_id}" /> --%>
 
     <td>
-     <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.cart_idx }">
+     <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.cart_idx }"  onClick="calcGoodsPrice(${item.products_price },this)">
     </td>
 
     <td class="goods_image">
@@ -301,6 +310,9 @@
 
 <script>
 
+
+
+
  function delete_cart_goods(cart_idx)
  {
   var cart_idx=Number(cart_idx);
@@ -323,7 +335,7 @@
         // 현재 화면에 표시된 값
         var number = resultElement.value;
 
-        console.log("카트 목록:"+${myCartList[0].cart_idx});
+        console.log("전처리 이전:"+number);
         // 더하기/빼기
         if(type === 'plus')
         {

@@ -169,11 +169,8 @@ public class MypagController
 	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
 	public String removeCart(Model model, HttpSession httpsession, @RequestParam("cart_idx") String cart_idx) throws Exception
 	{
-		System.out.println("removeCart");
 		myPageService.removeCart(cart_idx);
 		httpsession.setAttribute("message", "remove_Cart");
-		System.out.println("remove cart well executed");
-		System.out.println("cart_idx : "+cart_idx);
 		return "redirect:/mypage/myCartList";
 	}
 	@RequestMapping(value="/cancelMyOrder", method = RequestMethod.POST)
@@ -220,9 +217,6 @@ public class MypagController
 		cartVO.setMembers_idx(members_idx);
 		cartVO.setQuantity(cart_goods_qty);
 		boolean result=myPageService.modifyCartQty(cartVO);
-		System.out.println("cartVO.members_idx:"+cartVO.getMembers_idx());
-		System.out.println("cart_goods_qty:"+cart_goods_qty);
-		System.out.println("cartVO.quantity:"+cartVO.getQuantity());
 		if(result==true){
 			return "modify_success";
 		}else{

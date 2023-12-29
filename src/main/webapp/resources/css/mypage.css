@@ -9,6 +9,11 @@ th, td {
     padding: 10px;
 }
 */
+
+#plusminus{
+    width: 5px;
+}
+
 .delivery_state{
     margin:0 auto;
     text-align: center;
