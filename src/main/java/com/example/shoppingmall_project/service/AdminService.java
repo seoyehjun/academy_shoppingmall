@@ -50,12 +50,14 @@ public class AdminService {
 
     public ProductVO getProductOne(int products_Idx) { return dao.selectOne(products_Idx);}
 
-    public AdminOrdersVO getOrdersOne(int orders_idx){
-            return dao.orderSelectOne(orders_idx);
-    }
+
 
     public List<AdminOrdersVO> orderlist() {
             return dao.orderSelectAll();
+    }
+
+    public AdminOrdersVO getOrdersOne(int orders_idx){
+        return dao.orderSelectOne(orders_idx);
     }
 
     public int orderUpdate(AdminOrdersVO input) {

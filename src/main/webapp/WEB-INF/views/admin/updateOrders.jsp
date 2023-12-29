@@ -4,14 +4,12 @@
 <html>
 <head>
     <title>배송 수정 페이지</title>
+    <link rel="stylesheet" href="${cpath}/resources/css/admin.css">
 </head>
 <body>
 <section>
     <form method="post" action="/admin/updateOrders/${ordersTable.orders_idx}">
         <table id="container">
-            <tr>
-                <td id="result" colspan="2"></td>
-            </tr>
 
             <tr>
                 <th>주문 번호</th>
@@ -20,7 +18,7 @@
 
             <tr>
                 <th>주문 날짜</th>
-                <td><fmt:formatDate value="${row.orders_date}" pattern="yyyy-MM-dd" /></td>
+                <td><fmt:formatDate value="${ordersTable.orders_date}" pattern="yyyy-MM-dd" /></td>
             </tr>
             <tr>
                 <th>주문자 ID</th>
@@ -59,7 +57,6 @@
                     <option value="배송 완료" ${ordersTable.orders_status == '배송완료' ? 'selected' : ''}>배송완료</option>
                 </select>
             </tr>
-
             <tr>
                 <th>
                     <input type="submit" id="submitButn" value="수정 하기">
