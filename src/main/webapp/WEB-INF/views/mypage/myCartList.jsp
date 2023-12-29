@@ -22,24 +22,6 @@
 
   <script>
 
-   document.addEventListener('DOMContentLoaded', function() {
-    var checkboxes = document.querySelectorAll('input[type=checkbox][name=checkbox]');
-
-    console.log('run');
-
-    for (var checkbox of checkboxes)
-    {
-     checkbox.addEventListener('change', function(event)
-     {
-      if (event.target.checked) {
-       alert(`${event.target.value} is checked`);
-      }
-      else {
-       alert(`${event.target.value} is unchecked`);
-      }
-     });
-    }
-   }, false);
 
    window.onload=function()//페이지 로딩과 동시에 실행되는 함수
    {
@@ -53,9 +35,9 @@
    function init()
    {
     alert("장바구니 삭제");
-   }
+   } </c:if>
   </script>
- </c:if>
+
 
  <script>
 
@@ -158,12 +140,9 @@
   </c:when>
 
   <c:otherwise>
-
- <tr id="cartitem">
+ <c:forEach var="item" items="${myCartList }" varStatus="cnt">
+ <tr class="cart_row">
   <form name="frm_order_all_cart">
-   <c:forEach var="item" items="${myCartList }" varStatus="cnt">
-  <%-- <c:set var="cart_goods_qty" value="${myCartList[cnt.count-1].cart_goods_qty}" />
-    <c:set var="cart_id" value="${myCartList[cnt.count-1].cart_id}" /> --%>
 
     <td>
      <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.cart_idx }">
@@ -194,34 +173,15 @@
 
    <td>
     <strong>
-     <fmt:formatNumber  value="${item.quantity*item.products_price}" type="number" var="total_sales_price" />
-      ${total_sales_price}원<!--장바구니 개개의 금액 총합-->
+     <!--<fmt:formatNumber  value="${item.quantity*item.products_price}" type="number" var="total_sales_price" />-->
+     <input type="hidden" class="individual_total_price" value=${item.quantity*item.products_price}>
+      ${item.quantity*item.products_price}원<!--장바구니 개개의 금액 총합-->
     </strong>
    </td>
 
     <td><!--a 태그를 사용해도 잘동작,하지만 button을 사용할거면 type="button"을 잊어선 안된다-->
      <button type="button" class="custom-btn btn-5" onclick="javascript:delete_cart_goods('${item.cart_idx}')"><span>삭제</span></button>
     </td>
-
-    <%--
-   <td>
-    <a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
-     <img width="75" alt=""  src="${cpath}/resources/image/btn_order.jpg">
-    </a><br>
-    <a href="#">
-     <img width="75" alt=""
-          src="${cpath}/resources/image/btn_order_later.jpg">
-    </a><br>
-    <a href="#">
-     <img width="75" alt=""
-          src="${cpath}/resources/image/btn_add_list.jpg">
-    </A><br>
-    <a href="javascript:delete_cart_goods('${cart_id}');"">
-    <img width="75" alt=""
-         src="${cpath}/resources/image/btn_delete.jpg">
-    </a>
-   </td>
---%>
   </form>
 
 
@@ -252,16 +212,13 @@
 
  <tr cellpadding=40  align=center >
   <td id="">
-   <p id="p_totalGoodsNum">${totalGoodsNum}개 </p>
+   <p id="p_totalGoodsNum" class="totalCount_span">${totalGoodsNum}개 </p>
    <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
   </td>
 
   <td>
-   <p id="p_totalGoodsPrice">
-    <fmt:formatNumber value="${totalGoodsPrice}" type="number" var="total_goods_price" />
-    ${total_goods_price}원
-   </p>
-   <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
+   <span class="totalPrice_span"></span>
+   <input id="h_totalGoodsPrice"type="hidden" value="${total_goods_price}" />
   </td>
 
   <td>
@@ -279,9 +236,7 @@
   </td>
 
   <td>
-   <p id="p_final_totalPrice">
-    <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
-    ${total_price}원
+   <p id="p_final_totalPrice" class="finalTotalPrice_span">
    </p>
    <input id="h_final_totalPrice" name="total_price" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
   </td>
@@ -300,6 +255,74 @@
 
 
 <script>
+ $(document).ready(function(){
+  setTotalInfo();
+ })
+
+ /* 체크여부에따른 종합 정보 변화 */
+ $(".individual_cart_checkbox").on("change", function(){
+  setTotalInfo($(".cart_info_td"));
+ });
+
+ function setTotalInfo()
+ {
+  //console.log('checkbox well executed');
+  let totalPrice = 0;				// 총 가격
+  let totalCount = 0;				// 총 갯수
+  let totalKind = 0;				// 총 종류
+  let totalPoint = 0;				// 총 마일리지
+  let deliveryPrice = 0;			// 배송비
+  let finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
+
+
+  $(".cart_row").each(function(index, element)
+  {
+   if($(element).find(".individual_cart_checkbox").is(":checked") === true) {
+    console.log('checkbox well executed');
+    // 총 가격
+    totalPrice += parseInt($(element).find(".individual_total_price").val());
+    // 총 갯수
+    totalCount += parseInt($(element).find(".cart_goods_qty").val());
+    // 총 종류
+    totalKind += 1;
+    // 총 마일리지
+    totalPoint += parseInt($(element).find(".individual_totalPoint_input").val());
+   }
+  });
+
+
+  /* 배송비 결정 */
+  if(totalPrice >= 30000)
+  {
+   deliveryPrice = 0;
+  }
+  else if(totalPrice == 0)
+  {
+   deliveryPrice = 0;
+  }
+  else
+  {
+   deliveryPrice = 3000;
+  }
+
+  finalTotalPrice = totalPrice + deliveryPrice;
+
+  /* ※ 세자리 컴마 Javscript Number 객체의 toLocaleString() */
+
+  // 총 가격
+  $(".totalPrice_span").text(totalPrice.toLocaleString());
+  // 총 갯수
+  $(".totalCount_span").text(totalCount);
+  // 총 종류
+  $(".totalKind_span").text(totalKind);
+  // 총 마일리지
+  $(".totalPoint_span").text(totalPoint.toLocaleString());
+  // 배송비
+  $(".delivery_price").text(deliveryPrice);
+  // 최종 가격(총 가격 + 배송비)
+  $(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
+ }
+
 
  function delete_cart_goods(cart_idx)
  {
