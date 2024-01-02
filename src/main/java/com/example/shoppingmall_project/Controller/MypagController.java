@@ -47,6 +47,7 @@ public class MypagController
 
 	@ModelAttribute
 	public void mypage(Model model) {
+		hs.addCommonAttributes(model);
 		hs.getImg(model);
 	}
 

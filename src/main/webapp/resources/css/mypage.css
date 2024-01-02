@@ -9,6 +9,15 @@ th, td {
     padding: 10px;
 }
 */
+.button_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_container > button{
+    margin-top: 20px;
+}
 
 #plusminus{
     width: 5px;
@@ -41,7 +50,7 @@ th, td {
     flex-direction: column;
 }
 
-.menu, page{
+.info_menu, page{
     padding-left: 140px;
 }
 

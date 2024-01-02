@@ -60,8 +60,6 @@
 
     if(checkbox[i].checked==true)
     {
-     //cart_list[i] = checkbox[i].value;
-     //cart_list.push(checkbox[i].value);
      count= count+1;
      var temp_input = document.createElement("input");
      temp_input.setAttribute("value", checkbox[i].value+"");
@@ -111,8 +109,9 @@
 </style>
 
 <body>
-
-
+<div class="button_container">
+<button class="custom-btn btn-16" onclick="location.href='/mypage/wishList' ">찜목록</button>
+</div>
 <br><br><br>
 <table class="list_view">
   <tbody align=center >
@@ -213,12 +212,12 @@
  <tr cellpadding=40  align=center >
   <td id="">
    <p id="p_totalGoodsNum" class="totalCount_span">${totalGoodsNum}개 </p>
-   <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
+  <!-- <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />-->
   </td>
 
   <td>
    <span class="totalPrice_span"></span>
-   <input id="h_totalGoodsPrice"type="hidden" value="${total_goods_price}" />
+  <!-- <input id="h_totalGoodsPrice"type="hidden" value="${total_goods_price}" />-->
   </td>
 
   <td>
@@ -227,7 +226,7 @@
 
   <td>
    <p id="p_totalDeliveryPrice">${totalDeliveryPrice }원  </p>
-   <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
+   <!--<input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />-->
   </td>
 
 
@@ -238,7 +237,7 @@
   <td>
    <p id="p_final_totalPrice" class="finalTotalPrice_span">
    </p>
-   <input id="h_final_totalPrice" name="total_price" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+  <input id="h_final_totalPrice" name="total_price" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
   </td>
 
  </tr>
@@ -339,31 +338,30 @@
   formObj.action="${cpath}/mypage/removeCart";
   formObj.submit();// form 안에 있는 button태그는 기본적으로 submit이다.
  }
-    function count(type,cart_idx, index)
-    {
-        // 결과를 표시할 element
-        const resultElement = document.getElementsByClassName('cart_goods_qty')[index];
-        // 현재 화면에 표시된 값
-        var number = resultElement.value;
 
-        console.log("카트 목록:"+${myCartList[0].cart_idx});
-        // 더하기/빼기
-        if(type === 'plus')
-        {
-            number = parseInt(number) + 1;
-        }
-        else if(type === 'minus' && number>1)
-        {
-            number = parseInt(number) - 1;
-        }
-        console.log("전처리 이후:"+number);
+ function count(type,cart_idx, index)
+ {
+  // 결과를 표시할 element
+  const resultElement = document.getElementsByClassName('cart_goods_qty')[index];
+  // 현재 화면에 표시된 값
+  var number = resultElement.value;
 
-        // 결과 출력
-        resultElement.value = number;//input태그는 value속성을 써야한다. innertext이런걸 쓰면 안되더라.
+  // 더하기/빼기
+  if(type === 'plus')
+  {
+   number = parseInt(number) + 1;
+  }
+  else if(type === 'minus' && number>1)
+  {
+   number = parseInt(number) - 1;
+  }
+  console.log("전처리 이후:"+number);
 
-        modify_cart_qty(cart_idx,index)
+  // 결과 출력
+  resultElement.value = number;//input태그는 value속성을 써야한다. innertext이런걸 쓰면 안되더라.
 
-    }
+  modify_cart_qty(cart_idx,index)
+ }
 
  function modify_cart_qty(cart_idx,index)
  {
@@ -375,18 +373,13 @@
   if(length>1)
   { //카트에 제품이 한개인 경우와 여러개인 경우 나누어서 처리한다.
    _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cart가 여러개일 경우 해당하는 cart만 선택
-   console.log(_cart_goods_qty);
-   //(넘겨받은 index로)
   }
   else
   {
    _cart_goods_qty=document.frm_order_all_cart.cart_goods_qty.value;
-   console.log("worng road");
   }
 
   var cart_goods_qty=Number(_cart_goods_qty);//cart의 수량 변수 포메팅
-  //alert("cart_goods_qty:"+cart_goods_qty);
-  console.log(cart_goods_qty);
   $.ajax(
           {
            type : "post",
@@ -399,10 +392,8 @@
 
            success : function(data, textStatus)
            {
-            //alert(data);
             if(data.trim()=='modify_success')
             {
-            // alert("수량을 변경했습니다!!");
              location.reload();
             }else
             {

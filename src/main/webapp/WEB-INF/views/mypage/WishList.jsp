@@ -131,7 +131,9 @@
 </style>
 
 <body>
-
+<div class="button_container">
+ <button class="custom-btn btn-16" onclick="location.href='/mypage/myCartList' ">장바구니</button>
+</div>
 
 <table class="list_view">
     <tbody align=center >
