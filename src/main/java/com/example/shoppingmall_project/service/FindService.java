@@ -14,10 +14,10 @@ public class FindService {
 
     public String findID(String members_email) {
         List<String> ids = dao.findID(members_email);
-        String result = "";
+        String result = "존재하지 않는 계정 정보";
 
         for (String id : ids) {
-            result += "회원님의 아이디는 " + id + " 입니다";
+            result = "회원님의 아이디는 " + id + " 입니다";
         }
 
         return result;
@@ -32,13 +32,8 @@ public class FindService {
         }
 
         msg = "회원님의 비밀번호는 " + input.getMembers_password() + " 입니다";
-        dao.changePW(input);
 
         return msg;
-    }
-
-    public int changePW(MembersVO input) {
-        return dao.changePW(input);
     }
 
 }
