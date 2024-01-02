@@ -110,7 +110,6 @@
 <div class="button_container">
 <button class="custom-btn btn-16" onclick="location.href='/mypage/wishList' ">찜목록</button>
 </div>
-<br><br><br>
 <table class="list_view">
   <tbody align=center >
 
@@ -228,13 +227,7 @@
   </td>
 
   <td>
-<<<<<<< HEAD
    <span class="delivery_price"></span>
-   <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
-=======
-   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }원  </p>
-   <!--<input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />-->
->>>>>>> 3f3edc20f9bdb741acf4935055767666b27257ec
   </td>
 
 
@@ -245,11 +238,9 @@
   <td>
    <p id="p_final_totalPrice" class="finalTotalPrice_span">
    </p>
-<<<<<<< HEAD
    <input id="total_price" name="total_price" type="hidden" />
-=======
   <input id="h_final_totalPrice" name="total_price" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
->>>>>>> 3f3edc20f9bdb741acf4935055767666b27257ec
+
   </td>
   <!--value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}-->
  </tr>
@@ -395,13 +386,7 @@
   }
 
   var cart_goods_qty=Number(_cart_goods_qty);//cart의 수량 변수 포메팅
-<<<<<<< HEAD
-  //alert("cart_goods_qty:"+cart_goods_qty);
-  console.log(cart_goods_qty);
 
-
-=======
->>>>>>> 3f3edc20f9bdb741acf4935055767666b27257ec
   $.ajax(
           {
            type : "post",
