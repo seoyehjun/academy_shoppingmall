@@ -3,30 +3,23 @@
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="../header.jsp" %>
 
 <!DOCTYPE html>
 <html>
 
+<link rel="stylesheet" href="${cpath}/resources/css/mypage.css">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <style type="text/css">
-        .row {
-            margin: 0px auto;
-            width:800px;
-        }
-        .btd {
-            font-size: 8pt;
-        }
-    </style>
 </head>
 
 <body>
+
 <div class="container">
     <div class="row">
+        <br>
         <h3 class="text-center">Q & A</h3>
-
+        <br>
             <table class="table">
                 <tr>
                     <td class="text-left">
@@ -55,20 +48,21 @@
                 </tr>
             </c:forEach>
         </table>
+        <ul class="menu page">
+            <c:if test="${p.prev }">
+                <li class="paging"><a href="${cpath }/mypage/info/${p.begin - 1 }">이전</a></li>
+            </c:if>
+
+            <c:forEach var="i" begin="${p.begin }" end="${p.end }">
+                <li class="paging"><a href="${cpath }/mypage/info/${i }">${i }</a></li>
+            </c:forEach>
+
+            <c:if test="${p.next }">
+                <li class="paging"><a href="${cpath }/mypage/info/${p.end + 1 }">다음</a></li>
+            </c:if>
+        </ul>
     </div>
-    <ul class="menu page">
-        <c:if test="${p.prev }">
-            <li><a href="${cpath }/mypage/info/${p.begin - 1 }">이전</a></li>
-        </c:if>
 
-        <c:forEach var="i" begin="${p.begin }" end="${p.end }">
-            <li><a href="${cpath }/mypage/info/${i }">${i }</a></li>
-        </c:forEach>
-
-        <c:if test="${p.next }">
-            <li><a href="${cpath }/mypage/info/${p.end + 1 }">다음</a></li>
-        </c:if>
-    </ul>
 </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.*;
+import com.example.shoppingmall_project.service.HeaderService;
 import com.example.shoppingmall_project.service.MyPageService;
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -41,6 +42,14 @@ public class MypagController
 	@Autowired
 	private Cart_vo cartVO ;
 
+	@Autowired
+	private HeaderService hs;
+
+	@ModelAttribute
+	public void mypage(Model model) {
+		hs.getImg(model);
+	}
+
 	// https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=sim4858&logNo=221007278858
 	// redirect와 뷰네임 차이
 	/*@RequestMapping(value="/orderProductforCart", method=RequestMethod.POST)
@@ -59,11 +68,28 @@ public class MypagController
 
 	//	model.addAttribute("replys_list",myPageService.selectAllReplys(inquiries_idx));
 	//}
-	@GetMapping("/WishList")
+
+	@PostMapping("/toCartfromWish")
+	public String toCartfromWish(Model model, HttpSession httpSession, @RequestParam("favorites_idx") int favorites_idx) throws Exception
+	{
+		myPageService.toCartfromWish(favorites_idx);
+		httpSession.removeAttribute("mywishlist");
+		return "redirect:/mypage/wishList";
+	}
+
+	@RequestMapping(value="/removeWish", method= RequestMethod.POST)
+	public String removeWish(Model model, HttpSession httpsession, @RequestParam("favorites_idx") int favorites_idx) throws Exception
+	{
+		System.out.println("favorites : "+ favorites_idx);
+		myPageService.removeWish(favorites_idx);
+		httpsession.setAttribute("message", "remove_Wish");
+		return "redirect:/mypage/wishList";
+	}
+	@GetMapping("/wishList")
 	public String go_to_wishlist(Model model, HttpSession httpSession)
 	{
 		MembersVO user = (MembersVO)httpSession.getAttribute("user");
-		myPageService.getwishlist(user.getMembers_idx());
+		httpSession.setAttribute("mywishlist", myPageService.getwishlist(user.getMembers_idx() ) );
 
 		return "/mypage/WishList";
 	}
@@ -143,8 +169,11 @@ public class MypagController
 	@RequestMapping(value="/removeCart", method= RequestMethod.POST)
 	public String removeCart(Model model, HttpSession httpsession, @RequestParam("cart_idx") String cart_idx) throws Exception
 	{
+		System.out.println("removeCart");
 		myPageService.removeCart(cart_idx);
 		httpsession.setAttribute("message", "remove_Cart");
+		System.out.println("remove cart well executed");
+		System.out.println("cart_idx : "+cart_idx);
 		return "redirect:/mypage/myCartList";
 	}
 	@RequestMapping(value="/cancelMyOrder", method = RequestMethod.POST)
@@ -277,9 +306,12 @@ public class MypagController
 		
 
 		memberVO=(MembersVO)myPageService.modifyMyInfo(memberMap);
-		System.out.println("Service well done");
-		session.removeAttribute("memberInfo");
-		session.setAttribute("memberInfo", memberVO);
+		session.removeAttribute("user");
+		System.out.println("member_idx: "+member_idx);
+		session.setAttribute( "user",myPageService.givememember(  Integer.parseInt(member_idx)    )  );
+		MembersVO RmemberVO = (MembersVO)session.getAttribute("user");
+		System.out.println("new index is: "+ RmemberVO.getMembers_idx());
+		session.setAttribute("memberInfo", RmemberVO);
 		
 		//return "mypage/myPageMain";
 		String message = null;

@@ -9,8 +9,12 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface SignUpDAO {
 
-    @Insert("INSERT INTO members (members_id, members_password, members_nickname, members_email, members_address_number, members_address, members_detailed_address, members_address_building, members_phone_number, members_name, members_ssn) " +
-            "VALUES (#{members_id}, #{members_password }, #{members_nickname }, #{members_email }, #{members_address_number }, #{members_address }, #{members_detailed_address }, #{members_address_building }, #{members_phone_number }, #{members_name }, #{members_ssn })")
+    @Insert("INSERT INTO members (members_id, members_password, members_nickname, members_email, " +
+            "members_address_number, members_address, members_detailed_address, members_address_building, " +
+            "members_phone_number, members_name, members_ssn) " +
+            "VALUES (#{members_id}, #{members_password }, #{members_nickname }, #{members_email }, " +
+            "#{members_address_number }, #{members_address }, #{members_detailed_address }, " +
+            "#{members_address_building }, #{members_phone_number }, #{members_name }, #{members_ssn })")
     int signUp(MembersVO input);
 
 }

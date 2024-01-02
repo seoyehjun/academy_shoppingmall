@@ -1,5 +1,6 @@
 package com.example.shoppingmall_project.Controller;
 
+import com.example.shoppingmall_project.model.vo.AdminOrdersVO;
 import com.example.shoppingmall_project.model.vo.ProductVO;
 import com.example.shoppingmall_project.service.AdminService;
 import com.example.shoppingmall_project.service.OrdersService;
@@ -41,24 +42,11 @@ public class AdminController {
 //        model.addAttribute("list", os.adminOrder());
 //    }
 
-    @GetMapping("/members")
-    public String members(Model model){
-        model.addAttribute("list", as.getTable());
-        model.a
-
-
-        return "admin/members";
-    }
-
     @GetMapping("/productlist")
     public void productlist(Model model){
         model.addAttribute("list", ps.productList());
     }
 
-//    @GetMapping("/delete/{products_idx}")
-//    public String deleteget(){
-//        return "admin/productlist";
-//    }
     
     @GetMapping ("/delete/{products_idx}")
     public String delete(ProductVO input) {
@@ -83,6 +71,34 @@ public class AdminController {
         adminService.product_update(input);
 
         return "redirect:/admin/productlist";
+    }
+
+    @GetMapping("/members")
+    public String members(Model model){
+        // 배송 수정 페이지
+        // 주문 리스트 출력
+        model.addAttribute("list", adminService.orderlist());
+
+
+        return "admin/members";
+    }
+
+    @GetMapping("/updateOrders/{orders_idx}")
+    public String updateOrderPage(@PathVariable int orders_idx, Model model){
+
+        model.addAttribute("ordersTable",adminService.getOrdersOne(orders_idx));
+
+
+        return "admin/updateOrders";
+    }
+
+    @PostMapping("/updateOrders/{orders_idx}")
+    public String updateOrderlist(@PathVariable int orders_idx, AdminOrdersVO input){
+
+        input.setOrders_idx(orders_idx);
+        adminService.orderUpdate(input);
+
+        return "redirect:/admin/members";
     }
 
 

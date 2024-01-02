@@ -1,5 +1,6 @@
 package com.example.shoppingmall_project.service;
 
+import com.example.shoppingmall_project.model.vo.AdminOrdersVO;
 import com.example.shoppingmall_project.model.vo.ProductVO;
 import com.example.shoppingmall_project.model.adminDAO;
 
@@ -23,25 +24,25 @@ public class AdminService {
     @Autowired
     private adminDAO dao;
 
-    @Value("file:E:/boardImg/")
-    private Resource dir;
-
-        public int addProductdata(ProductVO input) throws IOException {
-
-            MultipartFile file = input.getUpload();
-            input.setImg_url(file.getOriginalFilename());
-
-            int row = dao.insert(input);
-            String idx = dao.selectIdx();
-
-            File newDir = new File(dir.getFile(), idx);
-            newDir.mkdir();
-
-            File dst = new File(newDir, file.getOriginalFilename());
-            file.transferTo(dst);
-
-            return row;
-    }
+//    @Value("file:E:/boardImg/")
+//    private Resource dir;
+//
+//        public int addProductdata(ProductVO input) throws IOException {
+//
+//            MultipartFile file = input.getUpload();
+//            input.setImg_url(file.getOriginalFilename());
+//
+//            int row = dao.insert(input);
+//            String idx = dao.selectIdx();
+//
+//            File newDir = new File(dir.getFile(), idx);
+//            newDir.mkdir();
+//
+//            File dst = new File(newDir, file.getOriginalFilename());
+//            file.transferTo(dst);
+//
+//            return row;
+//    }
 
     public int product_delete(int productsIdx) {
         return dao.product_delete(productsIdx);
@@ -53,6 +54,19 @@ public class AdminService {
 
     public ProductVO getProductOne(int products_Idx) { return dao.selectOne(products_Idx);}
 
+
+
+    public List<AdminOrdersVO> orderlist() {
+            return dao.orderSelectAll();
+    }
+
+    public AdminOrdersVO getOrdersOne(int orders_idx){
+        return dao.orderSelectOne(orders_idx);
+    }
+
+    public int orderUpdate(AdminOrdersVO input) {
+            return dao.order_update(input);
+    }
 }
 
 
