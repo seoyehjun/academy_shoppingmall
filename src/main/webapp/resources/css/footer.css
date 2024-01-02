@@ -1,0 +1,118 @@
+.xans-layout-footer ul {
+    position: relative;
+    margin: 0 auto;
+    padding: 50px 0 40px;
+    width: 90%;
+    font-size: 0;
+    line-height: 0;
+    text-align: center;
+    clear: both;
+    overflow: hidden;
+}
+
+.xans-layout-footer ul li {
+    position: relative;
+    display: inline-block;
+    color: #555;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+.xans-layout-footer ul li .box {
+    padding: 0 5%;
+    font-size: 11px;
+    line-height: 20px;
+}
+
+.xans-layout-footer ul li.first .box {
+    padding-left: 0;
+}
+
+.xans-layout-footer ul li.last .box {
+    padding-right: 0;
+}
+
+.xans-layout-footer ul.costom li {
+    width: 17%;
+}
+
+.xans-layout-footer ul.costom li.first {
+    width: 32%;
+}
+
+.xans-layout-footer ul.costom li.first span {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.xans-layout-footer ul.costom li.last a {
+    margin: 0 0 0 5px;
+}
+
+.xans-layout-footer ul.costom li.last img {
+    width: auto;
+    max-width: 40px;
+}
+
+.xans-layout-footer .home {
+    margin: 0 auto;
+    padding: 12px 0 10px;
+}
+
+.xans-layout-footer .home ul {
+    padding: 0;
+}
+
+.xans-layout-footer .home ul li.first {
+    width: 70%;
+    text-align: left;
+}
+
+.xans-layout-footer .home ul li {
+    width: 30%;
+    text-align: right;
+}
+
+.xans-layout-footer .home ul li .box {
+    padding: 0;
+}
+
+.xans-layout-footer .home a {
+    position: relative;
+    padding: 0 15px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.xans-layout-footer .home a.log {
+    padding-left: 0;
+}
+
+.xans-layout-footer .home a:before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 2px;
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    background: #fff;
+    opacity: 0.3;
+}
+
+.xans-layout-footer .home a.log:before {
+    display: none;
+}
+
+.xans-layout-footer .home .snslink a {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.xans-layout-footer .home .snslink a:before {
+    display: none;
+}
+
+.xans-layout-footer .home .snslink i {
+    font-size: 20px;
+}

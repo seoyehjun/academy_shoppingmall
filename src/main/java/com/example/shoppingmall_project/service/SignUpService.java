@@ -16,6 +16,11 @@ public class SignUpService {
 	@Autowired
 	SignUpDAO dao;
 
+	public int signUp(MembersVO input) {
+
+		return dao.signUp(input);
+	}
+
 	@Autowired
 	TestDAO testDAO;
 
@@ -23,10 +28,7 @@ public class SignUpService {
 		return testDAO.selectAll();
 	}
 
-	public int signUp(MembersVO input) {
-		
-		return dao.signUp(input);
-	}
+
 
 
 }

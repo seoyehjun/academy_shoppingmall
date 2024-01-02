@@ -22,7 +22,7 @@ public class ProductService {
 
     public List<ProductVO> getProduct() {
 
-        return dao.selectAll();
+        return dao.productlist();
     }
 
     public List<ProductVO> getProductOne(int productIdx) {
@@ -57,10 +57,6 @@ public class ProductService {
 
     public List<ProductVO> productList(int idx) {
         return dao.productlist();
-    }
-
-    public List<ProductVO> menuProduct(int idx) {
-        return dao.selectMenu(idx);
     }
 
 }

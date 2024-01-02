@@ -4,10 +4,13 @@ import com.example.shoppingmall_project.model.vo.AdminOrdersVO;
 import com.example.shoppingmall_project.model.vo.ProductVO;
 import com.example.shoppingmall_project.model.adminDAO;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -15,30 +18,31 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AdminService {
 
     @Autowired
     private adminDAO dao;
 
-    @Value("file:E:/boardImg/")
-    private Resource dir;
-
-        public int addProductdata(ProductVO input) throws IOException {
-
-            MultipartFile file = input.getUpload();
-            input.setImg_url(file.getOriginalFilename());
-
-            int row = dao.insert(input);
-            String idx = dao.selectIdx();
-
-            File newDir = new File(dir.getFile(), idx);
-            newDir.mkdir();
-
-            File dst = new File(newDir, file.getOriginalFilename());
-            file.transferTo(dst);
-
-            return row;
-    }
+//    @Value("file:E:/boardImg/")
+//    private Resource dir;
+//
+//        public int addProductdata(ProductVO input) throws IOException {
+//
+//            MultipartFile file = input.getUpload();
+//            input.setImg_url(file.getOriginalFilename());
+//
+//            int row = dao.insert(input);
+//            String idx = dao.selectIdx();
+//
+//            File newDir = new File(dir.getFile(), idx);
+//            newDir.mkdir();
+//
+//            File dst = new File(newDir, file.getOriginalFilename());
+//            file.transferTo(dst);
+//
+//            return row;
+//    }
 
     public int product_delete(int productsIdx) {
         return dao.product_delete(productsIdx);
@@ -50,12 +54,14 @@ public class AdminService {
 
     public ProductVO getProductOne(int products_Idx) { return dao.selectOne(products_Idx);}
 
-    public AdminOrdersVO getOrdersOne(int orders_idx){
-            return dao.orderSelectOne(orders_idx);
-    }
+
 
     public List<AdminOrdersVO> orderlist() {
             return dao.orderSelectAll();
+    }
+
+    public AdminOrdersVO getOrdersOne(int orders_idx){
+        return dao.orderSelectOne(orders_idx);
     }
 
     public int orderUpdate(AdminOrdersVO input) {

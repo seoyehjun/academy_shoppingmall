@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.shoppingmall_project.model.MyPageDAO;
-import com.example.shoppingmall_project.model.vo.FavoritesVO;
 import com.example.shoppingmall_project.model.vo.InquiriesVO;
 import com.example.shoppingmall_project.model.vo.MembersVO;
 import com.example.shoppingmall_project.model.vo.mypagevo.*;
@@ -20,6 +19,17 @@ public class MyPageService
 {
 	@Autowired
 	private MyPageDAO myPageDAO;
+
+	public void toCartfromWish(int favorites_idx)
+	{
+		myPageDAO.toCartfromWish(favorites_idx);
+		myPageDAO.removeWish(favorites_idx);
+	}
+
+	public void removeWish(int favorites_idx)
+	{
+		myPageDAO.removeWish(favorites_idx);
+	}
 
 	public List<FavoritesVO> getwishlist(int members_idx)
 	{

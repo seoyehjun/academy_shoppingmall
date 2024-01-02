@@ -24,8 +24,7 @@ public interface adminDAO {
     int product_delete(int productsIdx);
 
     @Update("update products set products_name = #{products_name}," +
-            "products_price = #{products_price}," +
-            "products_description = #{products_description}" +
+            "products_price = #{products_price}" +
             " where products_idx = #{products_idx} ")
     int product_update(ProductVO input);
 
@@ -33,23 +32,23 @@ public interface adminDAO {
     ProductVO selectOne(int products_Idx);
 
     @Select("SELECT " +
-            "m.members_id, " +
-            "m.members_name, " +
-            "o.orders_date, " +
+            "od.ordersd_details, " +
             "o.orders_idx, " +
-            "o.ORDERS_STATUS, " +
+            "o.orders_date, " +
+            "m.members_name, " +
+            "m.members_id, " +
             "p.products_name, " +
-            "p.products_price, " +
             "c.color, " +
-            "s.size_product " +
-            "FROM orders o " +
-            "INNER JOIN members m ON o.members_idx = m.members_idx " +
-            "INNER JOIN ordersd_details od ON o.orders_idx = od.orders_idx " +
-            "INNER JOIN products p ON od.products_idx = p.products_idx " +
-            "INNER JOIN products_color pc ON p.products_idx = pc.products_idx " +
-            "INNER JOIN color c ON pc.color_idx = c.color_idx " +
-            "INNER JOIN products_size ps ON p.products_idx = ps.products_idx " +
-            "INNER JOIN size_table s ON ps.size_idx = s.size_idx")
+            "s.size_product, " +
+            "p.products_price, " +
+            "o.orders_status " +
+            "FROM " +
+            "ordersd_details od " +
+            "JOIN orders o ON od.orders_idx = o.orders_idx " +
+            "JOIN members m ON o.members_idx = m.members_idx " +
+            "JOIN products p ON od.products_idx = p.products_idx " +
+            "JOIN color c ON od.color_idx = c.color_idx " +
+            "JOIN size_table s ON od.size_idx = s.size_idx")
     List<AdminOrdersVO> orderSelectAll();
 
     @Select("SELECT " +
@@ -57,7 +56,7 @@ public interface adminDAO {
             "m.members_name, " +
             "o.orders_date, " +
             "o.orders_idx, " +
-            "o.ORDERS_STATUS, " +
+            "o.orders_status, " +
             "p.products_name, " +
             "p.products_price, " +
             "c.color, " +
@@ -66,11 +65,11 @@ public interface adminDAO {
             "INNER JOIN members m ON o.members_idx = m.members_idx " +
             "INNER JOIN ordersd_details od ON o.orders_idx = od.orders_idx " +
             "INNER JOIN products p ON od.products_idx = p.products_idx " +
-            "INNER JOIN products_color pc ON p.products_idx = pc.products_idx " +
+            "INNER JOIN products_color pc ON od.products_idx = pc.products_idx AND od.color_idx = pc.color_idx " +
             "INNER JOIN color c ON pc.color_idx = c.color_idx " +
-            "INNER JOIN products_size ps ON p.products_idx = ps.products_idx " +
+            "INNER JOIN products_size ps ON od.products_idx = ps.products_idx AND od.size_idx = ps.size_idx " +
             "INNER JOIN size_table s ON ps.size_idx = s.size_idx " +
-            "where o.orders_idx = #{orders_idx} ")
+            "WHERE o.orders_idx = #{orders_idx}")
     AdminOrdersVO orderSelectOne(int orders_idx);
 
     @Update("update orders set orders_status = #{orders_status}" +

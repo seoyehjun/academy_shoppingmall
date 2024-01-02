@@ -2,7 +2,7 @@
          pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 
-
+<link rel="stylesheet" href="${cpath}/resources/css/admin.css">
     <section class="WebName">
         <img alt="" src="">
     </section>
@@ -10,6 +10,7 @@
     <section>
         <table>
                 <tr>
+                    <th>No</th>
                     <th>주문 번호</th>
                     <th>주문 날짜</th>
                     <th>주문자 ID</th>
@@ -22,6 +23,7 @@
                 </tr>
                 <c:forEach var="row" items="${list }">
                     <tr>
+                        <td>${row.ordersd_details }</td>
                         <td>${row.orders_idx }</td>
                         <td>
                             <fmt:formatDate value="${row.orders_date}" pattern="yyyy-MM-dd" />

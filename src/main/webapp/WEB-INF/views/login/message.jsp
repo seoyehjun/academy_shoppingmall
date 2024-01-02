@@ -7,7 +7,7 @@
     alert('${msg}');
 
     if (row != 0) {
-        location.href = '${cpath}/';
+        location.href = window.close();
     } else {
         history.back();
     }

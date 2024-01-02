@@ -14,8 +14,4 @@ public class LoginService {
     public MembersVO getLogin(MembersVO input) {
         return dao.selectOne(input);
     }
-
-//    public AdminsVO getAdminsLogin(AdminsVO input) {
-//        return dao.adminsLogin(input);
-//    }
 }

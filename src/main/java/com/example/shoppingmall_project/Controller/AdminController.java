@@ -79,6 +79,7 @@ public class AdminController {
         // 주문 리스트 출력
         model.addAttribute("list", adminService.orderlist());
 
+
         return "admin/members";
     }
 
