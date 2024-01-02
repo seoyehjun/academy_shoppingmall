@@ -4,10 +4,13 @@ import com.example.shoppingmall_project.model.vo.AdminOrdersVO;
 import com.example.shoppingmall_project.model.vo.ProductVO;
 import com.example.shoppingmall_project.model.adminDAO;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -15,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AdminService {
 
     @Autowired

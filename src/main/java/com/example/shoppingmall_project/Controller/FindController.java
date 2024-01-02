@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("login/find")
 public class FindController {
     @Autowired private FindService fs;
-
     @Autowired private HeaderService hs;
 
     @ModelAttribute
@@ -25,8 +24,8 @@ public class FindController {
         return "login/message";
     }
 
-    @GetMapping
-    public void find() {}
+    @GetMapping("/findID")
+    public void findID(){}
 
     @PostMapping("/findID")
     public String findID(String members_email, Model model) {
@@ -34,10 +33,13 @@ public class FindController {
 
         model.addAttribute("row", 1);
         model.addAttribute("msg", msg);
-        model.addAttribute("location", "home");
+        model.addAttribute("location", "login/login");
 
-        return setMessage(1, msg, "home");
+        return setMessage(1, msg, "login/login");
     }
+
+    @GetMapping("/findPW")
+    public void findPW(){}
 
     @PostMapping("/findPW")
     public String findPW(MembersVO input, Model model) {
@@ -45,15 +47,8 @@ public class FindController {
 
         model.addAttribute("row", 1);
         model.addAttribute("msg", msg);
-        model.addAttribute("location", "home");
+        model.addAttribute("location", "login/login");
 
-        return setMessage(1, msg, "home");
-    }
-
-    @PostMapping("/findPW/upPW/{members_id}")
-    public String pwChange(@PathVariable String members_id, MembersVO input) {
-        input.setMembers_id(members_id);
-        fs.changePW(input);
-        return "redirect:/login";
+        return setMessage(1, msg, "login/login");
     }
 }
