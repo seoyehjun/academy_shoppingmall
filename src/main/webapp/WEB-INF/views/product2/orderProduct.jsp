@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
+<link rel="stylesheet" href="${cpath}/resources/css/style.css">
+    <body>
 
 	<div class="container">
 	
@@ -8,16 +9,27 @@
 	
 	  <div class="product-header">
 		        <div class="product-header-item">제품명</div>
+		        <div class="product-header-item">members_nickname</div>
 		        <div class="product-header-item">가격</div>
 		        <div class="product-header-item">색상</div>
 		        <div class="product-header-item">사이즈</div>
+                <div class="product-header-item">members_idx</div>
+
 	        <!-- 필요한 다른 제품 정보들의 헤더 추가 -->
 	  </div>
-  	 	<div class="product-row">
-        <div class="product-item">${product.products_name}</div>
-        <div class="product-item">${product.products_price}</div>
-        <div class="product-item">${color}</div>
-        <div class="product-item">${size_product}</div>
+  	 	 <div class="product-row">
+         <div class="product-item">${product.products_name}</div>
+         <div class="product-item">${members.members_nickname}</div>
+        <!--<div class="product-item">수량: <%= request.getAttribute("quantity") %></div>-->
+         <div class="product-item">${Math.round(totalPrice)}원</div>
+
+        <!-- 해당 위치에 color 표시 -->
+        <div class="product-item"><%= request.getAttribute("color") %></div>
+
+        <!-- 해당 위치에 size_product 표시 -->
+        <div class="product-item"><%= request.getAttribute("size_product") %></div>
+        <div class="product-item">${members.members_idx}</div>
+
 
         <!-- 필요한 다른 제품 정보들의 값 추가 -->
     	</div>
@@ -25,20 +37,19 @@
 
     <div class="delivery-destination">
         <h3>배송지 선택</h3>
-        <div>
-            <label>
-                <input type="checkbox" id="same-as-member" name="delivery-option" checked>
-                회원 정보와 동일
-            </label>
-        </div>
 
-        <div>
-            <label>
-                <input type="checkbox" id="new-destination" name="delivery-option">
-                새로운 배송지
-            </label>
-        </div>
+        <label>
+            <input type="radio" name="delivery-option" id="same-as-member" checked onclick="toggleDeliveryFields(this)">
+            회원 정보와 동일
+        </label>
+
+        <label>
+            <input type="radio" name="delivery-option" id="new-destination" onclick="toggleDeliveryFields(this)">
+            새로운 배송지
+        </label>
     </div>
+
+    <!-- 이하 JavaScript 코드 추가 -->
 
     <div class="recipient-info">
         <h3>받으시는 분</h3>
@@ -83,6 +94,8 @@
             @
             <select id="email-domain" name="email-domain">
                 <option value="naver.com">naver.com</option>
+                <option value="daum.com">daum.com</option>
+                <option value="example.com">example.com</option>
                 <!-- Add more options as needed -->
             </select>
         </div>
@@ -90,14 +103,59 @@
 
     <div class="delivery-message">
         <h3>배송메시지</h3>
-        <div>
+         <div>
             <textarea id="delivery-message" name="delivery-message" placeholder="배송 메시지를 입력하세요"></textarea>
         </div>
     </div>
 </div>
-	
-    	
-    
+<input type="hidden" name="members_nickname" value="${members.members_nickname}">
+<input type="hidden" name="members_idx" value="${members.members_idx}">
+ <script>
+     document.addEventListener('DOMContentLoaded', function () {
+                        // 회원 정보와 동일한 값으로 초기화
+                        toggleDeliveryFields(document.getElementById('same-as-member'));
+                    });
+
+         function toggleDeliveryFields(radio) {
+             var recipientName = document.getElementById("recipient-name");
+             var addr1 = document.getElementById("addr1");
+             var addr2 = document.getElementById("addr2");
+             var addr3 = document.getElementById("addr3");
+             var addr4 = document.getElementById("addr4");
+             var phonePrefix = document.getElementById("phone-prefix");
+             var phoneNumber = document.getElementById("phone-number");
+             var phoneNumber2 = document.getElementById("phone-number2");
+             var emailId = document.getElementById("email-id");
+             var emailDomain = document.getElementById("email-domain");
+
+            if (radio.id === "same-as-member" && radio.checked) {
+                    // "회원 정보와 동일"이 선택된 경우, 회원 정보로 필드를 채움
+                    recipientName.value = "${members.members_name}";
+                    addr1.value = "${members.members_address_number}"; // 주소를 원하는 형식으로 변경 필요
+                    addr2.value = "${members.members_address}"; // 새로운 주소를 원하는 형식으로 변경 필요
+                    addr3.value = "${members.members_detailed_address}"; // 새로운 주소를 원하는 형식으로 변경 필요
+                    addr4.value = "${members.members_address_building}";
+                    phonePrefix.value = "${members.members_phone_number.split('-')[0]}"; // 전화번호 형식에 맞게 변경 필요
+                    phoneNumber.value = "${members.members_phone_number.split('-')[1]}"; // 전화번호 형식에 맞게 변경 필요
+                    phoneNumber2.value = "${members.members_phone_number.split('-')[2]}"; // 전화번호 형식에 맞게 변경 필요
+                    emailId.value = "${members.members_email.split('@')[0]}";
+                    emailDomain.value = "${members.members_email.split('@')[1]}";
+                } else if (radio.id === "new-destination" && radio.checked) {
+                    // "새로운 배송지"가 선택된 경우, 필드를 초기화
+                    recipientName.value = "";
+                    addr1.value = "";
+                    addr2.value = "";
+                    addr3.value = "";
+                    addr4.value = "";
+                    phonePrefix.value = "";
+                    phoneNumber.value = "";
+                    phoneNumber2.value = "";
+                    emailId.value = "";
+                    emailDomain.value = "";
+                }
+            }
+     </script>
+
 </div>
 
 	
@@ -139,8 +197,133 @@
 	        }
 	    }).open();
 	}
-
 		</script>
+
+
+
+
+          <!-- jQuery -->
+             <script>
+                     type="text/javascript"
+                     src="https://code.jquery.com/jquery-1.12.4.min.js"
+             </script>
+             <!-- iamport.payment.js -->
+             <script>
+                     type="text/javascript"
+                     src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
+             </script>
+             <script>
+                 var IMP = window.IMP;
+                 IMP.init("imp62577181");
+
+                 function requestPay() {
+                     // IMP.request_pay 부분 주석 처리
+                     /*
+                     IMP.request_pay({
+                         pg: "html5_inicis",
+                         pay_method: "card",
+                         merchant_uid: "1234578",
+                         name: "당근 10kg",
+                         amount: 200,
+                         buyer_email: "gildong@gmail.com",
+                         buyer_name: "홍길동",
+                         buyer_tel: "010-4242-4242",
+                         buyer_addr: "서울특별시 강남구 신사동",
+                         buyer_postcode: "01181"
+                     }, function (rsp) {
+                         if (rsp.success) {
+                             // 결제 성공 시 서버로 주문 정보 전송
+                             sendOrderData();
+                         } else {
+                             alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                         }
+                     });
+                     */
+                 }
+
+                 function sendOrderData() {
+                     // 폼 데이터 직렬화
+                     var formData = $("#orderForm").serialize();
+
+                     // 콘솔이나 alert를 사용하여 값 확인
+                     console.log("FormData:", formData);
+
+                     // AJAX를 사용하여 주문 정보 전송
+                     $.ajax({
+                         type: "POST",
+                         url: "${cpath}/product2/addToDatabase",
+                         data: formData,
+                         success: function (response) {
+                             alert(response);
+                         },
+                         error: function (error) {
+                             alert("데이터베이스에 주문 추가 중 오류 발생: " + error.statusText);
+                         }
+                     });
+                 }
+             </script>
+
+              <form id="orderForm" action="${cpath}/product2/addToDatabase" method="post">
+                           <!-- 필요한 경우 다른 폼 입력 필드 추가 -->
+                           <input type="hidden" id="recipient-name" name="recipient-name" />
+                           <input type="hidden" id="addr1" name="addr1" />
+                           <input type="hidden" id="addr2" name="addr2" />
+                           <input type="hidden" id="addr3" name="addr3" />
+                           <input type="hidden" id="addr4" name="addr4" />
+                           <input type="hidden" id="phone-prefix" name="phone-prefix" />
+                           <input type="hidden" id="phone-number" name="phone-number" />
+                           <input type="hidden" id="phone-number2" name="phone-number2" />
+                           <input type="hidden" id="email-id" name="email-id" />
+                           <input type="hidden" id="email-domain" name="email-domain" />
+                           <input type="hidden" id="delivery-message" name="delivery-message" />
+                           <input type="hidden" id="members_nickname" name="members_nickname" />
+                           <input type="hidden" id="members_idx" name="members_idx" />
+                           <input type="hidden" id="total_Price" name="total_Price" />
+                           <!-- 필요한 경우 다른 숨겨진 입력 필드 추가 -->
+                       </form>
+
+                        <script>
+                     function requestPay() {
+                         IMP.request_pay({
+                             // ... 기존 코드
+                         }, function (rsp) {
+                             if (rsp.success) {
+                                 // 서버로 결제 정보 전송
+                                 $.ajax({
+                                     type: "POST",
+                                     url: "${cpath}/product2/addToDatabase",
+                                     contentType: "application/json",
+                                     data: JSON.stringify({
+                                         recipientName: $("#recipient-name").val(),
+                                         address: $("#addr2").val(),
+                                         phoneNumber: $("#phone-prefix").val() + "-" + $("#phone-number").val() + "-" + $("#phone-number2").val(),
+                                         email: $("#email-id").val() + "@" + $("#email-domain").val(),
+                                         deliveryMessage: $("#delivery-message").val(),
+                                         membersNickname: $("#members_nickname").val(),
+                                         membersIdx: $("#members_idx").val(),
+                                         totalPrice: parseFloat($("#total_Price").val())
+                                     }),
+                                     success: function (response) {
+                                         alert(response);
+                                     },
+                                     error: function (error) {
+                                         alert("데이터베이스에 주문 추가 중 오류 발생: " + error.statusText);
+                                     }
+                                 });
+                             } else {
+                                 alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                             }
+                         });
+                     }
+                        </script>
+             <meta charset="UTF-8"/>
+             <title>Sample Payment</title>
+         </head>
+         <body>
+         <button onclick="requestPay()">결제하기</button>
+         <!-- 결제하기 버튼 생성 -->
+         </body>
+
 
 
 

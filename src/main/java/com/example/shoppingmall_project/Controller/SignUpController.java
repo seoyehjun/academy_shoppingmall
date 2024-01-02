@@ -1,11 +1,13 @@
 package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.model.vo.MembersVO;
+import com.example.shoppingmall_project.service.HeaderService;
 import com.example.shoppingmall_project.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,10 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class MembersController {
+public class SignUpController {
 	
 	@Autowired
 	private SignUpService ms;
+
+	@Autowired private HeaderService hs;
+
+	@ModelAttribute
+	public void menu(Model model){
+		hs.addCommonAttributes(model);
+	}
 
 	
 	// 회원가입 컨트롤러
@@ -26,24 +35,10 @@ public class MembersController {
 	}
 	
 	@PostMapping("signUp")
-	public String signUp(MembersVO input, Model model) {
+	public String signUp(MembersVO input) {
 		
 		ms.signUp(input);
 		
-		return "redirect:/";
-	}
-
-	// 이석환 테스트 용
-	@GetMapping("signUp2")
-	public String signUp1() {
-		return "signup/signUp2";
-	}
-
-	@PostMapping("signUp2")
-	public String signUp1(MembersVO input, Model model) {
-
-		ms.signUp(input);
-
 		return "redirect:/";
 	}
 

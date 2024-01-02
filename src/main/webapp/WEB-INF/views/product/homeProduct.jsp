@@ -2,17 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 
+<link rel="stylesheet" href="${cpath}/resources/css/style.css">
 <body>
 	
 	<div class="board">
 		
-		<div >
-			<img class="img-1" src="../resources/img/cloth.jpg">
-		</div>
+		<c:forEach items="${list}" var="product" begin="0" end="0">
+			 <c:forEach items="${img}" var="img" begin="0" end="0">
+             <c:set var="imagePath" value="/springboot/" />
+             <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image"/></div>
+             </c:forEach>
+        </c:forEach>
+
 		
 	
 		<div class="info">
-			<h2>[3oz]Kun string hoody padded jumper (4color)</h2>
+			<h2>${list[0].products_name}</h2>
 			<hr>
 			<h5>[추천상품]/[Best]</h5>
 
@@ -31,7 +36,7 @@
 				</tr>
 				<br>
 			</c:if>
-			<form action="${cpath}/product2/orderProduct" method="POST">
+			<form action="${cpath}/product2/orderProduct" method="POST" onsubmit="return validateForm();">
 				<table>
 					<tr> 
 						<th>사이즈</th>
@@ -41,6 +46,7 @@
     							<option>${list[i].size_product}</option>
 								</c:forEach> 
 						</select>
+
 						<td>
 					</tr>
 					<br> 
@@ -53,14 +59,31 @@
 								<option>${row.color }</option>
 								</c:forEach>
 						</select>
+
 						<td>
 					</tr>
+					 <tr>
+                         <th>수량</th>
+                         <td>
+                             <div class="quantity-container">
+                                 <button type="button" onclick="decrementQuantity()">-</button>
+                                 <input type="text" id="quantityInput" name="quantity" value="1" readonly>
+                                 <button type="button" onclick="incrementQuantity()">+</button>
+                             </div>
+                         </td>
+                     </tr>
 				</table>
 				<br> 
-				
-				<input name="products_idx" type="hidden" value="1 ">
-				
-				 <div class="button">	
+
+				<div>
+                        <h3>수량 및 가격</h3>
+                        <p>선택한 수량: <span id="selectedQuantity">1</span></p>
+                        <p>총 가격: <span id="totalPrice">${list[0].products_price}</span></p>
+                </div>
+
+				<input name="products_idx" type="hidden" value="${list[0].products_idx}">
+
+				 <div class="button">
 			        <button type="submit" class="works" name="action" value="BUY">BUY IT NOW</button><br>	    
 			        <button type="submit" class="works" name="action" value="ADD">ADD TO CART</button><br>
 			        <button type="submit" class="works" name="action" value="WISH">WISH LIST</button><br>
@@ -68,14 +91,90 @@
     			</div>
 			</form>
 		</div>
-		
 	</div>
+	<script>
+            function validateForm() {
+                var sizeProduct = document.getElementsByName("size_product")[0].value;
+                var color = document.getElementsByName("color")[0].value;
+
+                if (sizeProduct === "사이즈를 선택하세요" || color === "상품 및 색상을 선택하세요") {
+                    alert("색상과 사이즈를 선택해주세요.");
+                    return false;
+                }
+
+                return true;
+            }
+        </script>
+	<script>
+        function updateTotalPrice() {
+            var quantityInput = document.getElementById('quantityInput');
+            var selectedQuantity = document.getElementById('selectedQuantity');
+            var totalPriceSpan = document.getElementById('totalPrice');
+            var unitPrice = ${list[0].products_price};
+
+            var quantity = parseInt(quantityInput.value);
+            selectedQuantity.innerText = quantity;
+
+            var totalPrice = unitPrice * quantity;
+
+            // 소수점 이하 값이 .00이면 삭제하고 아니면 그대로 표시
+            var formattedTotalPrice = (totalPrice % 1 === 0) ? totalPrice.toFixed(0) : totalPrice.toFixed(2);
+
+            // 총 가격 span 업데이트
+            totalPriceSpan.innerText = formatPrice(formattedTotalPrice) + '원';
+        }
+
+        function formatPrice(price) {
+            // 정수 부분만 남기고 소수 부분은 제거
+            return price.replace(/\.00$/, '');
+        }
+    </script>
+
+   <script>
+       function decrementQuantity() {
+           var quantityInput = document.getElementById('quantityInput');
+           var currentQuantity = parseInt(quantityInput.value);
+
+           if (currentQuantity > 1) {
+               quantityInput.value = currentQuantity - 1;
+               updateTotalPrice();
+           }
+       }
+
+       function incrementQuantity() {
+           var quantityInput = document.getElementById('quantityInput');
+           var currentQuantity = parseInt(quantityInput.value);
+
+           quantityInput.value = currentQuantity + 1;
+           updateTotalPrice();
+       }
+
+       function formatPrice(price) {
+           // 정수 부분만 남기고 소수 부분은 제거
+           return price.toFixed(2).replace(/\.00$/, '');
+       }
+
+       function updateTotalPrice() {
+           var quantityInput = document.getElementById('quantityInput');
+           var selectedQuantity = document.getElementById('selectedQuantity');
+           var totalPriceSpan = document.getElementById('totalPrice');
+           var unitPrice = ${list[0].products_price};
+
+           var quantity = parseInt(quantityInput.value);
+           selectedQuantity.innerText = quantity;
+
+           var totalPrice = unitPrice * quantity;
+           totalPriceSpan.innerText = formatPrice(totalPrice) + '원';
+       }
+   </script>
 	<div class="main">
-		<c:forEach var="row" items="${img }">
-			<div>
-				<img class="main-1" src="${cpath }/img/${row.img_url }" width="400px" height="500px">
-			</div>
-		</c:forEach>		
+        <div>
+            <c:forEach items="${list}" var="product" begin="0" end="0">
+                <c:forEach items="${img}" var="img" begin="0" end="100">
+                <img class="main-1" src="${cpath }/springboot/${product.products_idx}/${img.img_url }" width="400px" height="500px">
+                </c:forEach>
+            </c:forEach>
+        </div>
 	</div>
 	
 	<footer>

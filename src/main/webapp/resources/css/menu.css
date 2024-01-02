@@ -1,0 +1,40 @@
+.outerlist img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+}
+.outerlist {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.outerlist img {
+    margin: 10px;
+}
+.product {
+    box-sizing: border-box;
+    width: 15%;
+    height: 100%;
+    object-fit: cover;
+    margin-bottom : 4%;
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+}
+img {
+    width: 100px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    animation: slide 15s ease 1s infinite;
+}
+.page {
+	display: flex;
+	justify-content: center;
+	list-style: none;
+	padding: 0;
+}
+.page > li {
+	margin: 0 10px;
+}
