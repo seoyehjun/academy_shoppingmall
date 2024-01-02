@@ -9,10 +9,9 @@ th, td {
     padding: 10px;
 }
 */
-<<<<<<< HEAD
 .delivery_state{
     font-size: 2.0em;
-=======
+}
 .button_container{
     display: flex;
     justify-content: center;
@@ -21,7 +20,6 @@ th, td {
 
 .button_container > button{
     margin-top: 20px;
->>>>>>> 3f3edc20f9bdb741acf4935055767666b27257ec
 }
 
 #plusminus{

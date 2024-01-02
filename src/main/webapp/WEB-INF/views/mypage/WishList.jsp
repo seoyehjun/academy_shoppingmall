@@ -47,12 +47,9 @@
 </style>
 
 <body>
-<<<<<<< HEAD
-=======
 <div class="button_container">
  <button class="custom-btn btn-16" onclick="location.href='/mypage/myCartList' ">장바구니</button>
 </div>
->>>>>>> 3f3edc20f9bdb741acf4935055767666b27257ec
 
 <table class="list_view">
     <tbody align=center >
