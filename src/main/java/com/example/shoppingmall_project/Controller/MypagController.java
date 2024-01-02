@@ -47,6 +47,7 @@ public class MypagController
 
 	@ModelAttribute
 	public void mypage(Model model) {
+		hs.addCommonAttributes(model);
 		hs.getImg(model);
 	}
 
@@ -68,6 +69,8 @@ public class MypagController
 
 	//	model.addAttribute("replys_list",myPageService.selectAllReplys(inquiries_idx));
 	//}
+
+
 
 	@PostMapping("/toCartfromWish")
 	public String toCartfromWish(Model model, HttpSession httpSession, @RequestParam("favorites_idx") int favorites_idx) throws Exception
@@ -94,7 +97,7 @@ public class MypagController
 		return "/mypage/WishList";
 	}
 
-	@PostMapping("/insert")//실제 글을 DB에 넣는 코드 Input값들은 Model로 받아준다.
+	@PostMapping("/addinquiries")//실제 글을 DB에 넣는 코드 Input값들은 Model로 받아준다.
 	public String board_insert_ok(@ModelAttribute JInquiries_VO form, Model model,
 								  HttpSession httpsession)
 	{

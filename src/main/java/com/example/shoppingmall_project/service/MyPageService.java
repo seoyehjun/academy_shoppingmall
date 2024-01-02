@@ -20,6 +20,7 @@ public class MyPageService
 	@Autowired
 	private MyPageDAO myPageDAO;
 
+
 	public void toCartfromWish(int favorites_idx)
 	{
 		myPageDAO.toCartfromWish(favorites_idx);
@@ -47,6 +48,8 @@ public class MyPageService
 
 	public void InfoInsert(JInquiries_VO vo)
 	{
+		System.out.println("inquiries_category: "+vo.getInquiries_category());
+		System.out.println("inquiries_title: "+vo.getInquiries_title());
 		myPageDAO.InfoInsert(vo);
 	}
 

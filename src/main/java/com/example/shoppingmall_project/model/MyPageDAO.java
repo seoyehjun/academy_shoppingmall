@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface MyPageDAO 
 {
 
+
 	@Insert("insert into cart(quantity, products_idx, members_idx, color_idx, size_idx) " +
 			" select 1 as quantity," +
 			" (select products_idx from favorites where favorites_idx = #{favorites_idx})," +
@@ -49,7 +50,7 @@ public interface MyPageDAO
 			"insert into Inquiries(inquiries_title, inquiries_content" +
 					",inquiries_registration_date,inquiries_category,products_idx,members_idx) " +
 					"values(#{inquiries_title}, #{inquiries_content}," +
-					"sysdate, #{inquiries_category}, 7, #{members_idx}) "
+					"sysdate, #{inquiries_category}, 1, 1) "
 	)//products_idx는 임의로 7로 고정시켜놓음 만약 상품페이지에서 문의글을 쓰고싶다면 조작해도될듯하다.
 	public void InfoInsert(JInquiries_VO vo);
 
@@ -129,7 +130,7 @@ public interface MyPageDAO
 			"where cart_idx=#{cart_idx}")
 	void removeCart(String cart_idx);
 
-	@Delete("update orders " +
+	@Update("update orders " +
 			"set orders_status ='주문취소됨' " +
 			"where orders_idx=#{orders_idx}")
 	void deleteMyOrder(String orders_idx);

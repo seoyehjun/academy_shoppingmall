@@ -46,6 +46,15 @@
         <c:forEach var="item" items="${CO_list}">
             <tr class="product-row">
                 <td class="product-item">${item.products_name}</td>
+                <td><c:set var="imagePath" value="/springboot/" />
+                    <c:forEach items="${img}" var="img" begin="0" end="0">
+                        <div>
+                            <img class="thumbnails"
+                                 src="${imagePath}${item.products_idx}/${img.img_url}"
+                                 alt="Product Image"
+                                 width="100px" height="150px"/>
+                        </div>
+                    </c:forEach></td>
                 <td class="product-item">${item.products_price}</td>
                 <td class="product-item">${item.color}</td>
                 <td class="product-item">${item.size_product}</td>

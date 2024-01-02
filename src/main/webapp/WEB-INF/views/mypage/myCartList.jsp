@@ -28,14 +28,13 @@
     <c:if test="${message=='remove_Cart'}">
     init();
     <c:remove var="message"/>
-
-
+    </c:if>
    }
 
    function init()
    {
     alert("장바구니 삭제");
-   } </c:if>
+   }
   </script>
 
 
@@ -60,11 +59,10 @@
 
     if(checkbox[i].checked==true)
     {
-     //cart_list[i] = checkbox[i].value;
-     //cart_list.push(checkbox[i].value);
      count= count+1;
      var temp_input = document.createElement("input");
      temp_input.setAttribute("value", checkbox[i].value+"");
+     //체크박스의 value는 cart_idx이다.
      temp_input.setAttribute("hidden",true);
      // 임시 <input>태그 만들어서 value속성 정해준다.
 
@@ -73,7 +71,6 @@
 
      formObj.appendChild(temp_input);
      // 임시 <input>태그들을 formObj태그에 붙여준다.(formOnject는 위에서 임시로 만든거임)
-
     }
    }
    if(count==0)
@@ -82,7 +79,6 @@
     alert("선택된 품목이 없습니다!");
     return;
    }
-
    var temp_input2 = document.createElement("input");
    temp_input2.setAttribute("value", total_price);
    temp_input2.setAttribute("hidden", true);
@@ -111,8 +107,9 @@
 </style>
 
 <body>
-
-
+<div class="button_container">
+<button class="custom-btn btn-16" onclick="location.href='/mypage/wishList' ">찜목록</button>
+</div>
 <br><br><br>
 <table class="list_view">
   <tbody align=center >
@@ -121,6 +118,7 @@
    <th class="fixed" >구분</th>
    <th>이미지</th>
    <th>상품명</th>
+   <th>사이즈/색상</th>
    <th>정가</th>
    <th>수량</th>
    <th>합계</th>
@@ -145,12 +143,12 @@
   <form name="frm_order_all_cart">
 
     <td>
-     <input type="checkbox" name="checkbox" class="individual_cart_checkbox"  checked  value="${item.cart_idx }">
+     <input type="checkbox" name="checkbox" class="individual_cart_checkbox" checked   value="${item.cart_idx }">
     </td>
 
     <td class="goods_image">
      <c:set var="imagePath" value="/springboot/" />
-     <c:forEach items="${img}" var="img" begin="0" end="2">
+     <c:forEach items="${img}" var="img" begin="0" end="0">
       <div><img class="thumbnails" src="${imagePath}${item.products_idx}/${img.img_url}" alt="Product Image"/></div>
      </c:forEach>
    </td>
@@ -159,6 +157,10 @@
     <h2>
      <a href="${cpath}/product/homeProduct?productIdx=${item.products_idx}">${item.products_name }</a>
     </h2>
+   </td>
+
+   <td class="price">
+    <span>${item.size_product}/${item.color}</span>
    </td>
 
    <td class="price">
@@ -213,12 +215,12 @@
  <tr cellpadding=40  align=center >
   <td id="">
    <p id="p_totalGoodsNum" class="totalCount_span">${totalGoodsNum}개 </p>
-   <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
+  <!-- <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />-->
   </td>
 
   <td>
    <span class="totalPrice_span"></span>
-   <input id="h_totalGoodsPrice"type="hidden" value="${total_goods_price}" />
+  <!-- <input id="h_totalGoodsPrice"type="hidden" value="${total_goods_price}" />-->
   </td>
 
   <td>
@@ -226,8 +228,13 @@
   </td>
 
   <td>
-   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }원  </p>
+<<<<<<< HEAD
+   <span class="delivery_price"></span>
    <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
+=======
+   <p id="p_totalDeliveryPrice">${totalDeliveryPrice }원  </p>
+   <!--<input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />-->
+>>>>>>> 3f3edc20f9bdb741acf4935055767666b27257ec
   </td>
 
 
@@ -238,9 +245,13 @@
   <td>
    <p id="p_final_totalPrice" class="finalTotalPrice_span">
    </p>
-   <input id="h_final_totalPrice" name="total_price" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+<<<<<<< HEAD
+   <input id="total_price" name="total_price" type="hidden" />
+=======
+  <input id="h_final_totalPrice" name="total_price" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+>>>>>>> 3f3edc20f9bdb741acf4935055767666b27257ec
   </td>
-
+  <!--value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}-->
  </tr>
  </tbody>
 </table>
@@ -269,8 +280,8 @@
   //console.log('checkbox well executed');
   let totalPrice = 0;				// 총 가격
   let totalCount = 0;				// 총 갯수
-  let totalKind = 0;				// 총 종류
-  let totalPoint = 0;				// 총 마일리지
+  let totalKind = 0;
+  let totalPoint = 0;
   let deliveryPrice = 0;			// 배송비
   let finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
 
@@ -283,9 +294,9 @@
     totalPrice += parseInt($(element).find(".individual_total_price").val());
     // 총 갯수
     totalCount += parseInt($(element).find(".cart_goods_qty").val());
-    // 총 종류
+
     totalKind += 1;
-    // 총 마일리지
+
     totalPoint += parseInt($(element).find(".individual_totalPoint_input").val());
    }
   });
@@ -306,6 +317,7 @@
   }
 
   finalTotalPrice = totalPrice + deliveryPrice;
+  <c:set var="totalDeliveryPrice" value="deliveryPrice"/>
 
   /* ※ 세자리 컴마 Javscript Number 객체의 toLocaleString() */
 
@@ -320,7 +332,9 @@
   // 배송비
   $(".delivery_price").text(deliveryPrice);
   // 최종 가격(총 가격 + 배송비)
+  $("#total_price").attr("value",finalTotalPrice);
   $(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
+
  }
 
 
@@ -339,31 +353,30 @@
   formObj.action="${cpath}/mypage/removeCart";
   formObj.submit();// form 안에 있는 button태그는 기본적으로 submit이다.
  }
-    function count(type,cart_idx, index)
-    {
-        // 결과를 표시할 element
-        const resultElement = document.getElementsByClassName('cart_goods_qty')[index];
-        // 현재 화면에 표시된 값
-        var number = resultElement.value;
 
-        console.log("카트 목록:"+${myCartList[0].cart_idx});
-        // 더하기/빼기
-        if(type === 'plus')
-        {
-            number = parseInt(number) + 1;
-        }
-        else if(type === 'minus' && number>1)
-        {
-            number = parseInt(number) - 1;
-        }
-        console.log("전처리 이후:"+number);
+ function count(type,cart_idx, index)
+ {
+  // 결과를 표시할 element
+  const resultElement = document.getElementsByClassName('cart_goods_qty')[index];
+  // 현재 화면에 표시된 값
+  var number = resultElement.value;
 
-        // 결과 출력
-        resultElement.value = number;//input태그는 value속성을 써야한다. innertext이런걸 쓰면 안되더라.
+  // 더하기/빼기
+  if(type === 'plus')
+  {
+   number = parseInt(number) + 1;
+  }
+  else if(type === 'minus' && number>1)
+  {
+   number = parseInt(number) - 1;
+  }
+  console.log("전처리 이후:"+number);
 
-        modify_cart_qty(cart_idx,index)
+  // 결과 출력
+  resultElement.value = number;//input태그는 value속성을 써야한다. innertext이런걸 쓰면 안되더라.
 
-    }
+  modify_cart_qty(cart_idx,index)
+ }
 
  function modify_cart_qty(cart_idx,index)
  {
@@ -375,22 +388,24 @@
   if(length>1)
   { //카트에 제품이 한개인 경우와 여러개인 경우 나누어서 처리한다.
    _cart_goods_qty=document.getElementsByClassName("cart_goods_qty")[index].value;//cart가 여러개일 경우 해당하는 cart만 선택
-   console.log(_cart_goods_qty);
-   //(넘겨받은 index로)
   }
   else
   {
    _cart_goods_qty=document.frm_order_all_cart.cart_goods_qty.value;
-   console.log("worng road");
   }
 
   var cart_goods_qty=Number(_cart_goods_qty);//cart의 수량 변수 포메팅
+<<<<<<< HEAD
   //alert("cart_goods_qty:"+cart_goods_qty);
   console.log(cart_goods_qty);
+
+
+=======
+>>>>>>> 3f3edc20f9bdb741acf4935055767666b27257ec
   $.ajax(
           {
            type : "post",
-           async : true, //false인 경우 동기식으로 처리한다.
+           async : false, //false인 경우 동기식으로 처리한다.
            url : "${cpath}/mypage/modifyCartQty",
            data : {
             cart_idx:cart_idx,
@@ -399,10 +414,8 @@
 
            success : function(data, textStatus)
            {
-            //alert(data);
             if(data.trim()=='modify_success')
             {
-            // alert("수량을 변경했습니다!!");
              location.reload();
             }else
             {
@@ -416,6 +429,8 @@
            },
            complete : function(data, textStatus)
            {
+            console.log("수량변경 완료");
+
             //alert("작업을완료 했습니다");
            }
           }

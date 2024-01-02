@@ -9,6 +9,20 @@ th, td {
     padding: 10px;
 }
 */
+<<<<<<< HEAD
+.delivery_state{
+    font-size: 2.0em;
+=======
+.button_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_container > button{
+    margin-top: 20px;
+>>>>>>> 3f3edc20f9bdb741acf4935055767666b27257ec
+}
 
 #plusminus{
     width: 5px;
@@ -22,8 +36,8 @@ th, td {
 }
 
 .thumbnails{
-    width: 30px;
-    height: 50px;
+    width: 100px;
+    height: 150px;
 }
 
 .od_title{
@@ -41,7 +55,7 @@ th, td {
     flex-direction: column;
 }
 
-.menu, page{
+.info_menu, page{
     padding-left: 140px;
 }
 

@@ -121,7 +121,7 @@ function fn_modify_member_info(attribute){
 <h3>내 상세 정보</h3>
  <form name="frm_mod_member">
   <div id="detail_table">
-   <table style="width:60%">
+   <table style="width:30%">
    	<tbody>
     <tr><th colspan="5">내정보 수정</th></tr>
    	 <tr class="dot_line">
@@ -235,7 +235,7 @@ function fn_modify_member_info(attribute){
 
 
 <script>
-//도메인 직접 입력 or domain option 선택
+//이메일 도메인 바꿔주는 코드
 const domainListEl = document.querySelector('#domain-list')
 const domainInputEl = document.querySelector('#domain-txt')
 // select 옵션 변경 시

@@ -58,7 +58,10 @@
 </head>
 
 <body>
+<div class="button_container">
 <button class="custom-btn btn-16" onclick="location.href='/mypage/myDetailInfo' ">내정보 수정</button>
+<button class="custom-btn btn-16" onclick="location.href='/mypage/wishList' ">찜목록</button>
+</div>
 <%--orders 와 orders_details를 조인해서 같은 VO로 묶어서 가져와라 --%>
 <br><br>
 	<table>

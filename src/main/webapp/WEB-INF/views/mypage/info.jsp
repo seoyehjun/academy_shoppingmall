@@ -48,7 +48,7 @@
                 </tr>
             </c:forEach>
         </table>
-        <ul class="menu page">
+        <ul class="info_menu page">
             <c:if test="${p.prev }">
                 <li class="paging"><a href="${cpath }/mypage/info/${p.begin - 1 }">이전</a></li>
             </c:if>

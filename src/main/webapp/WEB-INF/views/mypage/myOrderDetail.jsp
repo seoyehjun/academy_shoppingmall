@@ -37,7 +37,7 @@
    <%--상품 이미지(링크연결) --%>
 	  <td class="goods_image">
 		  <c:set var="imagePath" value="/springboot/" />
-		  <c:forEach items="${img}" var="img" begin="0" end="2">
+		  <c:forEach items="${img}" var="img" begin="0" end="0">
 			  <div><img class="thumbnails" src="${imagePath}${item.products_idx}/${img.img_url}" alt="Product Image"/></div>
 		  </c:forEach>
 	  </td>
