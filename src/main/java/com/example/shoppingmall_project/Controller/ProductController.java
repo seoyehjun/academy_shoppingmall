@@ -27,7 +27,6 @@ public class ProductController {
     @ModelAttribute
     public void menu(Model model){
         hs.addCommonAttributes(model);
-        hs.getImg(model);
     }
 
 
@@ -38,6 +37,7 @@ public class ProductController {
         model.addAttribute("review", is.getInquiries()); //리뷰
         model.addAttribute("num", ps.getCountForProduct(productIdx));	// 사이즈
         model.addAttribute("color", ps.color(productIdx));	// 색상
+        model.addAttribute("img", ps.getimg(productIdx));
     }
 
     @PostMapping("/homeProduct")
