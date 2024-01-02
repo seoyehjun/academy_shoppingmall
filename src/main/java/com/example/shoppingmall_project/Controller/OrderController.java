@@ -87,11 +87,6 @@ public class OrderController {
 
         model.addAttribute("members", membersVO);
 
-        if (color == null || color.isEmpty() || size_product == null || size_product.isEmpty()) {
-            model.addAttribute("error", "Color and size must be selected.");
-            // 에러 메시지를 모델에 추가하고 다시 선택 페이지로 이동
-            return "product2/orderProduct";
-        }
 
         System.out.println("color : " + color);
         System.out.println("size : " + size_product);
@@ -100,13 +95,13 @@ public class OrderController {
 
 
         if ("BUY".equals(action)) {
-            int result = os.insertOrders(size_product, color, products_idx, quantity);
+
 
             // insert 성공 여부에 따라 리다이렉트 결정
-            if (result > 0) {
+
                 model.addAttribute("color", color);
                 model.addAttribute("size_product", size_product);
-
+                model.addAttribute("products_idx", products_idx);
 
                 // 리다이렉트 대신에 포워드 사용
                 // 제품 정보를 다시 가져와서 모델에 추가
@@ -121,11 +116,8 @@ public class OrderController {
 
 
                 return "product2/orderProduct";
-            } else {
-                // 실패 시 예외 처리 또는 다른 동작 수행
-                // 예: response.sendRedirect("/error");
-                return "redirect:/error"; // 실패 시 리다이렉트 경로
-            }
+
+
         } else if ("ADD".equals(action)) {
             // ADD TO CART 버튼 클릭 시 수행할 로직
             // 예: 장바구니 추가 로직
@@ -172,52 +164,49 @@ public class OrderController {
         return "redirect:/error";
         }
 
-    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    public String SQLExep() {
-        System.out.println("insert exception ");
 
-        return "/mypage/error";
+    @PostMapping("/addToDatabase")
+    @ResponseBody
+    public String addToDatabase(
+            @RequestParam(name = "addr1") String addr1,
+            @RequestParam(name = "addr2") String addr2,
+            @RequestParam(name = "addr3") String addr3,
+            @RequestParam(name = "phone-number") String phoneNumber,
+            @RequestParam(name = "delivery-message") String deliveryMessage,
+            @RequestParam(name = "members_nickname") String membersNickname,
+            @RequestParam(name = "members_idx") String membersIdx,
+            @RequestParam(name = "total_Price") String totalPrice
+
+    ) {
+        // 값이 정상적으로 받아와지는지 확인하기 위해 로깅 문 추가
+        System.out.println("받아온 값 확인:");
+        System.out.println("addr1: " + addr1);
+        System.out.println("addr2: " + addr2);
+        System.out.println("addr3: " + addr3);
+        System.out.println("phone-number: " + phoneNumber);
+        System.out.println("delivery-message: " + deliveryMessage);
+        System.out.println("members_nickname: " + membersNickname);
+        System.out.println("members_idx: " + membersIdx);
+        System.out.println("total_Price: " + totalPrice);
+
+
+
+
+        // totalPrice를 double로 변환
+        double convertedTotalPrice = Double.parseDouble(totalPrice.replace(",", ""));
+
+        // OrdersService에서 주문 정보를 추가하는 로직을 호출
+        OrdersService ordersService = new OrdersService();
+        int result = os.insertOrders(addr1, addr2, addr3, phoneNumber, deliveryMessage, membersNickname, membersIdx, convertedTotalPrice);
+
+        if (result > 0) {
+            // 추가된 주문 정보를 데이터베이스에 삽입
+            return "success"; // 성공 시 클라이언트에게 success를 반환
+
+        } else {
+            return "failure"; // 주문 정보 삽입 실패 시 클라이언트에게 실패를 반환
+        }
     }
 
 
-
-//    @PostMapping("/addToDatabase")
-//    @ResponseBody
-//    public String addToDatabase(
-//            @RequestParam(name = "addr2") String addr2,
-//            @RequestParam(name = "addr3") String addr3,
-//            @RequestParam(name = "phone-number") String phoneNumber,
-//            @RequestParam(name = "email") String email,
-//            @RequestParam(name = "delivery-message") String deliveryMessage,
-//            @RequestParam(name = "members_nickname") String membersNickname,
-//            @RequestParam(name = "members_idx") String membersIdx,
-//            @RequestParam(name = "total_Price") String totalPrice
-//    ) {
-//        // 값이 정상적으로 받아와지는지 확인하기 위해 로깅 문 추가
-//        System.out.println("받아온 값 확인:");
-//        System.out.println("addr2: " + addr2);
-//        System.out.println("addr3: " + addr3);
-//        System.out.println("phone-number: " + phoneNumber);
-//        System.out.println("email: " + email);
-//        System.out.println("delivery-message: " + deliveryMessage);
-//        System.out.println("members_nickname: " + membersNickname);
-//        System.out.println("members_idx: " + membersIdx);
-//        System.out.println("total_Price: " + totalPrice);
-//
-//        // totalPrice를 double로 변환
-//        double convertedTotalPrice = Double.parseDouble(totalPrice);
-//
-//        // 여기에서 주문 정보를 추가하는 로직을 작성
-//        // 필요하다면 OrdersService에 해당 로직을 추가하고, 여기서 호출하여 사용
-//
-//        // 추가된 주문 정보를 데이터베이스에 삽입하는 코드 (추가 작성 필요)
-//        // int result = ordersService.addOrder(...);
-//
-////        if (result > 0) {
-//            // 추가된 주문 정보를 데이터베이스에 삽입
-//            return "success"; // 성공 시 클라이언트에게 success를 반환
-//        } else {
-//            return "failure"; // 주문 정보 삽입 실패 시 클라이언트에게 실패를 반환
-//        }
-//    }
 }
