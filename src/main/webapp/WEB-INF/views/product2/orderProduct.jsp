@@ -10,26 +10,27 @@
 	  <div class="product-header">
 		        <div class="product-header-item">제품명</div>
 		        <div class="product-header-item">members_nickname</div>
+		        <div class="product-header-item">수량</div>
 		        <div class="product-header-item">가격</div>
 		        <div class="product-header-item">색상</div>
 		        <div class="product-header-item">사이즈</div>
                 <div class="product-header-item">members_idx</div>
-
+                <div class="product-header-item">products_idx</div>
 	        <!-- 필요한 다른 제품 정보들의 헤더 추가 -->
 	  </div>
   	 	 <div class="product-row">
          <div class="product-item">${product.products_name}</div>
          <div class="product-item">${members.members_nickname}</div>
-        <!--<div class="product-item">수량: <%= request.getAttribute("quantity") %></div>-->
+         <div class="product-item">${quantity}</div>
          <div class="product-item">${Math.round(totalPrice)}원</div>
 
         <!-- 해당 위치에 color 표시 -->
-        <div class="product-item"><%= request.getAttribute("color") %></div>
+        <div class="product-item">${color}</div>
 
         <!-- 해당 위치에 size_product 표시 -->
-        <div class="product-item"><%= request.getAttribute("size_product") %></div>
+        <div class="product-item">${size_product}</div>
         <div class="product-item">${members.members_idx}</div>
-
+        <div class="product-item">${products_idx}</div>
 
         <!-- 필요한 다른 제품 정보들의 값 추가 -->
     	</div>
@@ -199,133 +200,97 @@
 	}
 		</script>
 
-
-
-
-          <!-- jQuery -->
-             <script>
+		  <!-- jQuery -->
+             <script
                      type="text/javascript"
                      src="https://code.jquery.com/jquery-1.12.4.min.js"
-             </script>
+             ></script>
              <!-- iamport.payment.js -->
-             <script>
+             <script
                      type="text/javascript"
                      src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
-             </script>
-             <script>
-                 var IMP = window.IMP;
-                 IMP.init("imp62577181");
-
-                 function requestPay() {
-                     // IMP.request_pay 부분 주석 처리
-                     /*
-                     IMP.request_pay({
-                         pg: "html5_inicis",
-                         pay_method: "card",
-                         merchant_uid: "1234578",
-                         name: "당근 10kg",
-                         amount: 200,
-                         buyer_email: "gildong@gmail.com",
-                         buyer_name: "홍길동",
-                         buyer_tel: "010-4242-4242",
-                         buyer_addr: "서울특별시 강남구 신사동",
-                         buyer_postcode: "01181"
-                     }, function (rsp) {
-                         if (rsp.success) {
-                             // 결제 성공 시 서버로 주문 정보 전송
-                             sendOrderData();
-                         } else {
-                             alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-                         }
-                     });
-                     */
-                 }
-
-                 function sendOrderData() {
-                     // 폼 데이터 직렬화
-                     var formData = $("#orderForm").serialize();
-
-                     // 콘솔이나 alert를 사용하여 값 확인
-                     console.log("FormData:", formData);
-
-                     // AJAX를 사용하여 주문 정보 전송
-                     $.ajax({
-                         type: "POST",
-                         url: "${cpath}/product2/addToDatabase",
-                         data: formData,
-                         success: function (response) {
-                             alert(response);
-                         },
-                         error: function (error) {
-                             alert("데이터베이스에 주문 추가 중 오류 발생: " + error.statusText);
-                         }
-                     });
-                 }
-             </script>
-
-              <form id="orderForm" action="${cpath}/product2/addToDatabase" method="post">
-                           <!-- 필요한 경우 다른 폼 입력 필드 추가 -->
-                           <input type="hidden" id="recipient-name" name="recipient-name" />
-                           <input type="hidden" id="addr1" name="addr1" />
-                           <input type="hidden" id="addr2" name="addr2" />
-                           <input type="hidden" id="addr3" name="addr3" />
-                           <input type="hidden" id="addr4" name="addr4" />
-                           <input type="hidden" id="phone-prefix" name="phone-prefix" />
-                           <input type="hidden" id="phone-number" name="phone-number" />
-                           <input type="hidden" id="phone-number2" name="phone-number2" />
-                           <input type="hidden" id="email-id" name="email-id" />
-                           <input type="hidden" id="email-domain" name="email-domain" />
-                           <input type="hidden" id="delivery-message" name="delivery-message" />
-                           <input type="hidden" id="members_nickname" name="members_nickname" />
-                           <input type="hidden" id="members_idx" name="members_idx" />
-                           <input type="hidden" id="total_Price" name="total_Price" />
-                           <!-- 필요한 경우 다른 숨겨진 입력 필드 추가 -->
-                       </form>
-
-                        <script>
-                     function requestPay() {
-                         IMP.request_pay({
-                             // ... 기존 코드
-                         }, function (rsp) {
-                             if (rsp.success) {
-                                 // 서버로 결제 정보 전송
-                                 $.ajax({
-                                     type: "POST",
-                                     url: "${cpath}/product2/addToDatabase",
-                                     contentType: "application/json",
-                                     data: JSON.stringify({
-                                         recipientName: $("#recipient-name").val(),
-                                         address: $("#addr2").val(),
-                                         phoneNumber: $("#phone-prefix").val() + "-" + $("#phone-number").val() + "-" + $("#phone-number2").val(),
-                                         email: $("#email-id").val() + "@" + $("#email-domain").val(),
-                                         deliveryMessage: $("#delivery-message").val(),
-                                         membersNickname: $("#members_nickname").val(),
-                                         membersIdx: $("#members_idx").val(),
-                                         totalPrice: parseFloat($("#total_Price").val())
-                                     }),
-                                     success: function (response) {
-                                         alert(response);
-                                     },
-                                     error: function (error) {
-                                         alert("데이터베이스에 주문 추가 중 오류 발생: " + error.statusText);
-                                     }
-                                 });
-                             } else {
-                                 alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-                             }
-                         });
-                     }
-                        </script>
-             <meta charset="UTF-8"/>
-             <title>Sample Payment</title>
-         </head>
-         <body>
-         <button onclick="requestPay()">결제하기</button>
-         <!-- 결제하기 버튼 생성 -->
-         </body>
+             ></script>
 
 
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
-</body>
-</html>
+       <!-- jQuery -->
+              <script>
+                   var IMP = window.IMP;
+                   IMP.init("imp62577181");
+
+                   function requestPay() {
+                       IMP.request_pay({
+                           pg: "html5_inicis",
+                           pay_method: "card",
+                           merchant_uid: "1332132123",
+                           name: "${product.products_name}",
+                           amount: ${Math.round(totalPrice)},
+                           buyer_email: "${members.members_email}",
+                           buyer_name: "${members.members_name}",
+                           buyer_tel: "${members.members_phone_number}",
+                           buyer_addr: "${members.members_address}",
+                           buyer_postcode: "${members.members_address_number}"
+                       }, function (rsp) {
+                           if (rsp.success) {
+                               // 서버로 결제 정보 전송
+                               sendOrderData(rsp);
+                           } else {
+                               alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                           }
+                       });
+                   }
+
+
+                   function sendOrderData(response) {
+                       var form = document.getElementById("orderForm");
+                       var formData = new FormData(form);
+
+                       // 추가 데이터 전송
+                       formData.append("pg_tid", response.pg_tid);
+                       formData.append("imp_uid", response.imp_uid);
+                       formData.append("merchant_uid", response.merchant_uid);
+                       formData.append("members_nickname", "${members.members_nickname}");
+                       formData.append("members_idx", "${members.members_idx}");
+                       formData.append("addr1", document.getElementById("addr1").value);
+                       formData.append("addr2", document.getElementById("addr2").value);
+                       formData.append("addr3", document.getElementById("addr3").value);
+                       formData.append("phone-number", document.getElementById("phone-prefix").value + "-" + document.getElementById("phone-number").value + "-" + document.getElementById("phone-number2").value);
+                       formData.append("email", document.getElementById("email-id").value + "@" + document.getElementById("email-domain").value);
+                       formData.append("delivery-message", document.getElementById("delivery-message").value);
+
+
+                       // 총 가격을 숫자로 변환하여 추가
+                       formData.append("total_Price", parseFloat("${Math.round(totalPrice)}"));
+
+
+                       // AJAX를 사용하여 주문 정보 전송
+                       $.ajax({
+                           type: "POST",
+                           url: "${cpath}/product2/addToDatabase",
+                           data: formData,
+                           processData: false,
+                           contentType: false,
+                           success: function (response) {
+                               alert(response);
+                           },
+                           error: function (error) {
+                               console.log(error); // 에러를 콘솔에 로깅
+                               alert("데이터베이스에 주문 추가 중 오류 발생: " + error.statusText);
+                           }
+                       });
+                   }
+                   </script>
+
+
+                 <form id="orderForm" action="${cpath}/product2/addToDatabase" method="post">
+                     <input type="hidden" id="total_Price" name="total_Price" />
+                 </form>
+
+             </div>
+
+             <button onclick="requestPay()">결제하기</button>
+             <!-- 결제하기 버튼 생성 -->
+             </body>
+             </html>

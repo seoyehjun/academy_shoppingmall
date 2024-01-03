@@ -10,7 +10,7 @@
 		<c:forEach items="${list}" var="product" begin="0" end="0">
 			 <c:forEach items="${img}" var="img" begin="0" end="0">
              <c:set var="imagePath" value="/springboot/" />
-             <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image"/></div>
+             <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image" width="200px" height="740px"/></div>
              </c:forEach>
         </c:forEach>
 
@@ -166,17 +166,18 @@
            var totalPrice = unitPrice * quantity;
            totalPriceSpan.innerText = formatPrice(totalPrice) + '원';
        }
+
    </script>
 	<div class="main">
         <div>
-            <c:forEach items="${list}" var="product" begin="0" end="0">
-                <c:forEach items="${img}" var="img" begin="0" end="100">
-                <img class="main-1" src="${cpath }/springboot/${product.products_idx}/${img.img_url }" width="400px" height="500px">
-                </c:forEach>
-            </c:forEach>
+              <c:forEach items="${list}" var="product" begin="0" end="0">
+                  <c:forEach items="${img}" var="img" begin="0" end="100">
+                  <img class="main-1" src="${cpath }/springboot/${product.products_idx}/${img.img_url }" width="400px" height="500px">
+                  </c:forEach>
+              </c:forEach>
         </div>
 	</div>
-	
+
 	<footer>
 		<table class="table-2">
 			<tr>

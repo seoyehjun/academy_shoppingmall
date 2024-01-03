@@ -1,7 +1,6 @@
 package com.example.shoppingmall_project.Controller;
 
 import com.example.shoppingmall_project.service.HeaderService;
-import com.example.shoppingmall_project.service.ImageService;
 import com.example.shoppingmall_project.service.ProductService;
 import com.example.shoppingmall_project.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +20,12 @@ public class HomeController {
     private HeaderService hs;
     @Autowired
     private ProductService ps;
-    @Autowired
-    private ImageService is;
 
     @ModelAttribute
     public void menu(Model model){
         hs.addCommonAttributes(model);
-        is.addImage(model);
         hs.getImg(model);
+        hs.getBanner(model);
     }
 
     @GetMapping

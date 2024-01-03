@@ -8,7 +8,7 @@
     <main>
         <section class="outer">
             <div class="clothing-products">
-                <c:forEach items="${list}" var="product" varStatus="status" begin="0" end="7">
+                <c:forEach items="${list}" var="product" varStatus="status">
                     <!-- 4개의 상품마다 새로운 행 시작 -->
                     <c:if test="${status.index % 4 == 0}">
                         <div class="row">

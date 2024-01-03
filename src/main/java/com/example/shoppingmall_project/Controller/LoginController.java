@@ -27,20 +27,22 @@ public class LoginController {
 
     @GetMapping("/login")
     public void login(HttpSession session) {
-        session.removeAttribute("find");
 
     }
 
     @PostMapping("/login")
-    public String login(MembersVO input, HttpSession session) {
+    public String login(MembersVO input, HttpSession session, Model model) {
 
         input = ls.getLogin(input);
 
         if (input != null) {
             session.setAttribute("user", input);
+            return "redirect:/";
+        } else {
+            // 로그인 실패 시, 에러 메시지를 모델에 추가
+            model.addAttribute("loginError", "아이디 또는 비밀번호가 틀렸습니다.");
+            return "login/login";
         }
-
-        return "redirect:/";
     }
 
     @GetMapping("/logout")

@@ -24,4 +24,17 @@
 img {
     width: 100px;
     height: 150px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    animation: slide 15s ease 1s infinite;
+}
+.page {
+	display: flex;
+	justify-content: center;
+	list-style: none;
+	padding: 0;
+}
+.page > li {
+	margin: 0 10px;
 }
