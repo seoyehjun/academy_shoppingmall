@@ -23,12 +23,13 @@
                 <td><input type="text" name="products_price" id="products_price"
                            required value="${productTable.products_price}"></td>
             </tr>
+
             <tr>
-                <th><label for="products_description">상품 정보</label></th>
-                <td><textarea name="products_description" id="products_description"
-                              cols="50" rows="20" >
-                    </textarea></td>
+                <th><label for="products_stock">수량</label></th>
+                <td><input type="number" name="products_stock" id="products_stock"
+                    required value="${productTable.products_stock}"></td>
             </tr>
+
 
 
             <tr>
