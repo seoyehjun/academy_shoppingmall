@@ -32,8 +32,9 @@ public interface OrdersDAO {
     int insertFavorites(OrdersVO ordersVO);
 
 
-//    @Insert("INSERT INTO orders (orders_recipient_name, orders_recipient_address, orders_detailed_address, orders_recipient_phone, orders_total_price, members_idx) " +
-//            "VALUES (#{ordersRecipientName}, #{ordersRecipientAddress}, #{ordersDetailedAddress}, #{ordersRecipientPhone}, #{ordersTotalPrice}, #{membersIdx})")
-//    int insertPayment(
-//    );
+    @Insert("INSERT INTO orders (orders_recipient_name, orders_address_number, orders_address, orders_detailed_address, orders_recipient_phone, " +
+            "orders_delivery_notes, orders_total_price, members_idx) " +
+            "VALUES (#{ordersVO.ordersRecipientName}, #{ordersVO.ordersNumberAddress}, #{ordersVO.ordersRecipientAddress}, #{ordersVO.ordersDetailedAddress}, " +
+            "#{ordersVO.ordersRecipientPhone}, #{ordersVO.ordersDeliveryMessage}, #{ordersVO.ordersTotalPrice}, #{ordersVO.membersIdx})")
+    int insertOrders(@Param("ordersVO") OrdersVO ordersVO);
 }
