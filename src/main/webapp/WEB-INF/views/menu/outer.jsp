@@ -15,9 +15,7 @@
                     </c:if>
                     <div class="product" onclick="redirectToProductDetail(${product.products_idx})">
                     <c:set var="imagePath" value="/springboot/" />
-                        <c:forEach items="${img}" var="img" begin="0" end="0">
-                            <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image"/></div>
-                        </c:forEach>
+                            <div><img src="${imagePath}${product.products_idx}/${product.img_url}" alt="Product Image"/></div>
                         <div>${product.products_name}</div>
                         <div>${product.products_price}원</div>
                     </div>

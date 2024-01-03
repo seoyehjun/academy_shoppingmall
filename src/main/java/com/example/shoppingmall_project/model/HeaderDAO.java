@@ -37,13 +37,16 @@ public interface HeaderDAO {
             "fetch first 5 rows only")
     List<ProductVO> getBanner();
 
-    @Select("select p.products_idx, p.products_name, p.products_price, " +
+    @Select("SELECT p.products_idx, p.products_name, p.products_price, " +
+            "c.categories_name, c.parentcategory_idx, MIN(i.img_url) AS img_url " +
+            "FROM products p " +
+            "JOIN categories c ON p.categories_idx = c.categories_idx " +
+            "JOIN products_img i ON p.products_idx = i.products_idx " +
+            "WHERE parentcategory_idx = #{idx} " +
+            "GROUP BY p.products_idx, p.products_name, p.products_price, " +
             "c.categories_name, c.parentcategory_idx " +
-            "from products p " +
-            "join categories c on p.categories_idx = c.categories_idx " +
-            "where parentcategory_idx = #{parentcategory_idx} " +
-            "order by p.products_idx desc " +
-            "offset 0 rows fetch first 12 rows only")
+            "ORDER BY p.products_idx DESC " +
+            "OFFSET 0 ROWS FETCH FIRST 12 ROWS ONLY")
     List<ProductVO> selectMenu(int idx);
 
     @Select("select count(*) " +
@@ -52,13 +55,15 @@ public interface HeaderDAO {
             "where c.parentcategory_idx = #{idx}")
     int menutotal(int idx);
 
-    @Select("select p.products_idx, p.products_name, p.products_price, " +
+    @Select("SELECT p.products_idx, p.products_name, p.products_price, " +
+            "c.parentcategory_idx, MIN(i.img_url) AS img_url " +
+            "FROM products p " +
+            "JOIN categories c ON p.categories_idx = c.categories_idx " +
+            "JOIN products_img i ON p.products_idx = i.products_idx " +
+            "WHERE parentcategory_idx = 1 " +
+            "GROUP BY p.products_idx, p.products_name, p.products_price, " +
             "c.parentcategory_idx " +
-            "from products p " +
-            "join categories c on p.categories_idx = c.categories_idx " +
-            "where parentcategory_idx = 1 " +
-            "order by p.products_idx desc " +
-            "offset #{offset} rows " +
-            "fetch first #{perCount} rows only")
+            "ORDER BY p.products_idx DESC " +
+            "OFFSET #{offset} ROWS FETCH FIRST #{perCount} ROWS ONLY")
     List<ProductVO> pagingMenu(Paging p);
 }
