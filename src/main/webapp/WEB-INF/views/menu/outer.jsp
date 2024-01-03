@@ -8,16 +8,14 @@
     <main>
         <section class="outer">
             <div class="clothing-products">
-                <c:forEach items="${list}" var="product" varStatus="status" begin="0" end="7">
+                <c:forEach items="${list}" var="product" varStatus="status">
                     <!-- 4개의 상품마다 새로운 행 시작 -->
                     <c:if test="${status.index % 4 == 0}">
                         <div class="row">
                     </c:if>
                     <div class="product" onclick="redirectToProductDetail(${product.products_idx})">
                     <c:set var="imagePath" value="/springboot/" />
-                        <c:forEach items="${img}" var="img" begin="0" end="2">
-                            <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image"/></div>
-                        </c:forEach>
+                            <div><img src="${imagePath}${product.products_idx}/${product.img_url}" alt="Product Image"/></div>
                         <div>${product.products_name}</div>
                         <div>${product.products_price}원</div>
                     </div>
@@ -28,6 +26,19 @@
                 </c:forEach>
             </div>
 
+            <ul class="page">
+                <c:if test="${p.prev }">
+                    <li><a href="${cpath }/outer/page=${begin - 1 }">이전</a></li>
+                </c:if>
+
+                <c:forEach var="i" begin="${p.begin }" end="${p.end }">
+                    <li><a href="${cpath }?page=${i }">${i }</a></li>
+                </c:forEach>
+
+                <c:if test="${p.next }">
+                    <li><a href="${cpath }/outer/page=${end + 1 }">다음</a></li>
+                </c:if>
+            </ul>
         </section>
     </main>
 

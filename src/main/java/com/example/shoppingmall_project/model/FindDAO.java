@@ -11,12 +11,12 @@ import java.util.List;
 @Repository
 @Mapper
 public interface FindDAO {
-    @Select("select members_id from members where members_email = #{members_email}")
+    @Select("select members_id from members " +
+            "where members_email = #{members_email}")
     List<String> findID(String members_email);
 
-    @Update("update members set members_password = #{members_password} where members_id = #{members_id}")
-    int changePW(MembersVO input);
-
-    @Select("select * from members where members_id = #{members_id} and members_email = #{members_email}")
+    @Select("select * from members " +
+            "where members_id = #{members_id} " +
+            "and members_email = #{members_email}")
     MembersVO findUser(MembersVO input);
 }

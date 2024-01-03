@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import java.sql.SQLIntegrityConstraintViolationException;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 @Service
 public class OrdersService {
 
@@ -20,13 +25,9 @@ public class OrdersService {
     @Autowired
     private OrdersDAO dao;
 
-    public int insertOrders(String size_Product, String color, int products_idx, int quantity) {
-        // 실제로 데이터베이스에 값을 추가하도록 구현 (dao나 repository를 사용하여 DB에 접근)
-        // ...
 
-        // 임의의 성공 여부를 반환 (성공 시 1, 실패 시 0 등)
-        return 1;
-    }
+
+
 
     public int insertCart(String size_Product, String color, int products_idx, int quantity) {
         OrdersVO ordersVO = new OrdersVO();
@@ -45,11 +46,22 @@ public class OrdersService {
         return dao.insertFavorites(ordersVO);
     }
 
+    public int insertOrders(String addr1, String addr2, String addr3, String phoneNumber,
+                             String deliveryMessage, String membersNickname, String membersIdx, double totalPrice) {
+        OrdersVO ordersVO = new OrdersVO();
+        ordersVO.setOrdersRecipientName(membersNickname);
+        ordersVO.setOrdersDeliveryMessage(deliveryMessage);
+        ordersVO.setOrdersNumberAddress(addr1);
+        ordersVO.setOrdersRecipientAddress(addr2);
+        ordersVO.setOrdersDetailedAddress(addr3);
+        ordersVO.setOrdersRecipientPhone(phoneNumber);
+        ordersVO.setOrdersTotalPrice(totalPrice);
+        ordersVO.setMembersIdx(Integer.parseInt(membersIdx));
+
+        // 필요한 경우 ordersVO 객체의 다른 필드들을 설정합니다
+
+        return dao.insertOrders(ordersVO);
+    }
 
 
-//    public int insertOrder(String addr2, String addr3, String phoneNumber, String email,
-//                           String deliveryMessage, double totalPrice) {
-//
-//        return 0; // 실패 시 0 반환
-//    }
 }

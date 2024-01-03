@@ -1,21 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
-    <section class="WebName">
-        <img alt="" src="">
-    </section>
+
+<link rel="stylesheet" href="${cpath}/resources/css/admin.css">
 
     <section>
-        <form method="post" action="/admin/addProduct" enctype="multipart/form-datad">
+        <form method="post" action="/admin/addProduct" enctype="multipart/form-data">
             <table id="container">
+<%--                <tr>--%>
+<%--                    <td id="result" colspan="2"></td>--%>
+<%--                </tr>--%>
+
                 <tr>
-                    <td id="result" colspan="2"></td>
+                    <th>카테고리</th>
+                    <td><select name="categories_idx">
+                        <c:forEach items="${category}" var="cate">
+                            <option value="${cate.categories_idx}">${cate.categories_name}</option>
+                        </c:forEach>
+                    </select>
+                    </td>
+
                 </tr>
-<%--                상품 카테고리 선택 필요 --%>
 
-<%--                상품의 색상 필요 --%>
-
-<%--                상품의 사이즈 선택 필요 --%>
                 <tr>
                     <th><label for="products_name">상품명</label></th>
                     <td><input type="text" name="products_name" id="products_name" placeholder="상품명 입력해주세요"></td>
@@ -23,11 +29,35 @@
 
                 <tr>
                     <th><label for="products_price">가격</label></th>
-                    <td><input type="text" name="products_price" id="products_price" placeholder="가격을 기입해주세요"></td>
+                    <td><input type="number" name="products_price" id="products_price" placeholder="가격을 기입해주세요"></td>
                 </tr>
+
                 <tr>
-                    <th><label for="products_description">상품 정보</label></th>
-                    <td><textarea name="products_description" id="products_description" cols="50" rows="20"></textarea></td>
+                    <th><label for="products_stock">수량</label></th>
+                    <td><input type="number" name="products_stock" id="products_stock"></td>
+                </tr>
+
+
+                <tr>
+                    <th>사이즈</th>
+                    <td>
+                        <c:forEach items="${sizes}" var="size">
+                        <input type="checkbox" name="sizes" value="${size.size_idx}">${size.size_product}
+                    </c:forEach>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <th>색상</th>
+                    <td>
+                        <select name="colors" multiple = "multiple">
+                        <c:forEach items="${colors}" var="colors">
+                            <option value="${colors.color_idx}">${colors.color}</option>
+                        </c:forEach>
+                    </select>
+                    </td>
+
                 </tr>
 
                 <tr>
@@ -39,6 +69,7 @@
 
 
                 </tr>
+
                 <tr>
                     <th>
                         <input type="submit" id="submitButn" value="등록하기">

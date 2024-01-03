@@ -3,6 +3,7 @@ package com.example.shoppingmall_project.model;
 import java.util.List;
 
 import com.example.shoppingmall_project.model.vo.ProductVO;
+import com.example.shoppingmall_project.model.vo.mypagevo.Paging;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -63,19 +64,15 @@ public interface ProductDAO {
 	ProductVO selectProductByIdx(int productIdx);
 
 
-	@Select("select p.products_idx, p.products_name, p.products_price, " +
+	@Select("SELECT p.products_idx, p.products_name, p.products_price, " +
 			"p.products_registration_date, p.products_stock, " +
-			"c.categories_name from products " +
-			"p join categories c on p.categories_idx = c.categories_idx " +
-			"order by p.products_idx desc")
+			"c.categories_name, MIN(i.img_url) AS img_url " +
+			"FROM products p " +
+			"JOIN categories c ON p.categories_idx = c.categories_idx " +
+			"JOIN products_img i ON p.products_idx = i.products_idx " +
+			"GROUP BY p.products_idx, p.products_name, p.products_price, " +
+			"p.products_registration_date, p.products_stock, c.categories_name " +
+			"ORDER BY p.products_idx DESC")
     List<ProductVO> productlist();
-
-	@Select("select p.products_idx, p.products_name, p.products_price, " +
-			"c.categories_name, c.parentcategory_idx " +
-			"from products p " +
-			"join categories c on p.categories_idx = c.categories_idx " +
-			"where parentcategory_idx = #{parentcategory_idx} " +
-			"order by p.products_idx desc")
-	List<ProductVO> selectMenu(int idx);
 
 }

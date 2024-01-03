@@ -1,5 +1,6 @@
 package com.example.shoppingmall_project.Controller;
 
+import com.example.shoppingmall_project.model.vo.AddProductVO;
 import com.example.shoppingmall_project.model.vo.AdminOrdersVO;
 import com.example.shoppingmall_project.model.vo.ProductVO;
 import com.example.shoppingmall_project.service.AdminService;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,23 +28,7 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @GetMapping("/addProduct")
-    public void addProduct(){}
-
-    // 상품 등록 보류
-//    @PostMapping("/addProduct")
-//    public String addProductData(ProductVO input){
-//
-//        adminService.addProductdata(input);
-//
-//
-//        return "admin/productlist";
-//    }
-
-//    @GetMapping("/orders")
-//    public void orders(Model model){
-//        model.addAttribute("list", os.adminOrder());
-//    }
+    
 
     @GetMapping("/productlist")
     public void productlist(Model model){
@@ -49,9 +37,9 @@ public class AdminController {
 
     
     @GetMapping ("/delete/{products_idx}")
-    public String delete(ProductVO input) {
+    public String delete(@PathVariable int products_idx) {
         // 상품 삭제
-        adminService.product_delete(input.getProducts_idx());
+        adminService.product_delete(products_idx);
 
         return "redirect:/admin/productlist";
     }
@@ -79,6 +67,7 @@ public class AdminController {
         // 주문 리스트 출력
         model.addAttribute("list", adminService.orderlist());
 
+
         return "admin/members";
     }
 
@@ -99,7 +88,36 @@ public class AdminController {
 
         return "redirect:/admin/members";
     }
+    @GetMapping("/addProduct")
+    public void addProduct(Model model){
+        // 상품 등록 페이지
+        // 카테고리 데이터
+        model.addAttribute("category", adminService.getCateList());
+        model.addAttribute("sizes", adminService.getSizeList());
+        model.addAttribute("colors", adminService.getColorList());
 
 
+    }
+    
+    @PostMapping("/addProduct")
+    public String addProductData(@ModelAttribute AddProductVO input,
+                                 @RequestParam(value = "sizes", required = false) List<Integer> sizes,
+                                 @RequestParam(value = "colors", required = false) List<Integer> colors,
+                                 @RequestParam(value = "files", required = false)MultipartFile[] files){
+
+        // 상품 등록
+        System.out.println("TEST : cate1 : "+ input.getCategories_idx());
+        System.out.println("TEST : name1 : "+ input.getProducts_name());
+        System.out.println("TEST : price1 : "+ input.getProducts_price());
+        System.out.println("TEST : stock1 : "+ input.getProducts_stock());
+
+        System.out.println("TEST : color1 : "+ colors.toString());
+
+        adminService.addProductdata(input, sizes, colors, files);
+
+
+        return "redirect:/admin/productlist";
+    }
+    
 
 }

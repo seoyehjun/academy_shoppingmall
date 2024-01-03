@@ -17,11 +17,9 @@
     <main>
         <section class="banner">
             <div class="slide">
-                <a href="#"><img src="/springboot//p1.jpg"></a>
-                <a href="#"><img src="/springboot//p2.jpg"></a>
-                <a href="#"><img src="/springboot//p3.jpg"></a>
-                <a href="#"><img src="/springboot//p4.jpg"></a>
-                <a href="#"><img src="/springboot//p5.jpg"></a>
+                <c:forEach items="${banner}" var="img">
+                <a href="#"><img src="/springboot/banner/${img.banner_img_url}"></a>
+                </c:forEach>
             </div>
         </section>
 
@@ -36,13 +34,11 @@
                     <div class="row">
                 </c:if>
                 <div class="product" onclick="redirectToProductDetail(${product.products_idx})">
-                    <c:forEach items="${img}" var="img" begin="0" end="2">
                     <c:set var="imagePath" value="/springboot/" />
-                    <div><img src="${imagePath}${product.products_idx}/${img.img_url}" alt="Product Image"/></div>
-                    </c:forEach>
+                        <div class="img">
+                            <img src="${imagePath}${product.products_idx}/${product.img_url}" alt="Product Image"/>
+                        </div>
                     <div>${product.products_name}</div>
-                        <%--                <div>${product.color}</div>--%>
-                        <%--                <div>${product.size_product}</div>--%>
                     <div>${product.products_price}원</div>
                 </div>
                 <!-- 4개의 상품이 끝나면 행 종료 -->
@@ -60,3 +56,5 @@
     </main>
 </body>
 </html>
+
+<%@include file="footer.jsp"%>
